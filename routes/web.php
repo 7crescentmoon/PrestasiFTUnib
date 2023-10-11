@@ -38,7 +38,7 @@ Route::controller(RegisterController::class)->group(function () {
 Route::middleware(['auth'])->group(function () {
 
     Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin', 'index')->middleware('checkrole:admin')->name('admin');
+        Route::get('/admin', 'index')->middleware(['checkrole:admin'])->name('admin');
 
     });
 

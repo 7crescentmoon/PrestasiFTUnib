@@ -1,32 +1,76 @@
 <!DOCTYPE html>
-<!-- Created by CodingLab |www.youtube.com/c/CodingLabYT-->
-<html lang="en" dir="ltr">
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default"
+    data-assets-path="assets template/" data-template="vertical-menu-template-free">
 
 <head>
-    <meta charset="UTF-8">
-    <!--<title> Login and Registration Form in HTML & CSS | CodingLab </title>-->
-    @yield('links')
-    <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <title>UniAchive.FT</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+ 
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />   
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet" />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="assets template/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="assets template/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="assets template/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="assets template/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="assets template/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="assets template/vendor/css/pages/page-auth.css" />
+    <!-- Helpers -->
+    <script src="assets template/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="assets template/js/config.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <input type="checkbox" id="flip">
-        <div class="cover">
-            <div class="front">
-                <img src="assets/img/unib.png" alt="">
-                <div class="text">
-                    <span class="text-1">SELAMAT DATANG DI <br> <span style="font-size: 3rem">UniAchieve.FT</span> </span>
-                    <span class="text-2">silahkan {{ $title === 'register' ? 'SignUp' : 'Login' }} terlebih dahulu</span>
-                </div>
-            </div>
-        </div>
-        <div class="forms">
-            @yield('content')
-        </div>
+    <!-- Content -->
+
+    <div class="container-xxl">
+        @yield('content')
     </div>
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="assets template/vendor/libs/jquery/jquery.js"></script>
+    <script src="assets template/vendor/libs/popper/popper.js"></script>
+    <script src="assets template/vendor/js/bootstrap.js"></script>
+    <script src="assets template/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="assets template/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="assets template/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
 </html>
