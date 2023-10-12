@@ -38,17 +38,12 @@ Route::group(['middleware' => 'prevent-back-history'],function () {
     
     Route::middleware(['auth'])->group(function () {
     
-        //admin
+        //admin & super admin
         Route::controller(AdminController::class)->group(function () {
-            Route::get('/dashboard', 'index')->middleware(['checkrole:admin'])->name('admin-dashboard');
+            Route::get('/dashboard/admin', 'index')->middleware(['checkrole:admin,super admin'])->name('admin-dashboard');
     
         });
-    
-        //super admin
-        Route::controller(AdminController::class)->group(function () {
-            Route::get('/dashboard', 'index')->middleware(['checkrole:super admin'])->name('admin-dashboard');
-    
-        });
+
 
         //user
         Route::controller(UserController::class)->group(function () {

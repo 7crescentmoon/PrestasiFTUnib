@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default"
-    data-assets-path="assets template/" data-template="vertical-menu-template-free">
+    data-assets-path="/assetstemplate/" data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -24,25 +24,25 @@
         rel="stylesheet" />
 
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="assets template/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="/assetstemplate/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="assets template/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="assets template/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="assets template/css/demo.css" />
+    <link rel="stylesheet" href="/assetstemplate/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="/assetstemplate/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="/assetstemplate/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="assets template/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="/assetstemplate/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
     <!-- Page CSS -->
     <!-- Page -->
-    <link rel="stylesheet" href="assets template/vendor/css/pages/page-auth.css" />
+    <link rel="stylesheet" href="/assetstemplate/vendor/css/pages/page-auth.css" />
     <!-- Helpers -->
-    <script src="assets template/vendor/js/helpers.js"></script>
+    <script src="/assetstemplate/vendor/js/helpers.js"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="assets template/js/config.js"></script>
+    <script src="/assetstemplate/js/config.js"></script>
 </head>
 
 <body>
@@ -56,18 +56,18 @@
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="assets template/vendor/libs/jquery/jquery.js"></script>
-    <script src="assets template/vendor/libs/popper/popper.js"></script>
-    <script src="assets template/vendor/js/bootstrap.js"></script>
-    <script src="assets template/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="/assetstemplate/vendor/libs/jquery/jquery.js"></script>
+    <script src="/assetstemplate/vendor/libs/popper/popper.js"></script>
+    <script src="/assetstemplate/vendor/js/bootstrap.js"></script>
+    <script src="/assetstemplate/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="assets template/vendor/js/menu.js"></script>
+    <script src="/assetstemplate/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
 
     <!-- Main JS -->
-    <script src="assets template/js/main.js"></script>
+    <script src="/assetstemplate/js/main.js"></script>
 
     <!-- Page JS -->
 

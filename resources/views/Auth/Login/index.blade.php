@@ -21,6 +21,14 @@
                         </small>
                     </p>
                     @endif
+                    @if (session()->has(['success']))
+                    <p class="text-center">
+                        <small class="text-muted alert alert-success alert-dismissible " role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </small>
+                    </p>
+                    @endif
 
                     <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         @csrf
@@ -40,7 +48,9 @@
                             <div class="input-group input-group-merge">
                                 <input type="password" name="password"
                                     class="form-control @error('password') is-invalid @enderror"
-                                    placeholder="Masukan password anda" required>
+                                    placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                    aria-describedby="password" required>
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                             @error('password')
                                 <div class="invalid-feedback">

@@ -13,11 +13,11 @@ class CheckRoles
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next,$roles): Response
+    public function handle(Request $request, Closure $next,...$roles): Response
     {
-        if(auth()->user()->role == $roles){
+        if($request->user() && in_array($request->user()->role, $roles)){
             return $next($request);
         }
-        return abort('403');
+        return abort(403, 'Permission denied');
     }
 }
