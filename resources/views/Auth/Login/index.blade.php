@@ -10,8 +10,17 @@
                         <img src="assets/img/unib.png" style="width: 10rem;height: 10rem;" alt="">
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-2">Selamat datang di UniAchive.FT 👋</h4>
-                    <p class="mb-4">Silahkan LOGIN terlebih dahulu</p>
+                    <h4 class="mb-2 text-center">Selamat datang di UniAchive.FT 👋</h4>
+                    <p class="mb-4 text-center">Silahkan LOGIN terlebih dahulu</p>
+
+                    @if (session()->has(['error']))
+                    <p class="text-center">
+                        <small class="text-muted alert alert-danger alert-dismissible " role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </small>
+                    </p>
+                    @endif
 
                     <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         @csrf
@@ -42,7 +51,7 @@
 
 
                         <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100">Register</button>
+                            <button class="btn btn-primary d-grid w-100">Login</button>
                         </div>
                     </form>
 

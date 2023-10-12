@@ -17,33 +17,46 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::group(['middleware' => 'prevent-back-history'],function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('/login', 'index')->name('login')->middleware('guest');
+        Route::Post('/login', 'authenticate');
+        Route::Post('/logout', 'logout');
+    
+    });
+    
+    Route::controller(RegisterController::class)->group(function () {
+        Route::get('/register', 'index')->middleware('guest');;
+        Route::post('/register', 'store');
+    });
+    
+    
+    
+    Route::middleware(['auth'])->group(function () {
+    
+        //admin
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('/dashboard', 'index')->middleware(['checkrole:admin'])->name('admin-dashboard');
+    
+        });
+    
+        //super admin
+        Route::controller(AdminController::class)->group(function () {
+            Route::get('/dashboard', 'index')->middleware(['checkrole:super admin'])->name('admin-dashboard');
+    
+        });
 
-Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'index')->name('login')->middleware('guest');
-    Route::Post('/login', 'authenticate');
-    Route::Post('/logout', 'logout');
-
-});
-
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('/register', 'index')->middleware('guest');;
-    Route::post('/register', 'store');
-});
-
-
-
-Route::middleware(['auth'])->group(function () {
-
-    Route::controller(AdminController::class)->group(function () {
-        Route::get('/admin', 'index')->middleware(['checkrole:admin'])->name('admin');
-
+        //user
+        Route::controller(UserController::class)->group(function () {
+            Route::get('/dashboard', 'index')->middleware('checkrole:user')->name('user-dashboard');
+    
+        });
     });
 
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/user', 'index')->middleware('checkrole:user')->name('user');
-
-    });
 });
+
+

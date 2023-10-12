@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
 {
@@ -18,19 +20,19 @@ class LoginController extends Controller
     {
         
         $credentials = $request->validate([
-            "npm" => 'required',
-            "password" => 'required',
+            "npm" => 'Required',
+            "password" => 'Required',
         ]);
 
         if(Auth::attempt($credentials)){
             $user = Auth::user();
             var_dump($user);
-            if($user->role == 'admin' && $user->role = 'super admin'){
+            if($user->role == 'admin' || $user->role = 'super admin'){
                 $request->session()->regenerate();
-                return redirect()->intended('/admin');
+                return redirect()->intended('/dashboard');
             }elseif($user->role = 'user'){
                 $request->session()->regenerate();
-                return redirect()->intended('/user');
+                return redirect()->intended('/dashboard');
             }
         }
 
@@ -44,7 +46,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
      
         $request->session()->regenerateToken();
-     
-        return redirect('/login');
+        Redirect::back();
+        return redirect()->intended('/login');
     }
 }

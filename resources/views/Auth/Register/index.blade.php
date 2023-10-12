@@ -11,8 +11,8 @@
 
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-2">Register akun disini!</h4>
-                    <p class="mb-4">Buat akun anda untuk UniAchive.FT</p>
+                    <h4 class="mb-2 text-center">Register akun disini!</h4>
+                    <p class="mb-4 text-center">Buat akun anda untuk UniAchive.FT</p>
 
                     <form id="formAuthentication" class="mb-3" action="/register" method="POST">
                         @csrf
@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">NPM</label>
                             <input type="text" name="npm" class="form-control @error('npm') is-invalid @enderror"
-                                value="{{ old('npm') }}" placeholder="Masukan npm anda">
+                                value="{{ old('npm') }}" placeholder="contoh : G1A021082">
                             @error('npm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
