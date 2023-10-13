@@ -1,4 +1,4 @@
-@extends('Auth.layouts.layout')
+@extends('Auth.layouts.main')
 @section('content')
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">

@@ -28,6 +28,7 @@ class LoginController extends Controller
             $user = Auth::user();
             if($user->role == 'admin' || $user->role = 'super admin'){
                 $request->session()->regenerate();
+                
                 return redirect()->intended('/dashboard/admin');
             }elseif($user->role = 'user'){
                 $request->session()->regenerate();
