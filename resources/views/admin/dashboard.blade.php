@@ -8,10 +8,10 @@
             <!-- / Navbar -->
 
             <!-- Content wrapper -->
-            <div class="content-wrapper">
+            <div class="content-wrapper position-relative">
                 <!-- Content -->
 
-                <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="container-xxl flex-grow-1 container-p-y ">
                     <!-- Layout -->
                     <div class="">
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller
@@ -26,13 +26,12 @@ class LoginController extends Controller
 
         if(Auth::attempt($credentials)){
             $user = Auth::user();
-            if($user->role == 'admin' || $user->role = 'super admin'){
-                $request->session()->regenerate();
-                
+            if($user->role === 'admin' || $user->role === 'super admin'){
+                $request->session()->regenerate();        
                 return redirect()->intended('/dashboard/admin');
-            }elseif($user->role = 'user'){
+            }elseif($user->role === 'user'){
                 $request->session()->regenerate();
-                return redirect()->intended('/dashboard');
+                return redirect()->intended('dashboard');
             }
         }
 

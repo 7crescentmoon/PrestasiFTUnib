@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,7 +13,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard');
+        return view('user.dashboard',[
+            "user" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta')
+        ]);
     }
 
     /**
@@ -43,7 +48,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -60,5 +65,14 @@ class UserController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function profileSetting($id)
+    {
+        return view('user.settingProfile',[
+            "user" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta')
+        ]);
     }
 }

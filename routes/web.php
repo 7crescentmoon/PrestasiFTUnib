@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -40,14 +41,17 @@ Route::group(['middleware' => 'prevent-back-history'],function () {
     
         //admin & super admin
         Route::controller(AdminController::class)->group(function () {
-            Route::get('/dashboard/admin', 'index')->middleware(['checkrole:admin,super admin'])->name('admin-dashboard');
+            Route::get('/dashboard/admin', 'index')->middleware(['checkrole:admin,super admin'])->name('adminDashboard');
+            Route::get('/dashboard/admin/settingProfile/{id}', 'profileSetting')->name('adminProfileSettings');
     
         });
 
 
+
         //user
         Route::controller(UserController::class)->group(function () {
-            Route::get('/dashboard', 'index')->middleware('checkrole:user')->name('user-dashboard');
+            Route::get('/dashboard', 'index')->middleware('checkrole:user')->name('userDashboard');
+            Route::get('/dashboard/settingProfile/{id}', 'profileSetting')->name('userProfileSettings');
     
         });
     });

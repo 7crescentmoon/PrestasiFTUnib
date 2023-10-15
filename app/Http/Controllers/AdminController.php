@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
@@ -11,7 +14,10 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('admin.dashboard',[
+            "user" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta')
+        ]);
     }
 
     /**
@@ -43,8 +49,9 @@ class AdminController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -60,5 +67,14 @@ class AdminController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function profileSetting($id)
+    {
+        return view('admin.settingProfile',[
+            "user" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta')
+        ]);
     }
 }

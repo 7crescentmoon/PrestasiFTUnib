@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">NPM</label>
                             <input type="text" name="npm" class="form-control @error('npm') is-invalid @enderror"
-                                value="{{ old('npm') }}" placeholder="contoh : G1A021082">
+                                value="{{ old('npm') }}" placeholder="contoh : G1A021082" required>
                             @error('npm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -51,7 +51,7 @@
 
                         <div class="mb-3">
                             <label for="username" class="form-label">Jurusan</label>
-                            <select name="jurusan" class="form-control @error('jurusan') is-invalid @enderror">
+                            <select name="jurusan" class="form-control @error('jurusan') is-invalid @enderror" required>
                                 <option value="">Pilih Jurusan</option>
                                 <option value="Informatika" @if (old('jurusan') == 'Informatika') selected @endif>Informatika
                                 </option>
@@ -76,7 +76,7 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Jenis Kelamin</label>
-                            <select name="gender" class="form-control  @error('gender') is-invalid @enderror">
+                            <select name="gender" class="form-control  @error('gender') is-invalid @enderror" required>
                                 <option value="">Jenis Kelamin</option>
                                 <option value="Laki-Laki" @if (old('gender') == 'Laki-Laki') selected @endif>Laki-Laki
                                 </option>
