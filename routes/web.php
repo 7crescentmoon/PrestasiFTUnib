@@ -24,14 +24,14 @@ Route::group(['middleware' => 'prevent-back-history'],function () {
     });
     
     Route::controller(LoginController::class)->group(function () {
-        Route::get('/login', 'index')->name('login')->middleware('guest');
+        Route::get('/login', 'index')->middleware('guest')->name('login');
         Route::Post('/login', 'authenticate');
-        Route::Post('/logout', 'logout');
+        Route::Post('/logout', 'logout')->name('logout');
     
     });
     
     Route::controller(RegisterController::class)->group(function () {
-        Route::get('/register', 'index')->middleware('guest');;
+        Route::get('/register', 'index')->middleware('guest')->name('register');
         Route::post('/register', 'store');
     });
     
@@ -42,8 +42,20 @@ Route::group(['middleware' => 'prevent-back-history'],function () {
         //admin & super admin
         Route::controller(AdminController::class)->group(function () {
             Route::get('/dashboard/admin', 'index')->middleware(['checkrole:admin,super admin'])->name('adminDashboard');
-            Route::get('/dashboard/admin/settingProfile/{id}', 'profileSetting')->name('adminProfileSettings');
-    
+            
+            Route::get('/dashboard/admin/setting-profile/{id}', 'profileSetting')->name('adminProfileSettings');
+            Route::post('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
+
+            Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
+
+            Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
+            Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
+
+            Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
+
+            Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
+            Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
+            
         });
 
 
@@ -51,7 +63,7 @@ Route::group(['middleware' => 'prevent-back-history'],function () {
         //user
         Route::controller(UserController::class)->group(function () {
             Route::get('/dashboard', 'index')->middleware('checkrole:user')->name('userDashboard');
-            Route::get('/dashboard/settingProfile/{id}', 'profileSetting')->name('userProfileSettings');
+            Route::get('/dashboard/setting-profile/{id}', 'profileSetting')->name('userProfileSettings');
     
         });
     });

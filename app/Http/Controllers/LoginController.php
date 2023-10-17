@@ -28,10 +28,10 @@ class LoginController extends Controller
             $user = Auth::user();
             if($user->role === 'admin' || $user->role === 'super admin'){
                 $request->session()->regenerate();        
-                return redirect()->intended('/dashboard/admin');
+                return redirect()->intended(route('adminDashboard'));
             }elseif($user->role === 'user'){
                 $request->session()->regenerate();
-                return redirect()->intended('dashboard');
+                return redirect()->intended(route('userDashboard'));
             }
         }
 

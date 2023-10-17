@@ -18,7 +18,7 @@
          <!-- Dashboard -->
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
          <li class="menu-item">
-             <a href="/dashboard/admin" class="menu-link">
+             <a href="{{ route('adminDashboard') }}" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
                  <div data-i18n="Analytics">Dashboard</div>
              </a>
@@ -27,7 +27,7 @@
 
          @if (auth()->user()->role === 'user')
          <li class="menu-item">
-             <a href="/dashboard" class="menu-link">
+             <a href="{{ route('userDashboard') }}" class="menu-link">
                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
                  <div data-i18n="Analytics">Dashboard</div>
              </a>
@@ -63,7 +63,7 @@
 
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
              <li class="menu-item">
-                 <a href="" class="menu-link">
+                 <a href="{{ route('userList') }}" class="menu-link">
                      <i class='menu-icon bx bxs-user-detail'></i>
                      <div data-i18n="Authentications">Daftar Pengguna</div>
                  </a>

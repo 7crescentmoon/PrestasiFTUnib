@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('profil')->nullable();
             $table->string('name');
             $table->string('npm')->unique();
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('jurusan')->nullable();
             $table->string('gender');
             $table->timestamp('email_verified_at')->nullable();

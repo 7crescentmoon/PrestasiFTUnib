@@ -30,7 +30,7 @@
                         <div class="mb-3">
                             <label for="username" class="form-label">NPM</label>
                             <input type="text" name="npm" class="form-control @error('npm') is-invalid @enderror"
-                                value="{{ old('npm') }}" placeholder="contoh : G1A021082" required>
+                                value="{{ old('npm') }}" placeholder="contoh : G1A021082" oninput="toUppercase(this)" required>
                             @error('npm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -119,4 +119,10 @@
             <!-- Register Card -->
         </div>
     </div>
+
+    <script>
+        function toUppercase(el) {
+            el.value = el.value.toUpperCase();
+        }
+    </script>
 @endsection

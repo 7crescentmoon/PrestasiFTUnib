@@ -14,28 +14,31 @@
                     <p class="mb-4 text-center">Silahkan LOGIN terlebih dahulu</p>
 
                     @if (session()->has(['error']))
-                    <p class="text-center">
-                        <small class="text-muted alert alert-danger alert-dismissible " role="alert">
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </small>
-                    </p>
+                        <p class="text-center">
+                            <small class="text-muted alert alert-danger alert-dismissible " role="alert">
+                                {{ session('error') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </small>
+                        </p>
                     @endif
                     @if (session()->has(['success']))
-                    <p class="text-center">
-                        <small class="text-muted alert alert-success alert-dismissible " role="alert">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </small>
-                    </p>
+                        <p class="text-center">
+                            <small class="text-muted alert alert-success alert-dismissible " role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </small>
+                        </p>
                     @endif
 
                     <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="username" class="form-label">NPM</label>
-                            <input type="text" name="npm" class="form-control @error('npm') is-invalid @enderror"
-                                value="{{ old('npm') }}" placeholder="Masukan npm anda">
+                            <label for="npm" class="form-label">NPM</label>
+                            <input type="text" name="npm" id="npm"
+                                class="form-control @error('npm') is-invalid @enderror" value="{{ old('npm') }}"
+                                placeholder="Masukan npm anda" oninput="toUppercase(this)">
                             @error('npm')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -76,4 +79,10 @@
             <!-- /Register -->
         </div>
     </div>
+
+    <script>
+        function toUppercase(el) {
+            el.value = el.value.toUpperCase();
+        }
+    </script>
 @endsection

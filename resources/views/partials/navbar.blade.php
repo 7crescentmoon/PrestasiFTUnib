@@ -65,7 +65,7 @@
                                         <span class="align-middle">Settings</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="/dashboard/settingProfile/{{ $user->id }}">
+                                    <a class="dropdown-item" href="{{ route('userProfileSettings', ["id" => $user->id]) }}">
                                         <i class="bx bx-cog me-2"></i>
                                         <span class="align-middle">Settings</span>
                                     </a>
@@ -81,7 +81,7 @@
                                         <span class="align-middle">Settings</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="/dashboard/admin/settingProfile/{{ $user->id }}">
+                                    <a class="dropdown-item" href="{{ route('adminProfileSettings', ["id" => $user->id]) }}">
                                         <i class="bx bx-cog me-2"></i>
                                         <span class="align-middle">Settings</span>
                                     </a>
