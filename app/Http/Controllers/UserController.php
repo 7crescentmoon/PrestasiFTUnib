@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -74,5 +76,31 @@ class UserController extends Controller
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
         ]);
+    }
+
+    public function editProfile(Request $request, User $id)
+    {
+        // dd($request->all());
+        $rules = [
+            "nama" => 'Required|max:100',
+            'npm' => 'required|max:10',
+            'jurusan' => '',
+            'jenis_kelamin' => 'Required',
+            "email" => 'Required|email:dns',
+            "profil" => 'image|file|max:1024'
+        ];
+
+        
+        $validatedata = $request->validate($rules);
+
+        if ($request->file('profil')) {
+            if ($id->image != null)
+                Storage::delete($id->image);
+            $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+        }
+
+        $id->update($validatedata);
+
+        return redirect(route('userProfile',$id))->with('success', 'Profil berhasil diUbah');
     }
 }

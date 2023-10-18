@@ -21,10 +21,11 @@
                                             class='bx bx-arrow-back'></i></a>
                                 </div>
                                 @if (session()->has(['success']))
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    {{ session('success') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>
+                                    <div class="alert alert-success alert-dismissible" role="alert">
+                                        {{ session('success') }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
                                 @endif
                                 <div class="card mb-4">
                                     <h5 class="card-header">Tambah Pengguna</h5>
@@ -37,11 +38,11 @@
                                                 <div class="row">
                                                     <div class="mb-3 col-md-6">
                                                         <label for="username" class="form-label">Nama Lengkap</label>
-                                                        <input type="text" name="name"
-                                                            class="form-control @error('name') is-invalid @enderror"
-                                                            value="{{ old('name') }}"
+                                                        <input type="text" name="nama"
+                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                            value="{{ old('nama') }}"
                                                             placeholder="Masukan nama lengkap   " required>
-                                                        @error('username')
+                                                        @error('nama')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>
@@ -50,9 +51,9 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
-                                                            <label for="username" class="form-label">NPM / NIP</label>
+                                                            <label for="npm" class="form-label">NPM / NIP</label>
                                                         @else
-                                                            <label for="username" class="form-label">NPM</label>
+                                                            <label for="npm" class="form-label">NPM</label>
                                                         @endif
                                                         <input type="text" name="npm"
                                                             class="form-control npm @error('npm') is-invalid @enderror"
@@ -80,17 +81,17 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         <label for="email" class="form-label">Jenis Kelamin</label>
-                                                        <select name="gender"
-                                                            class="form-control  @error('gender') is-invalid @enderror"
+                                                        <select name="jenis_kelamin"
+                                                            class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
                                                             <option value="Laki-Laki"
-                                                                @if (old('gender') == 'Laki-Laki') selected @endif>Laki-Laki
+                                                                @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
                                                             </option>
                                                             <option value="Perempuan"
-                                                                @if (old('gender') == 'Perempuan') selected @endif>Perempuan
+                                                                @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
                                                             </option>
                                                         </select>
-                                                        @error('gender')
+                                                        @error('jenis_kelamin')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>
@@ -100,9 +101,11 @@
                                                     <div class="mb-3 col-md-6">
                                                         <label for="username" class="form-label">Jurusan</label>
                                                         <select name="jurusan"
-                                                            class="form-control @error('jurusan') is-invalid @enderror"
-                                                            required>
+                                                            class="form-control @error('jurusan') is-invalid @enderror">
                                                             <option value="">Pilih Jurusan</option>
+                                                            <option value="none"
+                                                                @if (old('jurusan') == 'none') selected @endif>none
+                                                            </option>
                                                             <option value="Informatika"
                                                                 @if (old('jurusan') == 'Informatika') selected @endif>
                                                                 Informatika
@@ -133,7 +136,7 @@
                                                             </div>
                                                         @enderror
                                                     </div>
-                                                    
+
                                                     <div class="mb-3 col-md-6">
                                                         <label for="username" class="form-label">Role</label>
                                                         <select name="role"
@@ -170,7 +173,7 @@
                                                                 class="form-control @error('password') is-invalid @enderror"
                                                                 placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                                                 aria-describedby="password" required>
-                                                           
+
                                                         </div>
                                                         @error('password')
                                                             <div class="invalid-feedback">
@@ -185,7 +188,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-danger deactivate-account">Tambah
+                                                    <button type="submit"
+                                                        class="btn btn-danger deactivate-account">Tambah
                                                         Pengguna</button>
                                                 </div>
                                             </div>

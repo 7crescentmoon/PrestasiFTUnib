@@ -20,58 +20,96 @@
                                 <div class="card mb-4">
                                     <h5 class="card-header">Profile Details</h5>
                                     <!-- Account -->
-                                    <form action="{{ route('editProfile', ['id' => $user->id]) }}" method="POST"
+                                    <form action="{{ route('editProfile', $user->id) }}" method="POST"
                                         enctype="multipart/form-data">
+                                        @csrf
+                                        @method('patch')
                                         <div class="card-body">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                                <img src="../assets/img/avatars/1.png" alt="user-avatar"
-                                                    class="d-block rounded" height="100" width="100"
+                                                <img src="{{ asset('storage/' . $user->profil)  }}" alt="user-avatar"
+                                                    class="d-block rounded-circle" height="100" width="100"
                                                     id="uploadedAvatar" />
                                                 <div class="button-wrapper">
                                                     <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
                                                         <span class="d-none d-sm-block">Upload photo</span>
                                                         <i class="bx bx-upload d-block d-sm-none"></i>
-                                                        <input type="file" id="upload" class="account-file-input"
+                                                        
+                                                        <input type="file" id="upload" name="profil" class="account-file-input"
                                                             hidden accept="image/png, image/jpeg" />
                                                     </label>
-                                                    <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 800K</p>
+                                                    <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 1MB / 1024KB</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <hr class="my-0" />
                                         <div class="card-body">
-                                            <form id="formAccountSettings" method="POST" onsubmit="return false">
                                                 <div class="row">
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="namaLengkap" class="form-label">Nama Lengkap</label>
-                                                        <input class="form-control" type="text" id="namaLengkap"
-                                                            name="namaLengkap" oninput="toUppercase()" value="{{ $user->name }}" autofocus />
+                                                        <label for="username" class="form-label">Nama Lengkap</label>
+                                                        <input type="text" name="nama"
+                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                            value="{{ $user->nama }}"
+                                                            placeholder="Masukan nama lengkap   " required>
+                                                        @error('nama')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
 
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="npm" class="form-label npm">Npm / nip</label>
-                                                        <input class="form-control" type="text" name="npm" oninput="toUppercase(this)"
-                                                            id="npm" value="{{ $user->npm }}" />
+                                                    @if (auth()->user()->role === 'super admin' || auth()->user()->role === 'admin')
+                                                        <label for="npm" class="form-label">NIP</label>
+                                                    @else
+                                                        <label for="npm" class="form-label">NPM</label>
+                                                    @endif
+                                                    <input type="text" name="npm"
+                                                        class="form-control npm @error('npm') is-invalid @enderror"
+                                                        value="{{ $user->npm }}" placeholder="contoh : G1A021082"
+                                                        required oninput="toUppercase(this)">
+                                                    @error('npm')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                     </div>
 
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="email" class="form-label">E-mail</label>
-                                                        <input class="form-control" type="text" id="email"
-                                                            name="email" value="{{ $user->email }}"
-                                                            placeholder="john.doe@example.com" />
+                                                        <label for="username" class="form-label">Email</label>
+                                                        <input type="text" name="email"
+                                                            class="form-control @error('email') is-invalid @enderror"
+                                                            value="{{ $user->email}}" placeholder="Masukan Email anda"
+                                                            required>
+                                                        @error('email')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
+
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
+                                                        <select name="jenis_kelamin"
+                                                            class="form-control  @error('jenis_kelamin') is-invalid @enderror"
+                                                            required>
+                                                            <option value="Laki-Laki"
+                                                                @if (old('jenis_kelamin') == 'Laki-Laki' || $user->jenis_kelamin === 'Laki-Laki') selected @endif>Laki-Laki
+                                                            </option>
+                                                            <option value="Perempuan"
+                                                                @if (old('jenis_kelamin') == 'Perempuan' || $user->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
+                                                            </option>
+                                                        </select>
+                                                        @error('jenis_kelamin')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+
                                                     <div class="mb-3 col-md-6">
                                                         <label for="role" class="form-label">Role</label>
                                                         <input type="text" class="form-control" id="role"
                                                             name="role" value="{{ $user->role }}" disabled />
-                                                    </div>
-
-                                                    <div class="mb-3 col-md-6">
-                                                        <label class="form-label" for="gender">Jenis Kelamin</label>
-                                                        <div class="input-group input-group-merge">
-                                                            <input type="text" id="gender" name="gender"
-                                                                class="form-control" value="{{ $user->gender }}" disabled />
-                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- /Account -->
@@ -79,8 +117,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-danger deactivate-account">Edit
-                                                        Profile</button>
+                                                    <button type="submit" class="btn btn-danger deactivate-account">Ubah
+                                                        Profil</button>
                                                 </div>
                                             </div>
                                         </div>

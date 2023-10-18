@@ -10,7 +10,6 @@
             <!-- Content wrapper -->
             <div class="content-wrapper position-relative">
                 <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y ">
                     <!-- Layout -->
                     <div class="mb-3">
@@ -36,12 +35,12 @@
                                     @foreach ($users as $user)
                                         <tr>
                                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                                <strong>{{ $user->name }}</strong>
+                                                <strong>{{ $user->nama }}</strong>
                                             </td>
                                             <td>{{ $user->npm }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->jurusan }}</td>
-                                            <td>{{ $user->gender }}</td>
+                                            <td>{{ $user->jenis_kelamin }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>
 
@@ -50,7 +49,7 @@
                                                     <i class="bx bx-dots-vertical-rounded"></i>
                                                 </button>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="{{ route('editUserView', ['id' => $user->id]) }}"><i
+                                                    <a class="dropdown-item" href="{{ route('editUserView', $user->id) }}"><i
                                                             class="bx bx-edit-alt me-1"></i> Edit</a>
 
                                                     <a class="dropdown-item" onclick="return confirm('Hapus pengguna ?')"

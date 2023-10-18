@@ -17,10 +17,10 @@
                     <form id="formAuthentication" class="mb-3" action="/register" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="username" class="form-label">Nama Lengkap</label>
-                            <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                                value="{{ old('name') }}" placeholder="Masukan nama lengkap anda" required>
-                            @error('username')
+                            <label for="nama" class="form-label">Nama Lengkap</label>
+                            <input type="text" name="nama" class="form-control @error('nama') is-invalid @enderror"
+                                value="{{ old('nama') }}" placeholder="Masukan nama lengkap anda" required>
+                            @error('nama')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -76,14 +76,14 @@
 
                         <div class="mb-3">
                             <label for="email" class="form-label">Jenis Kelamin</label>
-                            <select name="gender" class="form-control  @error('gender') is-invalid @enderror" required>
+                            <select name="jenis_kelamin" class="form-control  @error('jenis_kelamin') is-invalid @enderror" required>
                                 <option value="">Jenis Kelamin</option>
-                                <option value="Laki-Laki" @if (old('gender') == 'Laki-Laki') selected @endif>Laki-Laki
+                                <option value="Laki-Laki" @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
                                 </option>
-                                <option value="Perempuan" @if (old('gender') == 'Perempuan') selected @endif>Perempuan
+                                <option value="Perempuan" @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
                                 </option>
                             </select>
-                            @error('gender')
+                            @error('jenis_kelamin')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -15,6 +16,7 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.dashboard', [
             "user" => Auth::user(),
             "date" => Carbon::now('Asia/Jakarta')
@@ -35,10 +37,10 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            "name" => 'Required|max:100',
+            "nama" => 'Required|max:100',
             'npm' => 'required|max:10|unique:users',
-            'jurusan' => 'required',
-            'gender' => 'required',
+            'jurusan' => '',
+            'jenis_kelamin' => 'required',
             "password" => 'Required|min:6|max:255',
             "email" => 'Required|email:dns|unique:users',
             "role" => 'required'
@@ -71,6 +73,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $userId)
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
 
         $user = User::find($userId);
         // dd($request->except(['_token']));
@@ -83,14 +86,16 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(user $id)
+    public function destroy(User $id)
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
         User::destroy($id->id);
         return redirect(route('userList'))->with('success', 'Akun pengguna telah dihapus');
     }
 
-    public function profileSetting($id)
+    public function profile($id)
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.settingProfile', [
             "user" => User::find($id),
             "title" => 'Profile Settings',
@@ -98,13 +103,36 @@ class AdminController extends Controller
         ]);
     }
 
-    public function editProfile(Request $request, string $id)
+    public function editProfile(Request $request, User $id)
     {
+        
 
+        $rules = [
+            "nama" => 'Required|max:100',
+            'npm' => 'required|max:10',
+            'jurusan' => '',
+            'jenis_kelamin' => 'required',
+            "email" => 'Required|email:dns',
+            "profil" => 'image|file|max:1024'
+        ];
+
+        
+        $validatedata = $request->validate($rules);
+
+        if ($request->file('profil')) {
+            if ($id->image != null)
+                Storage::delete($id->image);
+            $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+        }
+
+        $id->update($validatedata);
+
+        return redirect(route('adminProfile',$id))->with('success', 'Profil berhasil diUbah');
     }
 
     public function userList()
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
         $userId = Auth::id();
         return view('admin.userList', [
             "user" => Auth::user(),
@@ -116,6 +144,7 @@ class AdminController extends Controller
 
     public function addUser()
     {
+        $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.addUser', [
             "user" => Auth::user(),
             "title" => 'Profile Settings',
@@ -123,13 +152,15 @@ class AdminController extends Controller
         ]);
     }
 
-    public function editUser($id)
+    public function editUser ($id)
     {
-        return view('admin.editUser', [
-            "user" => User::find($id),
+
+        $this->authorize('accesAdminSuperadmin', User::class);
+           return view('admin.editUser', [
+            "user_id" => User::find($id),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
-            "userid" => User::find($id)
+            "user" => Auth::user(),
         ]);
     }
 }
