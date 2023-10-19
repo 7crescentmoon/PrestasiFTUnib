@@ -101,6 +101,6 @@ class UserController extends Controller
 
         $id->update($validatedata);
 
-        return redirect(route('userProfile',$id))->with('success', 'Profil berhasil diUbah');
+        return redirect(route('userProfile',encrypt($id->id)))->with('success', 'Profil berhasil diUbah');
     }
 }

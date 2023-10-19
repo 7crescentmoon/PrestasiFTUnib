@@ -59,7 +59,7 @@
                                         <span class="align-middle">Profile</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="{{ route('userProfile', ["id" => $user->id]) }}">
+                                    <a class="dropdown-item" href="{{ route('userProfile', encrypt($user->id)) }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">Profile</span>
                                     </a>
@@ -75,7 +75,7 @@
                                         <span class="align-middle">Profile</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="{{ route('adminProfile', $user->id) }}">
+                                    <a class="dropdown-item" href="{{ route('adminProfile',encrypt($user->id)) }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">Profile</span>
                                     </a>

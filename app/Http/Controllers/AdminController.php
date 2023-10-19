@@ -43,7 +43,7 @@ class AdminController extends Controller
             'jenis_kelamin' => 'required',
             "password" => 'Required|min:6|max:255',
             "email" => 'Required|email:dns|unique:users',
-            "role" => 'required'
+            "role" => ''
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -80,7 +80,7 @@ class AdminController extends Controller
         $user->update($request->except(['_token']));
       
 
-        return redirect(route('userList'))->with('success', 'Akun telah diubah');
+        return redirect(route('editUserView', encrypt($userId)))->with('success', 'Akun telah diubah');
     }
 
     /**
@@ -95,17 +95,18 @@ class AdminController extends Controller
 
     public function profile($id)
     {
+        $decryptedId = decrypt($id);
+        $user = User::find($decryptedId);
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.settingProfile', [
-            "user" => User::find($id),
+            "user" => $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
         ]);
     }
 
     public function editProfile(Request $request, User $id)
-    {
-        
+    {   
 
         $rules = [
             "nama" => 'Required|max:100',
@@ -127,7 +128,7 @@ class AdminController extends Controller
 
         $id->update($validatedata);
 
-        return redirect(route('adminProfile',$id))->with('success', 'Profil berhasil diUbah');
+        return redirect(route('adminProfile',encrypt($id->id)))->with('success', 'Profil berhasil diUbah');
     }
 
     public function userList()
@@ -138,8 +139,23 @@ class AdminController extends Controller
             "user" => Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
-            "users" => User::where('id', '!=', $userId)->get()
-        ]);
+            "users" => User::whereNotIn('role', ['admin', 'super admin'])
+                            ->where('id', '!=', $userId)
+                            ->get()
+        ]); 
+    }
+    public function adminList()
+    {
+        $this->authorize('accesAdminSuperadmin', User::class);
+        $userId = Auth::id();
+        return view('admin.adminList', [
+            "user" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta'),
+            "users" => User::whereNotIn('role', ['user'])
+                            ->where('id', '!=', $userId)
+                            ->get()
+        ]); 
     }
 
     public function addUser()
@@ -151,13 +167,23 @@ class AdminController extends Controller
             "date" => Carbon::now('Asia/Jakarta'),
         ]);
     }
+    public function addAdmin()
+    {
+        $this->authorize('accesAdminSuperadmin', User::class);
+        return view('admin.addAdmin', [
+            "user" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta'),
+        ]);
+    }
 
     public function editUser ($id)
     {
-
+        $decryptedId = decrypt($id);
         $this->authorize('accesAdminSuperadmin', User::class);
+        $user = User::find($decryptedId);
            return view('admin.editUser', [
-            "user_id" => User::find($id),
+            "user_id" => $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
             "user" => Auth::user(),

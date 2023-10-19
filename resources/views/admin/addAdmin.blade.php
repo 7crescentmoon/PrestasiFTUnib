@@ -20,9 +20,9 @@
                                     <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
                                             class='bx bx-arrow-back'></i></a>
                                 </div>
-                                @if (auth()->user()->role == 'super admin')
+                                 @if (auth()->user()->role == 'super admin')
                                     <div class="mb-3">
-                                        <a href="{{ route('addAdminView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Admin</a>
+                                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Pengguna</a>
                                     </div>
                                 @endif
                                 @if (session()->has(['success']))
@@ -57,8 +57,6 @@
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
                                                             <label for="npm" class="form-label">NPM / NIP</label>
-                                                        @else
-                                                            <label for="npm" class="form-label">NPM</label>
                                                         @endif
                                                         <input type="text" name="npm"
                                                             class="form-control npm @error('npm') is-invalid @enderror"
@@ -104,50 +102,23 @@
                                                     </div>
 
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="username" class="form-label">Jurusan</label>
-                                                        <select name="jurusan"
-                                                            class="form-control @error('jurusan') is-invalid @enderror">
-                                                            <option value="">Pilih Jurusan</option>
-                                                            <option value="Informatika"
-                                                                @if (old('jurusan') == 'Informatika') selected @endif>
-                                                                Informatika
-                                                            </option>
-                                                            <option value="Teknik Sipil"
-                                                                @if (old('jurusan') == 'Teknik Sipil') selected @endif>Teknik
-                                                                Sipil
-                                                            </option>
-                                                            <option value="Teknik Elektro"
-                                                                @if (old('jurusan') == 'Teknik Elektro') selected @endif>Teknik
-                                                                Elektro
-                                                            </option>
-                                                            <option value="Teknik Mesin"
-                                                                @if (old('jurusan') == 'Teknik Mesin') selected @endif>Teknik
-                                                                Mesin
-                                                            </option>
-                                                            <option value="Arsiterktur"
-                                                                @if (old('jurusan') == 'Arsitektur') selected @endif>
-                                                                Arsitektur
-                                                            </option>
-                                                            <option value="Sistem Informasi"
-                                                                @if (old('jurusan') == 'Sistem Informasi') selected @endif>Sistem
-                                                                Informasi</option>
-                                                        </select>
-                                                        @error('jurusan')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="mb-3 col-md-6">
                                                         <label for="username" class="form-label">Role</label>
                                                         <select name="role"
                                                             class="form-control @error('role') is-invalid @enderror"
-                                                            required disabled>
+                                                            required>
+                                                            <option value="">
+                                                                Pilih Role
                                                             </option>
-                                                            <option value="user"
-                                                                @if (old('role') == 'user') selected @endif>user
-                                                            </option>                                                  
+                                                            @if (auth()->user()->role === 'super admin')
+                                                                <option value="admin"
+                                                                    @if (old('role') == 'super admin') selected @endif>
+                                                                    super admin
+                                                                </option>
+                                                                <option value="admin"
+                                                                    @if (old('role') == 'admin') selected @endif>
+                                                                    admin
+                                                                </option>
+                                                            @endif
                                                         </select>
                                                         @error('role')
                                                             <div class="invalid-feedback">

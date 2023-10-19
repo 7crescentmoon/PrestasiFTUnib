@@ -14,7 +14,7 @@
 
                 <div class="container-xxl flex-grow-1 container-p-y">
                     <div class="mb-3">
-                        <a href="{{ route('userList') }}" class="btn btn-success text-center"><i
+                        <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
                                 class='bx bx-arrow-back'></i></a>
                     </div>
                     @if (session()->has(['success']))
@@ -138,15 +138,12 @@
                                                     @enderror
                                                 </div>
 
+                                                @if($user_id->jurusan != null)
                                                 <div class="mb-3 col-md-6">
                                                     <label for="username" class="form-label">Jurusan</label>
                                                     <select name="jurusan"
                                                         class="form-control @error('jurusan') is-invalid @enderror"
                                                         required>
-                                                        <option value="none"
-                                                            @if (old('jurusan') == 'none' || $user_id->jurusan === 'none') selected @endif>
-                                                            none
-                                                        </option>
                                                         <option value="Informatika"
                                                             @if (old('jurusan') == 'Informatika' || $user_id->jurusan === 'Informatika') selected @endif>
                                                             Informatika
@@ -177,6 +174,7 @@
                                                         </div>
                                                     @enderror
                                                 </div>
+                                                @endif
                                             </div>
                                             <!-- /Account -->
                                     </div>

@@ -47,10 +47,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             Route::patch('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
 
             Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
+            Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
 
             Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
             Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
 
+            Route::get('/dashboard/admin/add-admin-view', 'addAdmin')->name('addAdminView');
+            Route::post('/dashboard/admin/add-admin', 'store')->name('addAdmin');
+            
             Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
 
             Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');

@@ -13,15 +13,14 @@
                 <div class="container-xxl flex-grow-1 container-p-y ">
                     <!-- Layout -->
                     <div class="mb-3">
-                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center"><i class='bx bx-user-plus' ></i> Tambah Pengguna</a>
+                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center"><i
+                                class='bx bx-plus-circle'></i> Tambah Pengguna</a>
                     </div>
                    
                     <div class="card">
                         <h5 class="card-header">
-                            <a href="{{ route('userList') }}" class=" link-primary" >Daftar Pengguna</a>
-                            @if (auth()->user()->role == 'super admin')
-                            <a href="{{ route('adminList') }}" class=" link-dark"  >/ Daftar Admin</a>    
-                            @endif
+                            <a href="{{ route('userList') }}" class=" link-dark ">Daftar Pengguna / </a>
+                            <a href="{{ route('adminList') }}" class="link-primary " >Daftar Admin</a>
                         </h5>
                         <div class="table-responsive text-nowrap">
                             <table class="table">
@@ -29,8 +28,7 @@
                                     <tr>
                                         <th>Nama</th>
                                         <th>Npm</th>
-                                        <th>Email</th>  
-                                        <th>Jurusan</th>                                      
+                                        <th>Email</th>
                                         <th>Gender</th>
                                         <th>Role</th>
                                         <th>Aksi</th>
@@ -43,8 +41,7 @@
                                                 <strong>{{ $user->nama }}</strong>
                                             </td>
                                             <td>{{ $user->npm }}</td>
-                                            <td>{{ $user->email }}</td>    
-                                            <td>{{ $user->jurusan }}</td>                                       
+                                            <td>{{ $user->email }}</td>                                           
                                             <td>{{ $user->jenis_kelamin }}</td>
                                             <td>{{ $user->role }}</td>
                                             <td>
