@@ -83,7 +83,7 @@ class UserController extends Controller
         // dd($request->all());
         $rules = [
             "nama" => 'Required|max:100',
-            'npm' => 'required|max:10',
+            'npm_nip' => 'required|max:10',
             'jurusan' => '',
             'jenis_kelamin' => 'Required',
             "email" => 'Required|email:dns',
@@ -94,8 +94,8 @@ class UserController extends Controller
         $validatedata = $request->validate($rules);
 
         if ($request->file('profil')) {
-            if ($id->image != null)
-                Storage::delete($id->image);
+            if ($id->profil != null)
+                Storage::delete($id->profil);
             $validatedata['profil'] = $request->file('profil')->store('profilePicture');
         }
 

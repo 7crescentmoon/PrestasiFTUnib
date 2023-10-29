@@ -35,11 +35,11 @@
                     <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         @csrf
                         <div class="mb-3">
-                            <label for="npm" class="form-label">NPM</label>
-                            <input type="text" name="npm" id="npm"
-                                class="form-control @error('npm') is-invalid @enderror" value="{{ old('npm') }}"
-                                placeholder="Masukan npm anda" oninput="toUppercase(this)">
-                            @error('npm')
+                            <label for="npm_nip" class="form-label">NPM / NIP</label>
+                            <input type="text" name="npm_nip" id="npm_nip"
+                                class="form-control @error('npm_nip') is-invalid @enderror" value="{{ old('npm_nip') }}"
+                                placeholder="Masukan NPM atau NIP anda" oninput="toUppercase(this)">
+                            @error('npm_nip')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

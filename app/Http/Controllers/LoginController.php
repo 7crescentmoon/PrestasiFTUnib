@@ -20,7 +20,7 @@ class LoginController extends Controller
     {
         
         $credentials = $request->validate([
-            "npm" => 'Required',
+            "npm_nip" => 'Required',
             "password" => 'Required',
         ]);
 

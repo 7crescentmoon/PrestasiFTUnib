@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -38,7 +39,7 @@ class AdminController extends Controller
     {
         $validatedData = $request->validate([
             "nama" => 'Required|max:100',
-            'npm' => 'required|max:10|unique:users',
+            'npm_nip' => 'required|max:10|unique:users',
             'jurusan' => '',
             'jenis_kelamin' => 'required',
             "password" => 'Required|min:6|max:255',
@@ -48,7 +49,9 @@ class AdminController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
-        return redirect(route('addUserView'))->with('success', 'Akun pengguna telah ditambahkan');
+        Alert::success('Tambah data', 'Data berhasil ditambahkan');
+        return redirect(route('addUserView'));
+
     }
 
     /**
@@ -78,19 +81,22 @@ class AdminController extends Controller
         $user = User::find($userId);
         // dd($request->except(['_token']));
         $user->update($request->except(['_token']));
-      
-
-        return redirect(route('editUserView', encrypt($userId)))->with('success', 'Akun telah diubah');
+        // Alert::success('Mengubah data', 'Data berhasil diubah');
+        Alert::toast('Profil telah diubah', 'success');
+        return redirect(route('editUserView', encrypt($userId)));
     }
 
     /**
      * Remove the specified resource from storage.
+     * 
      */
     public function destroy(User $id)
     {
         $this->authorize('accesAdminSuperadmin', User::class);
+
+        
         User::destroy($id->id);
-        return redirect(route('userList'))->with('success', 'Akun pengguna telah dihapus');
+        return redirect(route('userList'));
     }
 
     public function profile($id)
@@ -110,7 +116,7 @@ class AdminController extends Controller
 
         $rules = [
             "nama" => 'Required|max:100',
-            'npm' => 'required|max:10',
+            'npm_nip' => 'required|max:10',
             'jurusan' => '',
             'jenis_kelamin' => 'required',
             "email" => 'Required|email:dns',
@@ -133,29 +139,14 @@ class AdminController extends Controller
 
     public function userList()
     {
+
         $this->authorize('accesAdminSuperadmin', User::class);
-        $userId = Auth::id();
-        return view('admin.userList', [
-            "user" => Auth::user(),
-            "title" => 'Profile Settings',
-            "date" => Carbon::now('Asia/Jakarta'),
-            "users" => User::whereNotIn('role', ['admin', 'super admin'])
-                            ->where('id', '!=', $userId)
-                            ->get()
-        ]); 
+        return view('admin.userList'); 
     }
     public function adminList()
     {
         $this->authorize('accesAdminSuperadmin', User::class);
-        $userId = Auth::id();
-        return view('admin.adminList', [
-            "user" => Auth::user(),
-            "title" => 'Profile Settings',
-            "date" => Carbon::now('Asia/Jakarta'),
-            "users" => User::whereNotIn('role', ['user'])
-                            ->where('id', '!=', $userId)
-                            ->get()
-        ]); 
+        return view('admin.adminList'); 
     }
 
     public function addUser()

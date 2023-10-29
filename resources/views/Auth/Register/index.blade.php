@@ -29,9 +29,9 @@
 
                         <div class="mb-3">
                             <label for="username" class="form-label">NPM</label>
-                            <input type="text" name="npm" class="form-control @error('npm') is-invalid @enderror"
-                                value="{{ old('npm') }}" placeholder="contoh : G1A021082" oninput="toUppercase(this)" required>
-                            @error('npm')
+                            <input type="text" name="npm_nip" class="form-control @error('npm_nip') is-invalid @enderror"
+                                value="{{ old('npm_nip') }}" placeholder="contoh : G1A021082" oninput="toUppercase(this)" required>
+                            @error('npm_nip')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>

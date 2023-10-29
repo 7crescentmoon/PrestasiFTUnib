@@ -25,13 +25,13 @@
                                         <a href="{{ route('addAdminView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Admin</a>
                                     </div>
                                 @endif
-                                @if (session()->has(['success']))
+                                {{-- @if (session()->has(['success']))
                                     <div class="alert alert-success alert-dismissible" role="alert">
                                         {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
-                                @endif
+                                @endif --}}
                                 <div class="card mb-4">
                                     <h5 class="card-header">Tambah Pengguna</h5>
                                     <!-- Account -->
@@ -56,15 +56,15 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
-                                                            <label for="npm" class="form-label">NPM / NIP</label>
+                                                            <label for="npm_nip" class="form-label">NPM_nip / NIP</label>
                                                         @else
-                                                            <label for="npm" class="form-label">NPM</label>
+                                                            <label for="npm_nip" class="form-label">NPM_nip</label>
                                                         @endif
-                                                        <input type="text" name="npm"
-                                                            class="form-control npm @error('npm') is-invalid @enderror"
-                                                            value="{{ old('npm') }}" placeholder="contoh : G1A021082"
+                                                        <input type="text" name="npm_nip"
+                                                            class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
+                                                            value="{{ old('npm_nip') }}" placeholder="contoh : G1A021082"
                                                             required oninput="toUppercase(this)">
-                                                        @error('npm')
+                                                        @error('npm_nip')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>

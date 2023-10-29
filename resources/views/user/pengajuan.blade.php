@@ -15,7 +15,7 @@
                     <!-- Layout -->
                     <div class="">
 
-                        tinggal buat nyo lagi
+                        <p>halo</p>
 
                     </div>
 

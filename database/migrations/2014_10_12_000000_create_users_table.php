@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('profil')->nullable();
             $table->string('nama');
-            $table->string('npm')->unique();
+            $table->string('npm_nip')->unique();
             $table->string('email')->unique()->nullable();
             $table->string('jurusan')->nullable();
             $table->string('jenis_kelamin');

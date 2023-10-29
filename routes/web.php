@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\PengajuanController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -38,38 +39,47 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
 
     Route::middleware(['auth'])->group(function () {
+        Route::middleware(['checkrole:admin,super admin'])->group(function () {
+            //admin & super admin
+            Route::controller(AdminController::class)->group(function () {
+                Route::get('/dashboard/admin', 'index')->name('adminDashboard');
 
-        //admin & super admin
-        Route::controller(AdminController::class)->group(function () {
-            Route::get('/dashboard/admin', 'index')->middleware(['checkrole:admin,super admin'])->name('adminDashboard');
+                Route::get('/dashboard/admin/profile/{Id:id}', 'profile')->name('adminProfile');
+                Route::patch('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
 
-            Route::get('/dashboard/admin/profile/{Id:id}', 'profile')->name('adminProfile');
-            Route::patch('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
+                Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
+                Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
 
-            Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
-            Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
+                Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
+                Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
 
-            Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
-            Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
+                Route::get('/dashboard/admin/add-admin-view', 'addAdmin')->name('addAdminView');
+                Route::post('/dashboard/admin/add-admin', 'store')->name('addAdmin');
 
-            Route::get('/dashboard/admin/add-admin-view', 'addAdmin')->name('addAdminView');
-            Route::post('/dashboard/admin/add-admin', 'store')->name('addAdmin');
-            
-            Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
+                Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
 
-            Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
-            Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
+                Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
+                Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
+            });
 
         });
 
-
-
         //user
         Route::controller(UserController::class)->group(function () {
-            Route::get('/dashboard', 'index')->middleware('checkrole:user')->name('userDashboard');
+            Route::middleware(['checkrole:user'])->group(function () {
 
-            Route::get('/dashboard/profile/{id}', 'profileSetting')->name('userProfile');
-            Route::put('/dashboard/edit-profile/{id}', 'editProfile')->name('editProfileUser');
+                Route::get('/dashboard', 'index')->name('userDashboard');
+
+                // profile
+                Route::get('/dashboard/profile/{id}', 'profileSetting')->name('userProfile');
+                Route::put('/dashboard/edit-profile/{id}', 'editProfile')->name('editProfileUser');
+
+                //pengjuan
+                Route::controller(PengajuanController::class)->group(function () {
+                    Route::get('/dashboard/pengajuan-prestasi', 'index')->name('lamanPengajuan');
+
+                });
+            });
 
         });
     });

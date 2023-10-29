@@ -20,9 +20,10 @@
                                     <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
                                             class='bx bx-arrow-back'></i></a>
                                 </div>
-                                 @if (auth()->user()->role == 'super admin')
+                                @if (auth()->user()->role == 'super admin')
                                     <div class="mb-3">
-                                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Pengguna</a>
+                                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center "><i
+                                                class='bx bx-user-plus'></i> Tambah Pengguna</a>
                                     </div>
                                 @endif
                                 @if (session()->has(['success']))
@@ -33,7 +34,7 @@
                                     </div>
                                 @endif
                                 <div class="card mb-4">
-                                    <h5 class="card-header">Tambah Pengguna</h5>
+                                    <h5 class="card-header">Tambah Admin</h5>
                                     <!-- Account -->
                                     <form action="{{ route('addUser') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
@@ -45,8 +46,8 @@
                                                         <label for="username" class="form-label">Nama Lengkap</label>
                                                         <input type="text" name="nama"
                                                             class="form-control @error('nama') is-invalid @enderror"
-                                                            value="{{ old('nama') }}"
-                                                            placeholder="Masukan nama lengkap   " required>
+                                                            value="{{ old('nama') }}" placeholder="Masukan nama lengkap"
+                                                            required>
                                                         @error('nama')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -56,13 +57,13 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
-                                                            <label for="npm" class="form-label">NPM / NIP</label>
+                                                            <label for="npm_nip" class="form-label">NIP</label>
                                                         @endif
-                                                        <input type="text" name="npm"
-                                                            class="form-control npm @error('npm') is-invalid @enderror"
-                                                            value="{{ old('npm') }}" placeholder="contoh : G1A021082"
+                                                        <input type="text" name="npm_nip"
+                                                            class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
+                                                            value="{{ old('npm_nip') }}" placeholder="contoh : G1A021082"
                                                             required oninput="toUppercase(this)">
-                                                        @error('npm')
+                                                        @error('npm_nip')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>
@@ -149,8 +150,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit"
-                                                        class="btn btn-danger deactivate-account">Tambah
+                                                    <button type="submit" class="btn btn-danger deactivate-account">Tambah
                                                         Pengguna</button>
                                                 </div>
                                             </div>
@@ -177,4 +177,5 @@
                 el.value = el.value.toUpperCase();
             }
         </script>
-    @endsection
+    </div>
+@endsection

@@ -20,7 +20,7 @@ class RegisterController extends Controller
     {
         $validatedData = $request->validate([
             "nama" => 'Required|max:100',
-            'npm' => 'required|max:10|unique:users',
+            'npm_nip' => 'required|max:10|unique:users',
             'jurusan' => 'required',
             'jenis_kelamin' => 'required',
             "password" => 'Required|min:6|max:255',
@@ -30,6 +30,6 @@ class RegisterController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);
-        return redirect('/login')->with('success', 'Registrasi berhasil silahkan login!');
+        return redirect(route('login'))->with('success', 'Registrasi berhasil silahkan login!');
     }
 }

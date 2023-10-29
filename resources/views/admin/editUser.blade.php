@@ -17,12 +17,12 @@
                         <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
                                 class='bx bx-arrow-back'></i></a>
                     </div>
-                    @if (session()->has(['success']))
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    {{ session('success') }}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                                  </div>
-                                @endif
+                    {{-- @if (session()->has(['success']))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif --}}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card mb-4">
@@ -34,8 +34,9 @@
                                     @method('put')
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img src="{{ asset('storage/' . $user_id->profil)  }}" alt="user-avatar" class="d-block rounded-circle"
-                                                height="100" width="100" id="uploadedAvatar" />
+                                            <img src="{{ asset('storage/' . $user_id->profil) }}" alt="user-avatar"
+                                                class="d-block rounded-circle" height="100" width="100"
+                                                id="uploadedAvatar" />
                                         </div>
                                     </div>
                                     <hr class="my-0" />
@@ -46,8 +47,8 @@
                                                     <label for="nama" class="form-label">Nama Lengkap</label>
                                                     <input type="text" name="nama"
                                                         class="form-control @error('nama') is-invalid @enderror"
-                                                        value="{{ $user_id->nama }}"
-                                                        placeholder="Masukan nama lengkap   " required>
+                                                        value="{{ $user_id->nama }}" placeholder="Masukan nama lengkap   "
+                                                        required>
                                                     @error('nama')
                                                         <div class="invalid-feedback">
                                                             {{ $message }}
@@ -56,9 +57,13 @@
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="npm" class="form-label">Npm / nip</label>
-                                                    <input class="form-control" type="text" name="npm" id="npm"
-                                                        value="{{ $user_id->npm }}" oninput="toUppercase(this)" />
+                                                    @if ($user_id->role == 'admin' || $user_id->role == 'super admin')
+                                                        <label for="npm_nip" class="form-label">Nip</label>
+                                                    @else
+                                                        <label for="npm_nip" class="form-label">Npm</label>
+                                                    @endif
+                                                    <input class="form-control" type="text" name="npm_nip" id="npm_nip"
+                                                        value="{{ $user_id->npm_nip }}" oninput="toUppercase(this)" />
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
@@ -138,42 +143,42 @@
                                                     @enderror
                                                 </div>
 
-                                                @if($user_id->jurusan != null)
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="username" class="form-label">Jurusan</label>
-                                                    <select name="jurusan"
-                                                        class="form-control @error('jurusan') is-invalid @enderror"
-                                                        required>
-                                                        <option value="Informatika"
-                                                            @if (old('jurusan') == 'Informatika' || $user_id->jurusan === 'Informatika') selected @endif>
-                                                            Informatika
-                                                        </option>
-                                                        <option value="Teknik Sipil"
-                                                            @if (old('jurusan') == 'Teknik Sipil' || $user_id->jurusan === 'Teknik Sipil') selected @endif>Teknik
-                                                            Sipil
-                                                        </option>
-                                                        <option value="Teknik Elektro"
-                                                            @if (old('jurusan') == 'Teknik Elektro' || $user_id->jurusan === 'Teknik Elektro') selected @endif>Teknik
-                                                            Elektro
-                                                        </option>
-                                                        <option value="Teknik Mesin"
-                                                            @if (old('jurusan') == 'Teknik Mesin' || $user_id->jurusan === 'Teknik Mesin') selected @endif>Teknik
-                                                            Mesin
-                                                        </option>
-                                                        <option value="Arsiterktur"
-                                                            @if (old('jurusan') == 'Arsitektur' || $user_id->jurusan === 'Arsitektur') selected @endif>
-                                                            Arsitektur
-                                                        </option>
-                                                        <option value="Sistem Informasi"
-                                                            @if (old('jurusan') == 'Sistem Informasi' || $user_id->jurusan === 'Sistem Informasi') selected @endif>Sistem
-                                                            Informasi</option>
-                                                    </select>
-                                                    @error('jurusan')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                                @if ($user_id->jurusan != null)
+                                                    <div class="mb-3 col-md-6">
+                                                        <label for="username" class="form-label">Jurusan</label>
+                                                        <select name="jurusan"
+                                                            class="form-control @error('jurusan') is-invalid @enderror"
+                                                            required>
+                                                            <option value="Informatika"
+                                                                @if (old('jurusan') == 'Informatika' || $user_id->jurusan === 'Informatika') selected @endif>
+                                                                Informatika
+                                                            </option>
+                                                            <option value="Teknik Sipil"
+                                                                @if (old('jurusan') == 'Teknik Sipil' || $user_id->jurusan === 'Teknik Sipil') selected @endif>Teknik
+                                                                Sipil
+                                                            </option>
+                                                            <option value="Teknik Elektro"
+                                                                @if (old('jurusan') == 'Teknik Elektro' || $user_id->jurusan === 'Teknik Elektro') selected @endif>Teknik
+                                                                Elektro
+                                                            </option>
+                                                            <option value="Teknik Mesin"
+                                                                @if (old('jurusan') == 'Teknik Mesin' || $user_id->jurusan === 'Teknik Mesin') selected @endif>Teknik
+                                                                Mesin
+                                                            </option>
+                                                            <option value="Arsiterktur"
+                                                                @if (old('jurusan') == 'Arsitektur' || $user_id->jurusan === 'Arsitektur') selected @endif>
+                                                                Arsitektur
+                                                            </option>
+                                                            <option value="Sistem Informasi"
+                                                                @if (old('jurusan') == 'Sistem Informasi' || $user_id->jurusan === 'Sistem Informasi') selected @endif>Sistem
+                                                                Informasi</option>
+                                                        </select>
+                                                        @error('jurusan')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 @endif
                                             </div>
                                             <!-- /Account -->

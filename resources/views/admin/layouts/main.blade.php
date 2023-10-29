@@ -56,8 +56,8 @@
         @yield('content')
         @include('partials.sidebar')
     </div>
-   
-
+    {{-- sweet alert --}}
+       @include('sweetalert::alert')
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="/assetstemplate/vendor/libs/jquery/jquery.js"></script>

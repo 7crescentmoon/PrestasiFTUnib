@@ -69,15 +69,15 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin' || auth()->user()->role === 'admin')
-                                                            <label for="npm" class="form-label">NIP</label>
+                                                            <label for="npm_nip" class="form-label">NIP</label>
                                                         @else
-                                                            <label for="npm" class="form-label">NPM</label>
+                                                            <label for="npm_nip" class="form-label">NPM</label>
                                                         @endif
-                                                        <input type="text" name="npm"
-                                                            class="form-control npm @error('npm') is-invalid @enderror"
-                                                            value="{{ $user->npm }}" placeholder="contoh : G1A021082"
+                                                        <input type="text" name="npm_nip"
+                                                            class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
+                                                            value="{{ $user->npm_nip }}" placeholder="contoh : G1A021082"
                                                             required oninput="toUppercase(this)">
-                                                        @error('npm')
+                                                        @error('npm_nip')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
                                                             </div>
