@@ -146,7 +146,7 @@
                                                             required disabled>
                                                             </option>
                                                             <option value="user"
-                                                                @if (old('role') == 'user') selected @endif>user
+                                                                @if (old('role') == 'user') selected @endif>Mahasiswa
                                                             </option>                                                  
                                                         </select>
                                                         @error('role')

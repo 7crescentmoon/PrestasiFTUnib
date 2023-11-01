@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -71,8 +72,10 @@ class UserController extends Controller
 
     public function profileSetting($id)
     {
+        $decryptedId = decrypt($id);
+        $user = User::find($decryptedId);
         return view('user.settingProfile',[
-            "user" => Auth::user(),
+            "user" =>$user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
         ]);
@@ -87,20 +90,26 @@ class UserController extends Controller
             'jurusan' => '',
             'jenis_kelamin' => 'Required',
             "email" => 'Required|email:dns',
-            "profil" => 'image|file|max:1024'
+            "profil" => 'image|file|mimes:png,jpg|max:1024'
         ];
 
-        
         $validatedata = $request->validate($rules);
+
+        if ($request->has('delete_profile_picture') && $id->profil) {
+            Storage::delete($id->profil);
+            $id->profil = null;
+        }
+
 
         if ($request->file('profil')) {
             if ($id->profil != null)
                 Storage::delete($id->profil);
             $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+           
         }
 
         $id->update($validatedata);
-
-        return redirect(route('userProfile',encrypt($id->id)))->with('success', 'Profil berhasil diUbah');
+        Alert::toast('Profil telah diubah', 'success');
+        return redirect(route('userProfile',encrypt($id->id)));
     }
 }

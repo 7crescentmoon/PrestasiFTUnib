@@ -15,7 +15,6 @@ class CheckRoles
      */
     public function handle(Request $request, Closure $next,...$roles): Response
     {
-        echo var_dump(in_array($request->user()->role,$roles));
         if($request->user() && in_array($request->user()->role, $roles)){
             return $next($request);
         }

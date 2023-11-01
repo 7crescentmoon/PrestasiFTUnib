@@ -111,7 +111,7 @@
                                                                 Pilih Role
                                                             </option>
                                                             @if (auth()->user()->role === 'super admin')
-                                                                <option value="admin"
+                                                                <option value="super admin"
                                                                     @if (old('role') == 'super admin') selected @endif>
                                                                     super admin
                                                                 </option>

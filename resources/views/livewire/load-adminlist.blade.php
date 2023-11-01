@@ -53,7 +53,7 @@
                                                     href="{{ route('editUserView', encrypt($user->id)) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                                <a class="dropdown-item" data-confirm-delete="true"
+                                                <a class="dropdown-item" onclick="return confirm('Hapus Data Pengguna ?')"
                                                     href="{{ route('deleteUser', ['id' => $user->id]) }}"><i
                                                         class="bx bx-trash me-1"></i> Delete</a>
                                             </div>

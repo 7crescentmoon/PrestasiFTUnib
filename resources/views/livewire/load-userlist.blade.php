@@ -35,7 +35,6 @@
                                     <th>Email</th>
                                     <th>Jurusan</th>
                                     <th>Gender</th>
-                                    <th>Role</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -49,7 +48,6 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->jurusan }}</td>
                                         <td>{{ $user->jenis_kelamin }}</td>
-                                        <td>{{ $user->role }}</td>
                                         <td>
 
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -61,7 +59,7 @@
                                                     href="{{ route('editUserView', encrypt($user->id)) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                                <a class="dropdown-item" data-confirm-delete="true"
+                                                <a class="dropdown-item" onclick="return confirm('Hapus Data Pengguna ?')"
                                                     href="{{ route('deleteUser', ['id' => $user->id]) }}"><i
                                                         class="bx bx-trash me-1"></i> Delete</a>
                                             </div>

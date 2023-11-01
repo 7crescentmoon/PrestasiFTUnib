@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Pengajuan;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StorePengajuanRequest;
-use App\Http\Requests\UpdatePengajuanRequest;
+use Illuminate\Http\Request;
 
 class PengajuanController extends Controller
 {
@@ -18,7 +17,6 @@ class PengajuanController extends Controller
         return view('user.pengajuan',[
             "user" => Auth::user(),
             "date" => Carbon::now('Asia/Jakarta')
-
         ]);
     }
 
@@ -33,9 +31,27 @@ class PengajuanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePengajuanRequest $request)
+    public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $validatedData = $request->validate([
+            "nama_kegiatan_perlombaan" =>  "required",
+            "lokasi_lomba" =>  "required",
+            "tahun" =>  "required",
+            "tanggal_mulai" =>   "required",
+            "tanggal_selesai" =>  "required",
+            "juara" =>  "required",
+            "jenis_prestasi" =>  "required",
+            "tingkat_prestasi" =>  "required",
+            "jumlah_Peserta" =>  "required",
+            "nama_penyelenggara" =>  "required",
+            "url_penyelenggara" =>  "",
+            "file_penghargaan" =>  "required|file|mimes:pdf",
+            "file_dokumentasi_kegiatan" =>  "file|mimes:pdf",
+            "file_surat_tugas" =>  "file|mimes:pdf",
+        ]);
+
+
     }
 
     /**
@@ -57,7 +73,7 @@ class PengajuanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePengajuanRequest $request, Pengajuan $pengajuan)
+    public function update(Request $request, Pengajuan $pengajuan)
     {
         //
     }

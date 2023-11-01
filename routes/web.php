@@ -64,7 +64,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
         });
 
-        //user
+        //mahasiswa
         Route::controller(UserController::class)->group(function () {
             Route::middleware(['checkrole:user'])->group(function () {
 
@@ -77,6 +77,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 //pengjuan
                 Route::controller(PengajuanController::class)->group(function () {
                     Route::get('/dashboard/pengajuan-prestasi', 'index')->name('lamanPengajuan');
+                    Route::post('/dashboard/pengajuan-prestasi', 'store')->name('kirimPengajuan');
 
                 });
             });

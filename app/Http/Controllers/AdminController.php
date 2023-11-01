@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -49,8 +50,8 @@ class AdminController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
-        Alert::success('Tambah data', 'Data berhasil ditambahkan');
-        return redirect(route('addUserView'));
+        Alert::toast('Data berhasil ditambahkan', 'success');
+        return redirect(route('userList'));
 
     }
 
@@ -96,6 +97,7 @@ class AdminController extends Controller
 
         
         User::destroy($id->id);
+        Alert::toast('Data berhasil dihapus', 'success');
         return redirect(route('userList'));
     }
 
@@ -113,28 +115,34 @@ class AdminController extends Controller
 
     public function editProfile(Request $request, User $id)
     {   
-
         $rules = [
             "nama" => 'Required|max:100',
-            'npm_nip' => 'required|max:10',
+            'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($id->id)],
             'jurusan' => '',
             'jenis_kelamin' => 'required',
-            "email" => 'Required|email:dns',
-            "profil" => 'image|file|max:1024'
+            "email" => ['Required','email:dns', Rule::unique('users')->ignore($id->id)],
+            "profil" => 'image|file|mimes:png,jpg|max:1024',
+            "delete_profile_picture" => ''
         ];
 
-        
+    
         $validatedata = $request->validate($rules);
 
+        if ($request->has('delete_profile_picture') && $id->profil) {
+            Storage::delete($id->profil);
+            $id->profil = null;
+        }
+
         if ($request->file('profil')) {
-            if ($id->image != null)
-                Storage::delete($id->image);
+            if ($id->profil != null)
+                Storage::delete($id->profil);
             $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+            basename( $validatedata['profil']);
         }
 
         $id->update($validatedata);
-
-        return redirect(route('adminProfile',encrypt($id->id)))->with('success', 'Profil berhasil diUbah');
+        Alert::toast('Profil telah diubah', 'success');
+        return redirect(route('adminProfile',encrypt($id->id)));
     }
 
     public function userList()

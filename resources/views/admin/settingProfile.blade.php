@@ -32,18 +32,26 @@
                                         @method('patch')
                                         <div class="card-body">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                                @if ($user->profil)
                                                 <img src="{{ asset('storage/' . $user->profil) }}" alt="user-avatar"
                                                     class="d-block rounded-circle" height="100" width="100"
                                                     id="uploadedAvatar" />
+                                                @else
+                                                <img src="" alt="user-avatar"
+                                                    class="d-block rounded-circle" height="100" width="100"
+                                                    id="uploadedAvatar" />
+                                                @endif
                                                 <div class="button-wrapper">
                                                     <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-                                                        <span class="d-none d-sm-block">Upload photo</span>
+                                                        <span class="d-none d-sm-block">Unggah Foto Profile</span>
                                                         <i class="bx bx-upload d-block d-sm-none"></i>
-
                                                         <input type="file" id="upload" name="profil"
                                                             class="account-file-input" hidden
-                                                            accept="image/png, image/jpeg" />
-                                                    </label>
+                                                            accept="image/png, image/jpeg" onchange="previewImage()"/>
+                                                        </label>
+                                                        <label class="btn btn-danger me-2 mb-4" tabindex="0">
+                                                            <input type="checkbox" name="delete_profile_picture" class=""> Hapus Foto Profil
+                                                        </label>
                                                     <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 1MB / 1024KB
                                                     </p>
                                                 </div>
@@ -152,5 +160,19 @@
                     let input = document.getElementByclassName("npm_nip");
                     input.value = input.toUppercase();
                 }
+
+                function previewImage() {
+                    const image = document.querySelector('#upload');
+                    const imagePreview = document.querySelector('#uploadedAvatar');
+
+                    // imagePreview.style.display = 'block';
+
+                    const oFReader = new FileReader();
+                    oFReader.readAsDataURL(image.files[0]);
+
+                    oFReader.onload = function(oFREvent) {
+                        imagePreview.src = oFREvent.target.result
+                    }
+                };
             </script>
         @endsection
