@@ -76,7 +76,7 @@
                                         <input list="juara" id="juara" class="form-control" name="juara" required>
                                     </div>
 
-                                    <div class="col-md-5">
+                                    {{-- <div class="col-md-5">
                                         <label for="jenis-prestasi" class="form-label fw-bold"><span
                                                 style="color: red">*</span> JENIS PRESTASI</label>
                                         <select id="jenis-prestasi" class="form-select" name="jenis_prestasi">
@@ -84,9 +84,9 @@
                                             <option value="1">Prestasi Akademik</option>
                                             <option value="2">Prestasi Non Akademik</option>
                                         </select>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <label for="tinggat-prestasi" class="form-label fw-bold"><span
                                                 style="color: red">*</span> TINGKAT PRESTASI</label>
                                         <select id="tinggat-prestasi" class="form-select" name="tingkat_prestasi" required>
@@ -98,20 +98,20 @@
                                         </select>
                                     </div>
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <label for="jumlah-peserta" class="form-label fw-bold"><span
                                                 style="color: red">*</span> JUMLAH PESERTA</label>
                                         <input type="number" class="form-control" name="jumlah_Peserta" required>
                                     </div>
 
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <label for="nama-penyelenggara" class="form-label fw-bold"><span
                                                 style="color: red">*</span> NAMA PENYELENGGARA</label>
                                         <input type="text" class="form-control" id="nama-penyelenggara"
                                             name="nama_penyelenggara" required>
                                     </div>
 
-                                    <div class="col-md-5">
+                                    <div class="col-md-3">
                                         <label for="url-penyelenggara" class="form-label fw-bold">URL
                                             PENYELENGGARA</label>
                                         <input type="text" class="form-control" id="url-penyelenggara"
