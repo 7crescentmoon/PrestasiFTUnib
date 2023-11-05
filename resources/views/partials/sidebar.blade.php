@@ -44,7 +44,7 @@
          {{-- admin --}}
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
          <li class="menu-item ">
-             <a href="" class="menu-link">
+             <a href="{{ route('daftarPengajuan') }}" class="menu-link">
                  <i class='menu-icon bx bx-list-check'></i>
                  <div data-i18n="Layouts">Persetujuan Prestasi</div>
              </a>

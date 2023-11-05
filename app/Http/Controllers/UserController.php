@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengajuan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -17,8 +18,8 @@ class UserController extends Controller
     public function index()
     {
         return view('user.dashboard',[
-            "user" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta')
+            "user_log" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta'),
         ]);
     }
 
@@ -75,7 +76,7 @@ class UserController extends Controller
         $decryptedId = decrypt($id);
         $user = User::find($decryptedId);
         return view('user.settingProfile',[
-            "user" =>$user,
+            "user_log" =>$user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
         ]);
@@ -112,4 +113,5 @@ class UserController extends Controller
         Alert::toast('Profil telah diubah', 'success');
         return redirect(route('userProfile',encrypt($id->id)));
     }
+
 }

@@ -13,22 +13,24 @@ return new class extends Migration
     {
         Schema::create('pengajuans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained();
             $table->string('nama_kegiatan_perlombaan',150);
             $table->string('lokasi_lomba',150);
             $table->string('tahun',5);
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('juara',20);
-            $table->string('jenis_prestasi',20);
             $table->string('tingkat_prestasi',50);
-            $table->integer('jumlah_Peserta',50);
+            $table->integer('jumlah_Peserta');
             $table->string('nama_penyelenggara',100);
             $table->string('url_penyelenggara',150);
-            $table->string('file_penghargaan',150);
-            $table->string('file_dokumentasi_kegiatan',150)->nullable();
-            $table->string('file_surat_tugas',150)->nullable();
+            $table->string('file_penghargaan',200);
+            $table->string('file_dokumentasi_kegiatan',200)->nullable();
+            $table->string('file_surat_tugas',200)->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
+
+            
         });
     }
 

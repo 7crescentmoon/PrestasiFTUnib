@@ -14,7 +14,7 @@ class LoadUserlist extends Component
         
         $userId = Auth::id();
         return view('livewire.load-userlist',[
-            "user" => Auth::user(),
+            "user_log" => Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
             "users" => User::whereNotIn('role', ['admin', 'super admin'])

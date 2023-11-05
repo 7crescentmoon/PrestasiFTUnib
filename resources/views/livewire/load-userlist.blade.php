@@ -29,7 +29,7 @@
                     <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
-                                <tr>
+                                <tr class="">
                                     <th>Nama</th>
                                     <th>Npm</th>
                                     <th>Email</th>

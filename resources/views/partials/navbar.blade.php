@@ -27,7 +27,7 @@
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
                                 data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">                                    
-                                    <img src="{{ asset('storage/' . $user->profil)  }}" alt class="object-fit-cover w-px-40 h-px-35 rounded-circle" />
+                                    <img src="{{ asset('storage/' . $user_log->profil)  }}" alt class="object-fit-cover w-px-40 h-px-35 rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -36,7 +36,7 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="{{ asset('storage/' . $user->profil)  }}" alt
+                                                    <img src="{{ asset('storage/' . $user_log->profil)  }}" alt
                                                         class="object-fit-cover w-px-40 h-px-35 rounded-circle" />
                                                 </div>
                                             </div>
@@ -59,7 +59,7 @@
                                         <span class="align-middle">Profile</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="{{ route('userProfile', encrypt($user->id)) }}">
+                                    <a class="dropdown-item" href="{{ route('userProfile', encrypt($user_log->id)) }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">Profile</span>
                                     </a>
@@ -75,7 +75,7 @@
                                         <span class="align-middle">Profile</span>
                                     </a>
                                     @else
-                                    <a class="dropdown-item" href="{{ route('adminProfile',encrypt($user->id)) }}">
+                                    <a class="dropdown-item" href="{{ route('adminProfile',encrypt($user_log->id)) }}">
                                         <i class="bx bx-user me-2"></i>
                                         <span class="align-middle">Profile</span>
                                     </a>

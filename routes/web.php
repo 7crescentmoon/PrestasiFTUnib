@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RegisterController;
+use App\Models\Prestasi;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,23 +45,34 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
             //admin & super admin
             Route::controller(AdminController::class)->group(function () {
                 Route::get('/dashboard/admin', 'index')->name('adminDashboard');
-
+                // profile admin
                 Route::get('/dashboard/admin/profile/{Id:id}', 'profile')->name('adminProfile');
                 Route::patch('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
 
-                Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
-                Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
-
+                // manajemen user
+                Route::get('/dashboard/admin/user-list', 'userList')->name('userList');               
                 Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
                 Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
-
+                Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
                 Route::get('/dashboard/admin/add-admin-view', 'addAdmin')->name('addAdminView');
                 Route::post('/dashboard/admin/add-admin', 'store')->name('addAdmin');
-
                 Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
-
                 Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
                 Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
+
+                // manajemen pengajuan persetujuan
+                Route::controller(PengajuanController::class)->group(function () {
+                    Route::get('/dashboard/admin/daftar-pengajuan', 'index')->name('daftarPengajuan');
+                    Route::get('/dashboard/admin/data-pengajuan/{id}', 'show')->name('dataPengajuan');
+
+                });
+
+                // manajemen prestasi
+                Route::controller(PrestasiController::class)->group(function () {
+                    Route::post('/dashboard/admin/data-prestasi', 'store')->name('dataPrestasi');
+                    
+                });
+
             });
 
         });
@@ -70,13 +83,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
                 Route::get('/dashboard', 'index')->name('userDashboard');
 
-                // profile
+                // profile user
                 Route::get('/dashboard/profile/{id}', 'profileSetting')->name('userProfile');
                 Route::put('/dashboard/edit-profile/{id}', 'editProfile')->name('editProfileUser');
-
+                
+                
                 //pengjuan
                 Route::controller(PengajuanController::class)->group(function () {
-                    Route::get('/dashboard/pengajuan-prestasi', 'index')->name('lamanPengajuan');
+                    Route::get('/dashboard/pengajuan-prestasi', 'create')->name('lamanPengajuan');
                     Route::post('/dashboard/pengajuan-prestasi', 'store')->name('kirimPengajuan');
 
                 });

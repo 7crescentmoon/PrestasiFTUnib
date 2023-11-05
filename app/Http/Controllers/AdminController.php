@@ -20,7 +20,7 @@ class AdminController extends Controller
     {
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.dashboard', [
-            "user" => Auth::user(),
+            "user_log"=> Auth::user(),
             "date" => Carbon::now('Asia/Jakarta')
         ]);
     }
@@ -107,7 +107,7 @@ class AdminController extends Controller
         $user = User::find($decryptedId);
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.settingProfile', [
-            "user" => $user,
+            "user_log"=> $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
         ]);
@@ -137,7 +137,6 @@ class AdminController extends Controller
             if ($id->profil != null)
                 Storage::delete($id->profil);
             $validatedata['profil'] = $request->file('profil')->store('profilePicture');
-            basename( $validatedata['profil']);
         }
 
         $id->update($validatedata);
@@ -161,7 +160,7 @@ class AdminController extends Controller
     {
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.addUser', [
-            "user" => Auth::user(),
+            "user_log"=> Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
         ]);
@@ -170,7 +169,7 @@ class AdminController extends Controller
     {
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('admin.addAdmin', [
-            "user" => Auth::user(),
+            "user_log"=> Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
         ]);
@@ -185,7 +184,7 @@ class AdminController extends Controller
             "user_id" => $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
-            "user" => Auth::user(),
+            "user_log"=> Auth::user(),
         ]);
     }
 }

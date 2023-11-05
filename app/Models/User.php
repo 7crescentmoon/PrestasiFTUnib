@@ -17,6 +17,9 @@ class User extends Authenticatable
         return $this->hasMany(Pengajuan::class);
     }
 
+    public function prestasi (){
+        return $this->hasMany(Pengajuan::class);
+    }
 
     /**
      * The attributes that are mass assignable.

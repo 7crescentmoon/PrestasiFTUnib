@@ -10,7 +10,7 @@
             <!-- Content wrapper -->
             <div class="content-wrapper position-relative">
                 <!-- Content -->
-                <div class="container-xxl flex-grow-1 container-p-y ">
+                <div class="flex-grow-1 container-p-y ">
                     <!-- Layout -->
 
                     <div class="container-xxl flex-grow-1 container-p-y">
@@ -26,14 +26,14 @@
                                 <div class="card mb-4">
                                     <h5 class="card-header">Profile Details</h5>
                                     <!-- Account -->
-                                    <form action="{{ route('editProfile', $user->id, encrypt($user->id)) }}" method="POST"
+                                    <form action="{{ route('editProfile', $user_log->id, encrypt($user_log->id)) }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('patch')
                                         <div class="card-body">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                                @if ($user->profil)
-                                                <img src="{{ asset('storage/' . $user->profil) }}" alt="user-avatar"
+                                                @if ($user_log->profil)
+                                                <img src="{{ asset('storage/' . $user_log->profil) }}" alt="user-avatar"
                                                     class="d-block rounded-circle" height="100" width="100"
                                                     id="uploadedAvatar" />
                                                 @else
@@ -64,7 +64,7 @@
                                                     <label for="username" class="form-label">Nama Lengkap</label>
                                                     <input type="text" name="nama"
                                                         class="form-control @error('nama') is-invalid @enderror"
-                                                        value="{{ $user->nama }}" placeholder="Masukan nama lengkap   "
+                                                        value="{{ $user_log->nama }}" placeholder="Masukan nama lengkap   "
                                                         required>
                                                     @error('nama')
                                                         <div class="invalid-feedback">
@@ -81,7 +81,7 @@
                                                     @endif
                                                     <input type="text" name="npm_nip"
                                                         class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
-                                                        value="{{ $user->npm_nip }}" placeholder="contoh : G1A021082"
+                                                        value="{{ $user_log->npm_nip }}" placeholder="contoh : G1A021082"
                                                         required oninput="toUppercase(this)">
                                                     @error('npm_nip')
                                                         <div class="invalid-feedback">
@@ -94,7 +94,7 @@
                                                     <label for="username" class="form-label">Email</label>
                                                     <input type="text" name="email"
                                                         class="form-control @error('email') is-invalid @enderror"
-                                                        value="{{ $user->email }}" placeholder="Masukan Email anda"
+                                                        value="{{ $user_log->email }}" placeholder="Masukan Email anda"
                                                         required>
                                                     @error('email')
                                                         <div class="invalid-feedback">
@@ -109,10 +109,10 @@
                                                         class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                         required>
                                                         <option value="Laki-Laki"
-                                                            @if (old('jenis_kelamin') == 'Laki-Laki' || $user->jenis_kelamin === 'Laki-Laki') selected @endif>Laki-Laki
+                                                            @if (old('jenis_kelamin') == 'Laki-Laki' || $user_log->jenis_kelamin === 'Laki-Laki') selected @endif>Laki-Laki
                                                         </option>
                                                         <option value="Perempuan"
-                                                            @if (old('jenis_kelamin') == 'Perempuan' || $user->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
+                                                            @if (old('jenis_kelamin') == 'Perempuan' || $user_log->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
                                                         </option>
                                                     </select>
                                                     @error('jenis_kelamin')
@@ -125,7 +125,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="role" class="form-label">Role</label>
                                                     <input type="text" class="form-control" id="role" name="role"
-                                                        value="{{ $user->role }}" disabled />
+                                                        value="{{ $user_log->role }}" disabled />
                                                 </div>
                                             </div>
                                             <!-- /Account -->
