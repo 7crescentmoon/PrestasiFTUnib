@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Pengajuan;
 use Illuminate\Support\Facades\Auth;
 
 class LoadAdminlist extends Component
@@ -18,7 +19,7 @@ class LoadAdminlist extends Component
             "date" => Carbon::now('Asia/Jakarta'),
             "users" => User::whereNotIn('role', ['user'])
                             ->where('id', '!=', $userId)
-                            ->get()
+                            ->get(),
         ]);
     }
 }

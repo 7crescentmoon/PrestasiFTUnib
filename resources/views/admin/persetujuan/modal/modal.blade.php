@@ -1,4 +1,4 @@
-<form id="dataForm" method="POST" action="{{ route('dataPrestasi') }}">
+<form id="dataForm" method="POST" action="{{ route('dataPrestasi',$data) }}">
     @csrf
     <div class="modal fade" id="myModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -10,9 +10,8 @@
                 </div>
               
                 {{-- <input type="hidden" name="status" value="{{ $data->pengajuan->prestasi }}"> --}}
-                <input type="hidden" name="status" value="{{ $data->status }}">
                 <input type="hidden" name="user_id"  value="{{ intval($data->user->id) }}">
-                <input type="hidden" name="pengajuan_id"  value="{{ intval($data->id) }}">
+                {{-- <input type="hidden" name="pengajuan_id"  value="{{ intval($data->id) }}"> --}}
                 <div class="modal-body">
                     <div class="row">
                         <div class="col mb-3">
@@ -25,7 +24,6 @@
                         <div class="col mb-0">
                             <label for="jenis-prestasi" class="form-label fw-bold"> JENIS PRESTASI</label>
                             <select id="jenis-prestasi" class="form-select" name="jenis_prestasi">
-                                <option>Pilih jenis prestasi</option>
                                 <option value="akademik">Prestasi Akademik</option>
                                 <option value="non akademik">Prestasi Non Akademik</option>
                             </select>

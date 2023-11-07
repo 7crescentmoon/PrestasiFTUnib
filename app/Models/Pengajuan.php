@@ -13,11 +13,13 @@ class Pengajuan extends Model
         'id'
     ];
 
+ 
+
     public function user (){
         return $this->belongsTo(User::class);
     }
 
     public function prestasi (){
-        return $this->belongsToMany(Prestasi::class);
+        return $this->hasOne(Prestasi::class);
     }
 }

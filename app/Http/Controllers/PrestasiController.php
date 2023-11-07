@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Prestasi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Http\Requests\UpdatePrestasiRequest;
 
 class PrestasiController extends Controller
@@ -13,7 +16,16 @@ class PrestasiController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.prestasi.index');
+    }
+
+    Public function daftarPrestasiUser(){
+        $daftarPrestasi = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->get();
+        return view('user.daftarPrestasi',[
+            "user_log" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta'),
+            "datas" => $daftarPrestasi
+        ]);
     }
 
     /**
@@ -27,16 +39,19 @@ class PrestasiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request,$idPengajuan)
     {
+
         $user_id = $request->user_id;
-        $pengajuan_id = $request->pengajuan_id;
+        // $pengajuan_id = $request->pengajuan_id;
         Prestasi::create([
             "user_id" => $user_id,
-            "pengajuan_id" => $pengajuan_id,
+            "pengajuan_id" => $idPengajuan,
             "nama_prestasi" => $request->nama_prestasi,
             "jenis_prestasi" => $request->jenis_prestasi
         ]);
+        
+        Alert::toast('Data sudah setujui', 'success');
         return redirect(route('daftarPengajuan'));
     }
 

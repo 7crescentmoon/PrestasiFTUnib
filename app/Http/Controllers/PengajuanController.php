@@ -32,7 +32,7 @@ class PengajuanController extends Controller
             "user_log" => Auth::user(),
             "date" => Carbon::now('Asia/Jakarta'),
             "tahun" => $kisaranTahun,
-            "pengajuans" => $pengajuan
+            "pengajuans" => $pengajuan,
         ]);
     }
 
@@ -130,6 +130,7 @@ class PengajuanController extends Controller
             "user_log" => Auth::user(),
             "date" => Carbon::now('Asia/Jakarta'),
             "data" => $data,
+            "jumlah_pengajuan" => Pengajuan::where('status',0)->count()
         ]);
     }
 
@@ -152,8 +153,10 @@ class PengajuanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pengajuan $pengajuan)
+    public function destroy (Request $id)
     {
-        //
+        Pengajuan::destroy($id->id);
+        Alert::toast('Data berhasil dihapus', 'success');
+        return redirect(route('daftarPengajuan'));
     }
 }

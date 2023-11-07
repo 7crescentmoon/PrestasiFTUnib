@@ -13,19 +13,21 @@ class Prestasi extends Model
     protected $guarded = [
         'id'
     ];
+    protected $primaryKey = 'id';
+    // protected $with = ['user','pengajuan'];
 
     public function user (){
         return $this->belongsTo(User::class);
     }
 
     public function pengajuan (){
-        return $this->belongsToMany(Pengajuan::class);
+        return $this->belongsTo(Pengajuan::class);
     }
 
     protected static function booted(): void
     {
         static::created(function (Prestasi $prestasi) {
-            Pengajuan::where('user_id',$prestasi->user_id)->update(['status' => 1]);
+            Pengajuan::where('id',$prestasi->pengajuan_id)->update(['status' => true]);
         });
     }
 }

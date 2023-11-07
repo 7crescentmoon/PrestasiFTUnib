@@ -64,13 +64,14 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::controller(PengajuanController::class)->group(function () {
                     Route::get('/dashboard/admin/daftar-pengajuan', 'index')->name('daftarPengajuan');
                     Route::get('/dashboard/admin/data-pengajuan/{id}', 'show')->name('dataPengajuan');
+                    Route::get('/dashboard/admin/delete-pengajuan/{id}', 'destroy')->name('deletePengajuan');
 
                 });
 
                 // manajemen prestasi
                 Route::controller(PrestasiController::class)->group(function () {
-                    Route::post('/dashboard/admin/data-prestasi', 'store')->name('dataPrestasi');
-                    
+                    Route::get('/dashboard/admin/daftar-prestasi','index')->name('daftarPrestasi');
+                    Route::post('/dashboard/admin/data-prestasi/{data}', 'store')->name('dataPrestasi');
                 });
 
             });
@@ -92,8 +93,12 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::controller(PengajuanController::class)->group(function () {
                     Route::get('/dashboard/pengajuan-prestasi', 'create')->name('lamanPengajuan');
                     Route::post('/dashboard/pengajuan-prestasi', 'store')->name('kirimPengajuan');
-
+                    
                 });
+                Route::controller(PrestasiController::class)->group(function () {
+                    Route::get('/dashboard/daftar-prestasi', 'daftarPrestasiUser')->name('daftarPrestasiUser');
+                });
+
             });
 
         });
