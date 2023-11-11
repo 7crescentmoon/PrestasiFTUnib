@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Prestasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
@@ -19,9 +20,20 @@ class AdminController extends Controller
     public function index()
     {
         $this->authorize('accesAdminSuperadmin', User::class);
+
+        $laki_laki = Prestasi::whereHas('user', function($q){
+            $q->where('jenis_kelamin', 'Laki-Laki');
+        })->count();
+
+        $perempuan = Prestasi::whereHas('user', function($q){
+            $q->where('jenis_kelamin', 'Perempuan');
+        })->count();
+
         return view('admin.dashboard', [
             "user_log"=> Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta')
+            "date" => Carbon::now('Asia/Jakarta'),
+            "laki_laki" => $laki_laki,
+            "perempuan" => $perempuan
         ]);
     }
 
@@ -106,7 +118,7 @@ class AdminController extends Controller
         $decryptedId = decrypt($id);
         $user = User::find($decryptedId);
         $this->authorize('accesAdminSuperadmin', User::class);
-        return view('admin.settingProfile', [
+        return view('.admin.adminAction.settingProfile', [
             "user_log"=> $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta')
@@ -148,18 +160,26 @@ class AdminController extends Controller
     {
 
         $this->authorize('accesAdminSuperadmin', User::class);
-        return view('admin.userList'); 
+        return view('.admin.adminAction.userList',[
+            "user_log" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta'),
+        ]); 
     }
     public function adminList()
     {
         $this->authorize('accesAdminSuperadmin', User::class);
-        return view('admin.adminList'); 
+        return view('.admin.adminAction.adminList',[
+            "user_log" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta'),
+        ]); 
     }
 
     public function addUser()
     {
         $this->authorize('accesAdminSuperadmin', User::class);
-        return view('admin.addUser', [
+        return view('.admin.adminAction.addUser', [
             "user_log"=> Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
@@ -168,7 +188,7 @@ class AdminController extends Controller
     public function addAdmin()
     {
         $this->authorize('accesAdminSuperadmin', User::class);
-        return view('admin.addAdmin', [
+        return view('.admin.adminAction.addAdmin', [
             "user_log"=> Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
@@ -180,7 +200,7 @@ class AdminController extends Controller
         $decryptedId = decrypt($id);
         $this->authorize('accesAdminSuperadmin', User::class);
         $user = User::find($decryptedId);
-           return view('admin.editUser', [
+           return view('.admin.adminAction.editUser', [
             "user_id" => $user,
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),

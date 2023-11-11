@@ -7,6 +7,7 @@ use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PengajuanController extends Controller
@@ -17,6 +18,8 @@ class PengajuanController extends Controller
     public function index()
     {
         return view('admin.persetujuan.index', [
+            "user_log" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta'),
         ]);
     }
 
@@ -153,8 +156,17 @@ class PengajuanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy (Request $id)
+    public function destroy (Pengajuan $id)
     {
+        $path1 = $id->file_penghargaan;
+        Storage::delete($path1);
+        
+        $path2 = $id->file_dokumentasi_kegiatan;
+        $path3 = $id->file_surat_tugas;
+        if($id->file_dokumentasi_kegiatan != null && $id->file_surat_tugas != null){
+            Storage::delete($path2);
+            Storage::delete($path3);
+        }
         Pengajuan::destroy($id->id);
         Alert::toast('Data berhasil dihapus', 'success');
         return redirect(route('daftarPengajuan'));

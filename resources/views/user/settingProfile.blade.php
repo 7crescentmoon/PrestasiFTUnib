@@ -38,7 +38,7 @@
                                                         class="d-block rounded-circle" height="100" width="100"
                                                         id="uploadedAvatar" />
                                                     @else
-                                                    <img src="" alt="user-avatar"
+                                                    <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
                                                         class="d-block rounded-circle" height="100" width="100"
                                                         id="uploadedAvatar" />
                                                     @endif

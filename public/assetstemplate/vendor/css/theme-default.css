@@ -748,12 +748,10 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
   color: #696cff;
 }
 .bg-menu-theme .menu-inner > .menu-item.active > .menu-link {
-  color: #696cff;
-  background-color: rgba(105, 108, 255, 0.16) !important;
+  color: rgba(67, 89, 113, 3) ;
+  background-color: rgba(67, 89, 113, 0.3) !important;
 }
-.bg-menu-theme .menu-inner > .menu-item.active:before {
-  background: #696cff;
-}
+
 .bg-menu-theme .menu-sub > .menu-item > .menu-link:before {
   background-color: #b4bdc6 !important;
 }
@@ -781,7 +779,7 @@ html:not(.layout-menu-collapsed) .bg-menu-theme .menu-inner .menu-item .menu-lin
   color: #697a8d;
 }
 .bg-footer-theme .footer-link:hover, .bg-footer-theme .footer-link:focus {
-  color: #566a7f;
+  color: rgba(67, 89, 113, 3) ;
 }
 .bg-footer-theme .footer-link.disabled {
   color: #a1abb8 !important;

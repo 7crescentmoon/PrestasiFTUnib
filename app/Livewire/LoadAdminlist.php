@@ -5,21 +5,31 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Pengajuan;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 class LoadAdminlist extends Component
 {
+
+    public $search = '';
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public function render()
     {
         $userId = Auth::id();
-        return view('livewire.load-adminlist',[
+        $user = User::whereNotIn('role', ['user'])
+            ->where('id', '!=', $userId)
+            ->when($this->search, function ($query) {
+                $query->where('nama', 'like', '%' . $this->search . '%')
+                    ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
+                    ->orWhere('role', 'like', '%' . $this->search . '%');
+            })->orderBy('created_at', 'desc')->paginate(25);
+
+        return view('livewire.load-adminlist', [
             "user_log" => Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
-            "users" => User::whereNotIn('role', ['user'])
-                            ->where('id', '!=', $userId)
-                            ->get(),
+            "users" => $user
         ]);
     }
 }

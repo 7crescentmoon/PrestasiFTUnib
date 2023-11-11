@@ -11,7 +11,7 @@
             <div class="content-wrapper position-relative">
                 <!-- Content -->
 
-                <div class="container-xxl flex-grow-1 container-p-y ">
+                <div class="flex-grow-1 container-p-y ">
                     <!-- Layout -->
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
@@ -22,18 +22,19 @@
                                 </div>
                                 @if (auth()->user()->role == 'super admin')
                                     <div class="mb-3">
-                                        <a href="{{ route('addAdminView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Admin</a>
+                                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center "><i
+                                                class='bx bx-user-plus'></i> Tambah Pengguna</a>
                                     </div>
                                 @endif
-                                {{-- @if (session()->has(['success']))
+                                @if (session()->has(['success']))
                                     <div class="alert alert-success alert-dismissible" role="alert">
                                         {{ session('success') }}
                                         <button type="button" class="btn-close" data-bs-dismiss="alert"
                                             aria-label="Close"></button>
                                     </div>
-                                @endif --}}
+                                @endif
                                 <div class="card mb-4">
-                                    <h5 class="card-header">Tambah Pengguna</h5>
+                                    <h5 class="card-header">Tambah Admin</h5>
                                     <!-- Account -->
                                     <form action="{{ route('addUser') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
@@ -45,8 +46,8 @@
                                                         <label for="username" class="form-label">Nama Lengkap</label>
                                                         <input type="text" name="nama"
                                                             class="form-control @error('nama') is-invalid @enderror"
-                                                            value="{{ old('nama') }}"
-                                                            placeholder="Masukan nama lengkap   " required>
+                                                            value="{{ old('nama') }}" placeholder="Masukan nama lengkap"
+                                                            required>
                                                         @error('nama')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -56,9 +57,7 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
-                                                            <label for="npm_nip" class="form-label">NPM_nip / NIP</label>
-                                                        @else
-                                                            <label for="npm_nip" class="form-label">NPM_nip</label>
+                                                            <label for="npm_nip" class="form-label">NIP</label>
                                                         @endif
                                                         <input type="text" name="npm_nip"
                                                             class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
@@ -104,50 +103,23 @@
                                                     </div>
 
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="username" class="form-label">Jurusan</label>
-                                                        <select name="jurusan"
-                                                            class="form-control @error('jurusan') is-invalid @enderror">
-                                                            <option value="">Pilih Jurusan</option>
-                                                            <option value="Informatika"
-                                                                @if (old('jurusan') == 'Informatika') selected @endif>
-                                                                Informatika
-                                                            </option>
-                                                            <option value="Teknik Sipil"
-                                                                @if (old('jurusan') == 'Teknik Sipil') selected @endif>Teknik
-                                                                Sipil
-                                                            </option>
-                                                            <option value="Teknik Elektro"
-                                                                @if (old('jurusan') == 'Teknik Elektro') selected @endif>Teknik
-                                                                Elektro
-                                                            </option>
-                                                            <option value="Teknik Mesin"
-                                                                @if (old('jurusan') == 'Teknik Mesin') selected @endif>Teknik
-                                                                Mesin
-                                                            </option>
-                                                            <option value="Arsiterktur"
-                                                                @if (old('jurusan') == 'Arsitektur') selected @endif>
-                                                                Arsitektur
-                                                            </option>
-                                                            <option value="Sistem Informasi"
-                                                                @if (old('jurusan') == 'Sistem Informasi') selected @endif>Sistem
-                                                                Informasi</option>
-                                                        </select>
-                                                        @error('jurusan')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-
-                                                    <div class="mb-3 col-md-6">
                                                         <label for="username" class="form-label">Role</label>
                                                         <select name="role"
                                                             class="form-control @error('role') is-invalid @enderror"
-                                                            required disabled>
+                                                            required>
+                                                            <option value="">
+                                                                Pilih Role
                                                             </option>
-                                                            <option value="user"
-                                                                @if (old('role') == 'user') selected @endif>Mahasiswa
-                                                            </option>                                                  
+                                                            @if (auth()->user()->role === 'super admin')
+                                                                <option value="super admin"
+                                                                    @if (old('role') == 'super admin') selected @endif>
+                                                                    super admin
+                                                                </option>
+                                                                <option value="admin"
+                                                                    @if (old('role') == 'admin') selected @endif>
+                                                                    admin
+                                                                </option>
+                                                            @endif
                                                         </select>
                                                         @error('role')
                                                             <div class="invalid-feedback">
@@ -178,8 +150,7 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit"
-                                                        class="btn btn-danger deactivate-account">Tambah
+                                                    <button type="submit" class="btn btn-danger deactivate-account">Tambah
                                                         Pengguna</button>
                                                 </div>
                                             </div>
@@ -206,4 +177,5 @@
                 el.value = el.value.toUpperCase();
             }
         </script>
-    @endsection
+    </div>
+@endsection

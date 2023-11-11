@@ -231,7 +231,7 @@
                                     <table class="table mt-3">
                                         <thead>
                                             <tr class="">
-                                                <th>STASTUS</th>
+                                                <th>STATUS</th>
                                                 <th>NAMA KEGIATAN PERLOMBAAN</th>
                                                 <th>LOKASI LOMBA</th>
                                                 <th>TAHUN</th>

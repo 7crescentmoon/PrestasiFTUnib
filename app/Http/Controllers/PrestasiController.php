@@ -16,7 +16,11 @@ class PrestasiController extends Controller
      */
     public function index()
     {
-        return view('admin.prestasi.index');
+        return view('admin.prestasi.index',[
+            "user_log" => Auth::user(),
+            "title" => 'Profile Settings',
+            "date" => Carbon::now('Asia/Jakarta'),
+        ]);
     }
 
     Public function daftarPrestasiUser(){
@@ -58,15 +62,21 @@ class PrestasiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Prestasi $prestasi)
+    public function show($id)
     {
-        //
+        $decryptedId = decrypt($id);
+        $prestasi = Prestasi::find($decryptedId);
+        return view('admin.prestasi.show',[
+            "user_log" => Auth::user(),
+            "date" => Carbon::now('Asia/Jakarta'),
+            "prestasi" => $prestasi
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Prestasi $prestasi)
+    public function edit(request $request)
     {
         //
     }
@@ -82,8 +92,11 @@ class PrestasiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Prestasi $prestasi)
+    public function destroy($id)
     {
-        //
+        $decryptedId = decrypt($id);
+        Prestasi::destroy($decryptedId);
+        Alert::toast('Data berhasil dihapus', 'success');
+        return redirect(route('daftarPrestasi'));
     }
 }

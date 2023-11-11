@@ -33,11 +33,11 @@
                                         <div class="card-body">
                                             <div class="d-flex align-items-start align-items-sm-center gap-4">
                                                 @if ($user_log->profil)
-                                                <img src="{{ asset('storage/' . $user_log->profil) }}" alt="user-avatar"
+                                                <img src="{{ asset('storage/' . $user_log->profil) }}"  id="uploadedAvatar" alt="user-avatar"
                                                     class="d-block rounded-circle" height="100" width="100"
-                                                    id="uploadedAvatar" />
+                                                    />
                                                 @else
-                                                <img src="" alt="user-avatar"
+                                                <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
                                                     class="d-block rounded-circle" height="100" width="100"
                                                     id="uploadedAvatar" />
                                                 @endif
@@ -49,8 +49,8 @@
                                                             class="account-file-input" hidden
                                                             accept="image/png, image/jpeg" onchange="previewImage()"/>
                                                         </label>
-                                                        <label class="btn btn-danger me-2 mb-4" tabindex="0">
-                                                            <input type="checkbox" name="delete_profile_picture" class=""> Hapus Foto Profil
+                                                        <label class="btn btn-warning me-2 mb-4" tabindex="0">
+                                                            <input type="checkbox" name="delete_profile_picture" class="form-check-input"> Hapus Foto Profil
                                                         </label>
                                                     <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 1MB / 1024KB
                                                     </p>

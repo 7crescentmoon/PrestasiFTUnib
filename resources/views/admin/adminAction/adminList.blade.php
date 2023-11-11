@@ -2,10 +2,12 @@
 @section('content')
 <div class="layout-container">
     <!-- Layout container -->
-    {{-- style="background-color: #f5f5f9 --}}
     <div class="layout-page">
+        <!-- Navbar -->
         @include('partials.navbar')
-        @livewire('daftar-persetujuan')
+        <!-- / Navbar -->
+        @livewire('load-adminlist')    
     </div>
 </div>
+
 @endsection

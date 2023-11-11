@@ -34,9 +34,15 @@
                                     @method('put')
                                     <div class="card-body">
                                         <div class="d-flex align-items-start align-items-sm-center gap-4">
-                                            <img src="{{ asset('storage/' . $user_id->profil) }}" alt="user-avatar"
-                                                class="d-block rounded-circle" height="100" width="100"
-                                                id="uploadedAvatar" />
+                                                @if ($user_id->profil)
+                                                <img src="{{ asset('storage/' . $user_id->profil) }}" alt="user-avatar"
+                                                    class="d-block rounded-circle" height="100" width="100"
+                                                    id="uploadedAvatar" />
+                                                @else
+                                                <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
+                                                    class="d-block rounded-circle" height="100" width="100"
+                                                    id="uploadedAvatar" />
+                                                @endif
                                         </div>
                                     </div>
                                     <hr class="my-0" />

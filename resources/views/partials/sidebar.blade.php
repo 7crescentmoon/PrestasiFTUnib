@@ -2,9 +2,9 @@
  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
      <div class="text-center mt-2">
          <span>
-             <img src="/assets/img/unib.png" style="width: 4rem; height: 4rem;" alt="">
+             <img src="/assets/img/unib.png" style="width: 6rem; height: 6rem;" alt="">
          </span>
-         <div class="app-brand-text demo menu-text fw-bolder ms-2 d-block"> UniAchive.FT</div>
+         <div class="demo menu-text fw-bolder ms-2 d-block fs-3 mt-2"> UniAchive.FT</div>
 
          <a href="" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
              <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -14,19 +14,19 @@
      <ul class="menu-inner py-1">
          <!-- Dashboard -->
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
-             <li class="menu-item">
+             <li class="menu-item {{ \Request::route()->getName() == 'adminDashboard' ? 'active' : '' }}">
                  <a href="{{ route('adminDashboard') }}" class="menu-link">
                      <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                     <div data-i18n="Analytics">Dashboard</div>
+                     <div>Dashboard</div>
                  </a>
              </li>
          @endif
 
          @if (auth()->user()->role === 'user')
-             <li class="menu-item">
+             <li class="menu-item {{ \Request::route()->getName() == 'userDashboard' ? 'active' : '' }}">
                  <a href="{{ route('userDashboard') }}" class="menu-link">
                      <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                     <div data-i18n="Analytics">Dashboard</div>
+                     <div>Dashboard</div>
                  </a>
              </li>
          @endif
@@ -40,15 +40,19 @@
 
          {{-- admin --}}
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
-             <li class="menu-item">
+         @php
+                 $allowedRoutes = ['daftarPengajuan','dataPengajuan'];
+                 $isActive = in_array(\Request::route()->getName(), $allowedRoutes);
+             @endphp
+             <li class="menu-item {{ $isActive ? 'active' : '' }}">
                  <a href="{{ route('daftarPengajuan') }}" class="menu-link position-relative">
                      <i class='menu-icon bx bx-list-check'></i>
                      <div data-i18n="Layouts" class="">Persetujuan Prestasi
                          @if ($jumlah_pengajuan != 0)
-                             <span
-                                 class="position-absolute text-danger d-block justify-content-center align-items-center" style="top: 0;right: 1.5rem;">
-                                 <p>{{ $jumlah_pengajuan }}</p>
-                             </span>
+                             <div class="notif border rounded-circle bg-primary position-absolute p-1 rounded-circle d-flex justify-content-center align-items-center text-white"
+                                 style="top: -.5rem;right: -.3rem; width: 1.6rem; height: 1.5rem;">
+                                 {{ $jumlah_pengajuan }}
+                             </div>
                          @endif
                      </div>
                  </a>
@@ -56,28 +60,38 @@
          @endif
 
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
-             <li class="menu-item">
+         @php
+                 $allowedRoutes = ['userList', 'adminList', 'addUserView', 'addAdminView'];
+                 $isActive = in_array(\Request::route()->getName(), $allowedRoutes);
+             @endphp
+             <li class="menu-item {{ \Request::route()->getName() == 'daftarPrestasi' ? 'active' : '' }}">
                  <a href="{{ route('daftarPrestasi') }}" class="menu-link">
                      <i class='menu-icon bx bx-trophy'></i>
-                     <div data-i18n="Account Settings">Daftar Prestasi</div>
+                     <div>Daftar Prestasi</div>
                  </a>
 
              </li>
          @endif
 
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
-             <li class="menu-item">
+             @php
+                 $allowedRoutes = ['userList', 'adminList', 'addUserView', 'addAdminView'];
+                 $isActive = in_array(\Request::route()->getName(), $allowedRoutes);
+             @endphp
+             <li
+                 class="menu-item {{ $isActive ? 'active' : '' }}">
                  <a href="{{ route('userList') }}" class="menu-link">
                      <i class='menu-icon bx bxs-user-detail'></i>
-                     <div data-i18n="Authentications">Daftar Pengguna</div>
+                     <div>Daftar Pengguna</div>
                  </a>
 
              </li>
          @endif
 
+
          {{-- user --}}
          @if (auth()->user()->role === 'user')
-             <li class="menu-item ">
+             <li class="menu-item {{ \Request::route()->getName() == 'lamanPengajuan' ? 'active' : '' }}">
                  <a href="{{ route('lamanPengajuan') }}" class="menu-link">
                      <i class='menu-icon bx bx-notepad'></i>
                      <div data-i18n="Layouts">Pengajuan Prestasi</div>
@@ -86,7 +100,7 @@
          @endif
 
          @if (auth()->user()->role === 'user')
-             <li class="menu-item ">
+             <li class="menu-item {{ \Request::route()->getName() == 'daftarPrestasiUser' ? 'active' : '' }}">
                  <a href="{{ route('daftarPrestasiUser') }}" class="menu-link">
                      <i class='menu-icon bx bx-trophy'></i>
                      <div data-i18n="Layouts">Prestasi anda</div>

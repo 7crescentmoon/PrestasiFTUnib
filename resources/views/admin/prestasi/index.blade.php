@@ -1,4 +1,16 @@
 @extends('admin.layouts.main')
 @section('content')
-    @livewire('daftar-prestasi')
+<div class="layout-container">
+    <!-- Layout container -->
+    <div class="layout-page">
+        <!-- Navbar -->
+        @include('partials.navbar')
+        <!-- / Navbar -->
+        @livewire('daftar-prestasi')
+
+        <!-- Content wrapper -->
+        
+    </div>
+</div>
+
 @endsection

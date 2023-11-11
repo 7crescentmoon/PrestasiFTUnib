@@ -72,6 +72,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::controller(PrestasiController::class)->group(function () {
                     Route::get('/dashboard/admin/daftar-prestasi','index')->name('daftarPrestasi');
                     Route::post('/dashboard/admin/data-prestasi/{data}', 'store')->name('dataPrestasi');
+                    Route::get('/dashboard/admin/data-mahasiswa/{id}', 'show')->name('dataMahasiswa');
+                    Route::get('/dashboard/admin/delete-prestasi/{id}', 'destroy')->name('hapusPrestasi');
                 });
 
             });
