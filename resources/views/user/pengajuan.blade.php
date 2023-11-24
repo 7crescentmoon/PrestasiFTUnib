@@ -57,15 +57,6 @@
                                             @foreach ($tahun as $thn)
                                                 <option value="{{ $thn }}">{{ $thn }}</option>
                                             @endforeach
-                                            {{-- <option value="2022">2022</option>
-                                            <option value="2021">2021</option>
-                                            <option value="2020">2020</option>
-                                            <option value="2019">2019</option>
-                                            <option value="2018">2018</option>
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
-                                            <option value="2015">2015</option>
-                                            <option value="2014">2014</option> --}}
                                         </select>
                                         @error('tahun')
                                             <div class="invalid-feedback">
@@ -112,16 +103,6 @@
                                             </div>
                                         @enderror
                                     </div>
-
-                                    {{-- <div class="col-md-5">
-                                        <label for="jenis-prestasi" class="form-label fw-bold"><span
-                                                style="color: red">*</span> JENIS PRESTASI</label>
-                                        <select id="jenis-prestasi" class="form-select" name="jenis_prestasi">
-                                            <option>Pilih jenis prestasi</option>
-                                            <option value="1">Prestasi Akademik</option>
-                                            <option value="2">Prestasi Non Akademik</option>
-                                        </select>
-                                    </div> --}}
 
                                     <div class="col-md-3">
                                         <label for="tinggat-prestasi" class="form-label fw-bold"><span
@@ -249,9 +230,9 @@
                                                 <tr>
                                                     @if ($pengajuan->user_id === Auth::user()->id)
                                                         @if ($pengajuan->status == 1)
-                                                            <td class="text-success">Disetujui</td>
+                                                            <td class=" badge rounded-pill mx-2 my-2 bg-label-success">Disetujui</td>
                                                         @elseif($pengajuan->status == 0)
-                                                            <td class="text-danger">Menunggu</td>
+                                                            <td class=" badge rounded-pill mx-2 my-2 bg-label-danger">Menunggu</td>
                                                         @endif
                                                         </td>
                                                         <td>{{ $pengajuan->nama_kegiatan_perlombaan }}</td>
@@ -271,16 +252,11 @@
                                         </tbody>
                                     </table>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
     </div>
 @endsection

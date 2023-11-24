@@ -11,6 +11,8 @@ class LoadUserlist extends Component
 {
 
     public $search = '';
+    public $dataTable = '3';
+
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public function render()
@@ -23,7 +25,7 @@ class LoadUserlist extends Component
                 $query->where('nama', 'like', '%' . $this->search . '%')
                     ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
                     ->orWhere('jurusan', 'like', '%' . $this->search . '%');
-            })->orderBy('created_at', 'desc')->paginate(25);
+            })->orderBy('created_at', 'desc')->paginate($this->dataTable);
 
         return view('livewire.load-userlist', [
             "users" => $user

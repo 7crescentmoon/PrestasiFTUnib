@@ -15,6 +15,8 @@ class DaftarPrestasi extends Component
 
     public $search = '';
 
+    public $dataTable = '20';
+
     public $queryString = [
         'search' => ['except' => ''],
     ];
@@ -40,7 +42,7 @@ class DaftarPrestasi extends Component
                     });
 
             })
-            ->orderBy('created_at', 'desc')->paginate(15);
+            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
         return view('livewire.daftar-prestasi', [
             "data_prestasi" => $prestasi
         ]);

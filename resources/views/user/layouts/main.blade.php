@@ -52,7 +52,7 @@
 
   <body>
 
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar" style="background-color: #f5f5f9">
         @yield('content')
         @include('partials.sidebar')
     </div>

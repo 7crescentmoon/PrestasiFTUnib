@@ -24,7 +24,7 @@
                                                 aria-label="Close"></button>
                                         </div>
                                     @endif
-                                    <div class="card mb-4">
+                                    <div class="card mb-3">
                                         <h5 class="card-header">Profile Details</h5>
                                         <!-- Account -->
                                         <form action="{{ route('editProfileUser', $user_log->id) }}" method="POST"
@@ -50,8 +50,8 @@
                                                                 class="account-file-input" hidden
                                                                 accept="image/png, image/jpeg" onchange="previewImage()"/>
                                                             </label>
-                                                            <label class="btn btn-danger me-2 mb-4" tabindex="0">
-                                                                <input type="checkbox" name="delete_profile_picture" class=""> Hapus Foto Profil
+                                                            <label class="btn btn-warning me-2 mb-4" tabindex="0">
+                                                                <input type="checkbox" name="delete_profile_picture" class="form-check-input"> Hapus Foto Profil
                                                             </label>
                                                         <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 1MB / 1024KB
                                                         </p>

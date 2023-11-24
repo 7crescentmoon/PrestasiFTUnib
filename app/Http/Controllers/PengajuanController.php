@@ -19,7 +19,6 @@ class PengajuanController extends Controller
     {
         return view('admin.persetujuan.index', [
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
         ]);
     }
 
@@ -33,7 +32,6 @@ class PengajuanController extends Controller
         $kisaranTahun = array_reverse(range($tahunSekarang - 10, $tahunSekarang));
         return view('user.pengajuan', [
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
             "tahun" => $kisaranTahun,
             "pengajuans" => $pengajuan,
         ]);
@@ -131,7 +129,6 @@ class PengajuanController extends Controller
         $data = Pengajuan::with('User')->find($decryptedId);
         return view('admin.persetujuan.show', [
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
             "data" => $data,
             "jumlah_pengajuan" => Pengajuan::where('status',0)->count()
         ]);

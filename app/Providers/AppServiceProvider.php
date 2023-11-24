@@ -2,9 +2,10 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use App\Models\Pengajuan;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +26,11 @@ class AppServiceProvider extends ServiceProvider
             $jumlah_pengajuan = Pengajuan::where('status', 0 )->count(); // Ganti dengan metode atau logika bisnis yang sesuai
             $view->with('jumlah_pengajuan', $jumlah_pengajuan);
         });
+
+        View::composer('partials.navbar', function ($view) {
+            $carbon = Carbon::now('Asia/Jakarta'); // Ganti dengan metode atau logika bisnis yang sesuai
+            $view->with('carbon', $carbon);
+        });
+
     }
 }

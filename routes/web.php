@@ -23,7 +23,7 @@ use App\Models\Prestasi;
 
 Route::group(['middleware' => 'prevent-back-history'], function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('landingPage.welcome');
     });
 
     Route::controller(LoginController::class)->group(function () {
@@ -71,6 +71,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 // manajemen prestasi
                 Route::controller(PrestasiController::class)->group(function () {
                     Route::get('/dashboard/admin/daftar-prestasi','index')->name('daftarPrestasi');
+                    Route::get('/dashboard/admin/tambah-prestasi','create')->name('viewTambahPrestasi');
+                    Route::post('/dashboard/admin/tambah-prestasi','storePrestasi')->name('kirimPrestasi');
                     Route::post('/dashboard/admin/data-prestasi/{data}', 'store')->name('dataPrestasi');
                     Route::get('/dashboard/admin/data-mahasiswa/{id}', 'show')->name('dataMahasiswa');
                     Route::get('/dashboard/admin/delete-prestasi/{id}', 'destroy')->name('hapusPrestasi');
@@ -99,6 +101,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 });
                 Route::controller(PrestasiController::class)->group(function () {
                     Route::get('/dashboard/daftar-prestasi', 'daftarPrestasiUser')->name('daftarPrestasiUser');
+                    Route::get('/dashboard/data-prestasi/{id}', 'dataPrestasiMahasiswa')->name('dataPrestasiMahasiswa');
                 });
 
             });

@@ -26,21 +26,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card mb-4">
-                                <h5 class="card-header">Profile Details</h5>
+                                <h5 class="card-header">Profile pengguna</h5>
                                 <!-- Account -->
                                 <form action="{{ route('editUser', $user_id->id) }}" method="POST"
                                     enctype="multipart/form-data">
                                     @csrf
                                     @method('put')
                                     <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                        <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-center align-items-center">
                                                 @if ($user_id->profil)
                                                 <img src="{{ asset('storage/' . $user_id->profil) }}" alt="user-avatar"
-                                                    class="d-block rounded-circle" height="100" width="100"
+                                                    class="d-block rounded-circle border border-black" height="120" width="120"
                                                     id="uploadedAvatar" />
                                                 @else
                                                 <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
-                                                    class="d-block rounded-circle" height="100" width="100"
+                                                    class="d-block rounded-circle border border-black" height="120" width="120"
                                                     id="uploadedAvatar" />
                                                 @endif
                                         </div>
@@ -192,8 +192,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-danger deactivate-account">Edit
-                                                    Profile</button>
+                                                <button type="submit" class="btn btn-danger deactivate-account">Ubah Profil</button>
                                             </div>
                                         </div>
                                     </div>

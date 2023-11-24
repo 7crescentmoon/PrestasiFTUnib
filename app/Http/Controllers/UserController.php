@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengajuan;
 use App\Models\User;
+use App\Models\Prestasi;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,14 @@ class UserController extends Controller
      */
     public function index()
     {
+        $jumlahPrestasi = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->count();
+        $jumlahAkademik = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->where('jenis_prestasi','akademik')->count();
+        $jumlahNonAkademik = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->where('jenis_prestasi','non akademik')->count();
         return view('user.dashboard',[
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
+            "jumlah_prestasi" => $jumlahPrestasi,
+            "akademik" => $jumlahAkademik,
+            "nonakademik" => $jumlahNonAkademik
         ]);
     }
 

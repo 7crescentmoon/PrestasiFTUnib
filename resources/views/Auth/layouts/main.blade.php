@@ -46,7 +46,7 @@
     @livewireStyles
 </head>
 
-<body>
+<body style="background-color: #f5f5f9">
     <!-- Content -->
 
     <div class="container-xxl">

@@ -12,6 +12,9 @@ class LoadAdminlist extends Component
 {
 
     public $search = '';
+
+    public $dataTable = '20';
+
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public function render()
@@ -23,7 +26,7 @@ class LoadAdminlist extends Component
                 $query->where('nama', 'like', '%' . $this->search . '%')
                     ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
                     ->orWhere('role', 'like', '%' . $this->search . '%');
-            })->orderBy('created_at', 'desc')->paginate(25);
+            })->orderBy('created_at', 'desc')->paginate($this->dataTable);
 
         return view('livewire.load-adminlist', [
             "user_log" => Auth::user(),

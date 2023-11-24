@@ -19,15 +19,13 @@ class PrestasiController extends Controller
         return view('admin.prestasi.index',[
             "user_log" => Auth::user(),
             "title" => 'Profile Settings',
-            "date" => Carbon::now('Asia/Jakarta'),
         ]);
     }
 
     Public function daftarPrestasiUser(){
         $daftarPrestasi = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->get();
-        return view('user.daftarPrestasi',[
+        return view('user.prestasi.daftarPrestasi',[
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
             "datas" => $daftarPrestasi
         ]);
     }
@@ -37,7 +35,12 @@ class PrestasiController extends Controller
      */
     public function create()
     {
-        //
+        $tahunSekarang = Carbon::now()->year;
+        $kisaranTahun = array_reverse(range($tahunSekarang - 10, $tahunSekarang));
+        return view('admin.prestasi.create',[
+            "user_log" => Auth::user(),
+            "tahun" => $kisaranTahun,
+        ]);
     }
 
     /**
@@ -46,6 +49,11 @@ class PrestasiController extends Controller
     public function store(Request $request,$idPengajuan)
     {
 
+        $request->validate([
+            "nama_prestasi" => "required",
+            "jenis_prestasi" => "required"
+         
+        ]);
         $user_id = $request->user_id;
         // $pengajuan_id = $request->pengajuan_id;
         Prestasi::create([
@@ -59,6 +67,10 @@ class PrestasiController extends Controller
         return redirect(route('daftarPengajuan'));
     }
 
+    public function storePrestasi(Request $request){
+        
+    }
+
     /**
      * Display the specified resource.
      */
@@ -68,10 +80,20 @@ class PrestasiController extends Controller
         $prestasi = Prestasi::find($decryptedId);
         return view('admin.prestasi.show',[
             "user_log" => Auth::user(),
-            "date" => Carbon::now('Asia/Jakarta'),
             "prestasi" => $prestasi
         ]);
     }
+
+    public function dataPrestasiMahasiswa($id)
+    {
+        $decryptedId = decrypt($id);
+        $prestasi = Prestasi::find($decryptedId);
+        return view('user.prestasi.dataPrestasi',[
+            "user_log" => Auth::user(),
+            "prestasi" => $prestasi
+        ]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

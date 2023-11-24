@@ -14,6 +14,9 @@ class DaftarPersetujuan extends Component
 
     public $search = '';
 
+    public $dataTable = '4';
+
+
     public $queryString = [
         'search' => ['except' => ''],
     ];
@@ -32,7 +35,7 @@ class DaftarPersetujuan extends Component
                             ->orWhere('npm_nip', 'like', '%' . $this->search . '%');
                     });
                 })
-                ->orderBy('created_at', 'desc')->paginate(6);
+                ->orderBy('created_at', 'desc')->paginate($this->dataTable);
                     
         return view('livewire.daftar-persetujuan', [
             "datas" => $pengajuan,
@@ -41,6 +44,6 @@ class DaftarPersetujuan extends Component
 
     public function updatingSearch()
     {
-        $this->resetPage(); // Mereset halaman paginasi ketika input pencarian berubah
+        $this->resetPage(); 
     }
 }

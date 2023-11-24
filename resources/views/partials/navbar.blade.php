@@ -16,7 +16,7 @@
                         </div>
                     </div> --}}
         <!-- /Search -->
-        <p class="navbar-nav align-items-center">{{ $date->formatLocalized('%A %d %B %Y') }}</p>
+        <p class="navbar-nav align-items-center">{{ $carbon->formatLocalized('%A %d %B %Y') }}</p>
 
         {{-- <h5 class="navbar-nav align-items-center">{{ $title ?? "halo, Selamat datang" }} </h5> --}}
 
