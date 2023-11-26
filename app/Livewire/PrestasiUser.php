@@ -5,8 +5,9 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Prestasi;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
-class TableLandingPage extends Component
+class PrestasiUser extends Component
 {
     public $search = '';
 
@@ -19,7 +20,7 @@ class TableLandingPage extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-        $prestasi = Prestasi::with('user', 'pengajuan')
+        $daftarPrestasi = Prestasi::with('user', 'pengajuan')->where('user_id', Auth::user()->id)
             ->when($this->search, function ($query) {
 
                 $query->where('nama_prestasi', 'like', '%' . $this->search . '%')
@@ -35,13 +36,11 @@ class TableLandingPage extends Component
                             ->orWhere('juara', 'like', '%' . $this->search . '%');
 
                     });
-            })
-            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
-        return view('livewire.table-landing-page', [
-            "datas" => $prestasi,
-            "counters" => Prestasi::count()
+
+            })->orderBy('created_at', 'desc')->paginate($this->dataTable);
+        return view('livewire.prestasi-user', [
+            "datas" => $daftarPrestasi,
+            "counters" => Prestasi::where('user_id', Auth::user()->id)->count()
         ]);
     }
-
-
 }

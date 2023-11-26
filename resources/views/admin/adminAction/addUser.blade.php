@@ -8,36 +8,26 @@
             <!-- / Navbar -->
 
             <!-- Content wrapper -->
-            <div class="content-wrapper position-relative">
-                <!-- Content -->
-
-                <div class="flex-grow-1 container-p-y ">
-                    <!-- Layout -->
+            <div class="content-wrapper">
+                <div class="flex-grow-1">
                     <div class="container-xxl flex-grow-1 container-p-y">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="mb-3">
-                                    <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
-                                            class='bx bx-arrow-back'></i></a>
-                                </div>
-                                @if (auth()->user()->role == 'super admin')
-                                    <div class="mb-3">
-                                        <a href="{{ route('addAdminView') }}" class="btn btn-success text-center "><i class='bx bx-user-plus' ></i> Tambah Admin</a>
+                                <div class="card">
+                                    <div class="container mt-3 d-flex justify-content-between">
+                                        <div class="">
+                                            <h3>
+                                                <a href="{{ route('addUser') }}" class="">Tambah pengguna</a>
+                                                @if (auth()->user()->role == 'super admin')
+                                                    <a href="{{ route('addAdminView') }}" class="text-secondary">/ Tambah
+                                                        Admin</a>
+                                                @endif
+                                            </h3>
+                                        </div>
                                     </div>
-                                @endif
-                                {{-- @if (session()->has(['success']))
-                                    <div class="alert alert-success alert-dismissible" role="alert">
-                                        {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif --}}
-                                <div class="card mb-4">
-                                    <h5 class="card-header">Tambah Pengguna</h5>
                                     <!-- Account -->
                                     <form action="{{ route('addUser') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <hr class="my-0" />
                                         <div class="card-body">
                                             <form id="addUser" method="POST" onsubmit="return false">
                                                 <div class="row">
@@ -56,9 +46,9 @@
 
                                                     <div class="mb-3 col-md-6">
                                                         @if (auth()->user()->role === 'super admin')
-                                                            <label for="npm_nip" class="form-label">NPM_nip / NIP</label>
+                                                            <label for="npm_nip" class="form-label">NPM</label>
                                                         @else
-                                                            <label for="npm_nip" class="form-label">NPM_nip</label>
+                                                            <label for="npm_nip" class="form-label">NPM</label>
                                                         @endif
                                                         <input type="text" name="npm_nip"
                                                             class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
@@ -146,8 +136,9 @@
                                                             required disabled>
                                                             </option>
                                                             <option value="user"
-                                                                @if (old('role') == 'user') selected @endif>Mahasiswa
-                                                            </option>                                                  
+                                                                @if (old('role') == 'user') selected @endif>
+                                                                Mahasiswa
+                                                            </option>
                                                         </select>
                                                         @error('role')
                                                             <div class="invalid-feedback">
@@ -178,9 +169,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit"
-                                                        class="btn btn-danger deactivate-account">Tambah
-                                                        Pengguna</button>
+                                                    <button type="submit" class="btn btn-primary deactivate-account">Tambah
+                                                    </button>   
                                                 </div>
                                             </div>
                                         </div>

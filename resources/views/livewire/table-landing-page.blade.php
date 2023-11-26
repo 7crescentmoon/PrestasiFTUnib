@@ -1,21 +1,10 @@
 <div class="content-wrapper mt-2 container">
-    <div class="spinner-border text-secondary position-absolute top-50 start-50 z-3" wire:loading role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
+    @include('partials.loading')
     <div class="container-xxl flex-grow-1  ">
         <!-- Layout -->
       
             <div class=" mb-3 d-flex justify-content-between">
-                <div class="d-flex">
-                    <label for="jenis-prestasi" class="m-auto me-2">lihat</label>
-                    <select id="jenis-prestasi" class="form-select" name="jenis_prestasi" wire:model.live='dataTable' required>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="50">50</option>
-                    </select>
-                </div>
+                @include('partials.dataTable')
                 <div class="d-flex gap-2 align-items-center nav-item p-1 rounded">
                     <i class="bx bx-search fs-4 lh-0"></i>
                     <input type="text" class="form-control border-0 shadow-none text-black" placeholder="Search..."
@@ -40,7 +29,7 @@
                             <th class="fw-bold fs-6">juara</th>
                         </tr>
                     </thead>
-                    @foreach ($data_prestasi as $data)
+                    @foreach ($datas as $data)
                         @php
                             $isEmpty = true;
                         @endphp
@@ -64,8 +53,8 @@
             </div>
       
     </div>
-    <div class="paginate d-flex justify-content-center align-items-center">
-        {{ $data_prestasi->links() }}
-    </div>
+    <div class="paginate">
+        @include('partials.paginate')
+     </div>
     {{-- </div> --}}
 </div>

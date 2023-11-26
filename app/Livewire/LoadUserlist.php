@@ -11,7 +11,7 @@ class LoadUserlist extends Component
 {
 
     public $search = '';
-    public $dataTable = '3';
+    public $dataTable = '10';
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -28,7 +28,8 @@ class LoadUserlist extends Component
             })->orderBy('created_at', 'desc')->paginate($this->dataTable);
 
         return view('livewire.load-userlist', [
-            "users" => $user
+            "datas" => $user,
+            "counters" => User::count()
         ]);
     }
 }

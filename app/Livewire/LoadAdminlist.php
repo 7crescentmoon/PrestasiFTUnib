@@ -13,7 +13,7 @@ class LoadAdminlist extends Component
 
     public $search = '';
 
-    public $dataTable = '20';
+    public $dataTable = '10';
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -32,7 +32,8 @@ class LoadAdminlist extends Component
             "user_log" => Auth::user(),
             "title" => 'Profile Settings',
             "date" => Carbon::now('Asia/Jakarta'),
-            "users" => $user
+            "datas" => $user,
+            "counters" => User::count()
         ]);
     }
 }

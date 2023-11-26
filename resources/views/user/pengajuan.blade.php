@@ -206,52 +206,58 @@
                                 </form>
                             </div>
                             <div class="card">
-                                <div class="table-responsive text-nowrap">
-                                    <h4 class="text-center mt-3">Daftar Pengajuan</h4>
-                                    <div class="myline" style="height: 1px; border-top: 1px solid #ccc "></div>
-                                    <table class="table mt-3">
-                                        <thead>
-                                            <tr class="">
-                                                <th>STATUS</th>
-                                                <th>NAMA KEGIATAN PERLOMBAAN</th>
-                                                <th>LOKASI LOMBA</th>
-                                                <th>TAHUN</th>
-                                                <th>TANGGAL MULAI</th>
-                                                <th>TANGGAL SELESAI</th>
-                                                <th>JUARA</th>
-                                                <th>TINGKAT PRESTASI</th>
-                                                <th>JUMLAH PESERTA</th>
-                                                <th>NAMA PENYELENGGARA</th>
-                                                <th>URL PENYELENGGARA</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="table-border-bottom-0" wire:loading.remove>
-                                            @foreach ($pengajuans as $pengajuan)
-                                                <tr>
-                                                    @if ($pengajuan->user_id === Auth::user()->id)
-                                                        @if ($pengajuan->status == 1)
-                                                            <td class=" badge rounded-pill mx-2 my-2 bg-label-success">Disetujui</td>
-                                                        @elseif($pengajuan->status == 0)
-                                                            <td class=" badge rounded-pill mx-2 my-2 bg-label-danger">Menunggu</td>
-                                                        @endif
-                                                        </td>
-                                                        <td>{{ $pengajuan->nama_kegiatan_perlombaan }}</td>
-                                                        <td>{{ $pengajuan->lokasi_lomba }}</td>
-                                                        <td>{{ $pengajuan->tahun }}</td>
-                                                        <td>{{ $pengajuan->tanggal_mulai }}</td>
-                                                        <td>{{ $pengajuan->tanggal_selesai }}</td>
-                                                        <td>{{ $pengajuan->juara }}</td>
-                                                        <td>{{ $pengajuan->tingkat_prestasi }}</td>
-                                                        <td>{{ $pengajuan->jumlah_Peserta }}</td>
-                                                        <td>{{ $pengajuan->nama_penyelenggara }}</td>
-                                                        <td>{{ $pengajuan->url_penyelenggara }}</td>
-
+                                @php
+                                    $isEmpty = false;
+                                @endphp
+                                <div class="container my-2">
+                                    <h4 class="text-center mt-2 rounded">Daftar Pengajuan</h4>
+                                    <div class="table-responsive text-nowrap rounded mt-2">
+                                        <table class="table">
+                                            <thead class="table-secondary">
+                                                <tr class="" style="color: rgb(23, 23, 23)">
+                                                    <th class="fw-bold">STATUS</th>
+                                                    <th class="fw-bold">NAMA KEGIATAN PERLOMBAAN</th>
+                                                    <th class="fw-bold">TAHUN</th>
+                                                    <th class="fw-bold">JUARA</th>
+                                                    <th class="fw-bold">TINGKAT PRESTASI</th>
+                                                    <th class="fw-bold">JUMLAH PESERTA</th>
+                                                    <th class="fw-bold">NAMA PENYELENGGARA</th>
                                                 </tr>
-                                            @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody class="table-border-bottom-0" wire:loading.remove>
+                                                @foreach ($pengajuans as $pengajuan)
+                                                    @php
+                                                        $isEmpty = true;
+                                                    @endphp
+                                                    <tr>
+                                                        @if ($pengajuan->user_id === Auth::user()->id)
+                                                            @if ($pengajuan->status == 1)
+                                                                <td class=" badge rounded-pill mx-2 my-2 bg-label-success">
+                                                                    Disetujui</td>
+                                                            @elseif($pengajuan->status == 0)
+                                                                <td class=" badge rounded-pill mx-2 my-2 bg-label-danger">
+                                                                    Menunggu</td>
+                                                            @endif
+                                                            </td>
+                                                            <td>{{ $pengajuan->nama_kegiatan_perlombaan }}</td>
+                                                            <td>{{ $pengajuan->tahun }}</td>
+                                                            <td>{{ $pengajuan->juara }}</td>
+                                                            <td>{{ $pengajuan->tingkat_prestasi }}</td>
+                                                            <td>{{ $pengajuan->jumlah_Peserta }}</td>
+                                                            <td>{{ $pengajuan->nama_penyelenggara }}</td>
+                                                    </tr>
+                                                @endif
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
+                                @if (!$isEmpty)
+                                    <div class="text-secondary w-100 d-flex justify-content-center align-items-center mt-2"
+                                        style="opacity: 75%">
+                                        <h4>--Data Pengajuan kosong--</h4>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

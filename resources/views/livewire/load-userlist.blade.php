@@ -1,8 +1,5 @@
 <div class="content-wrapper">
-    <div class="spinner-border text-secondary position-absolute top-50 start-50 z-3" wire:loading role="status">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-
+    @include('partials.loading')
     <div class="container-xxl mt-4 flex-grow-1">
         <div class="card">
             <div class="container mt-3 d-flex justify-content-between">
@@ -57,27 +54,16 @@
             </div>
 
             <div class="mt-2 mb-3 d-flex justify-content-between container">
-                <div class="d-flex">
-                    <label for="jenis-prestasi" class="m-auto me-2">lihat</label>
-                    <select id="jenis-prestasi" class="form-select" name="jenis_prestasi" wire:model.live='dataTable'
-                        required>
-                        <option value="10" selected >10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="40">40</option>
-                        <option value="">Semua</option>
-                    </select>
-                </div>
+                @include('partials.dataTable')
 
                 <div class="d-flex gap-2 align-items-center nav-item p-1 rounded" style="background-color: #e1e1e1">
                     <i class="bx bx-search fs-4 lh-0"></i>
                     <input type="text" class="form-control border-0 shadow-none text-black" placeholder="Search..."
                         wire:model.live='search' class="bg-white" />
                 </div>
-
             </div>
             <div class="container my-2 ">
-                <div class="table-responsive text-nowrap rounded table-white">
+                <div class="table-responsive text-nowrap rounded  mb-3">
                     <table class="table table table-striped">
                         <thead class="table-secondary">
                             <tr style="color: rgb(23, 23, 23)8)">
@@ -91,16 +77,16 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0" wire:loading.remove>
-                            @foreach ($users as $user)
+                            @foreach ($datas as $data)
                                 <tr>
                                     <td class="text-secondary">{{ $loop->iteration }}</td>
                                     <td class="text-uppercase">
-                                        <strong>{{ $user->nama }}</strong>
+                                        <strong>{{ $data->nama }}</strong>
                                     </td>
-                                    <td>{{ $user->npm_nip }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->jurusan }}</td>
-                                    <td>{{ $user->jenis_kelamin }}</td>
+                                    <td>{{ $data->npm_nip }}</td>
+                                    <td>{{ $data->email }}</td>
+                                    <td>{{ $data->jurusan }}</td>
+                                    <td>{{ $data->jenis_kelamin }}</td>
                                     <td>
 
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
@@ -109,11 +95,11 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('editUserView', encrypt($user->id)) }}"><i
+                                                href="{{ route('editUserView', encrypt($data->id)) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
                                             <a class="dropdown-item" onclick="return confirm('Hapus Data Pengguna ?')"
-                                                href="{{ route('deleteUser', ['id' => $user->id]) }}"><i
+                                                href="{{ route('deleteUser', ['id' => $data->id]) }}"><i
                                                     class="bx bx-trash me-1"></i> Delete</a>
                                         </div>
                                     </td>
@@ -122,9 +108,9 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="paginate d-flex justify-content-end align-items-center mt-3">
-                    {{ $users->links() }}
-                </div>
+                <div class="paginate">
+                    @include('partials.paginate')
+                 </div>
             </div>
 
         </div>

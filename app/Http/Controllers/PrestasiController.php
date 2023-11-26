@@ -23,10 +23,8 @@ class PrestasiController extends Controller
     }
 
     Public function daftarPrestasiUser(){
-        $daftarPrestasi = Prestasi::with('user','pengajuan')->where('user_id',Auth::user()->id)->get();
         return view('user.prestasi.daftarPrestasi',[
             "user_log" => Auth::user(),
-            "datas" => $daftarPrestasi
         ]);
     }
 

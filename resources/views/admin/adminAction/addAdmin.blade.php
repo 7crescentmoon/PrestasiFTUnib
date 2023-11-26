@@ -13,32 +13,24 @@
 
                 <div class="flex-grow-1 container-p-y ">
                     <!-- Layout -->
-                    <div class="container-xxl flex-grow-1 container-p-y">
+                    <div class="container-xxl flex-grow-1">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="mb-3">
-                                    <a href="{{ route('userList') }}" class="btn btn-light text-center"><i
-                                            class='bx bx-arrow-back'></i></a>
-                                </div>
-                                @if (auth()->user()->role == 'super admin')
-                                    <div class="mb-3">
-                                        <a href="{{ route('addUserView') }}" class="btn btn-success text-center "><i
-                                                class='bx bx-user-plus'></i> Tambah Pengguna</a>
+                                <div class="card">
+                                    <div class="container mt-3 d-flex justify-content-between">
+                                        <div class="">
+                                            <h3>
+                                                <a href="{{ route('addUserView') }}" class="text-secondary">Tambah
+                                                    pengguna /</a>
+                                                @if (auth()->user()->role == 'super admin')
+                                                    <a href="{{ route('addAdminView') }}" class="">Tambah
+                                                        Admin</a>
+                                                @endif
+                                            </h3>
+                                        </div>
                                     </div>
-                                @endif
-                                @if (session()->has(['success']))
-                                    <div class="alert alert-success alert-dismissible" role="alert">
-                                        {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                            aria-label="Close"></button>
-                                    </div>
-                                @endif
-                                <div class="card mb-4">
-                                    <h5 class="card-header">Tambah Admin</h5>
-                                    <!-- Account -->
                                     <form action="{{ route('addUser') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <hr class="my-0" />
                                         <div class="card-body">
                                             <form id="addUser" method="POST" onsubmit="return false">
                                                 <div class="row">
@@ -61,7 +53,7 @@
                                                         @endif
                                                         <input type="text" name="npm_nip"
                                                             class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
-                                                            value="{{ old('npm_nip') }}" placeholder="contoh : G1A021082"
+                                                            value="{{ old('npm_nip') }}" placeholder="Masukan Nip"
                                                             required oninput="toUppercase(this)">
                                                         @error('npm_nip')
                                                             <div class="invalid-feedback">
@@ -150,8 +142,8 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-danger deactivate-account">Tambah
-                                                        Pengguna</button>
+                                                    <button type="submit" class="btn btn-primary deactivate-account">Tambah
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>

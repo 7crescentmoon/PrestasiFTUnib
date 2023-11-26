@@ -14,7 +14,7 @@ class DaftarPersetujuan extends Component
 
     public $search = '';
 
-    public $dataTable = '4';
+    public $dataTable = '10';
 
 
     public $queryString = [
@@ -26,7 +26,7 @@ class DaftarPersetujuan extends Component
     protected $paginationTheme = 'bootstrap';
     public function render()
     {
-                $pengajuan = Pengajuan::with('user')
+                $pengajuan = Pengajuan::with('user')->where('status', 0 )
                 ->when($this->search, function ($query) {
                     $query->where('nama_kegiatan_perlombaan', 'like', '%' . $this->search . '%')
                             ->orWhere('created_at', 'like', '%' . $this->search . '%')
@@ -39,6 +39,8 @@ class DaftarPersetujuan extends Component
                     
         return view('livewire.daftar-persetujuan', [
             "datas" => $pengajuan,
+            "counters" => Pengajuan::count(),
+            'jumlah_pengajuan' => Pengajuan::where('status', 0 )->count()
         ]);
     }
 
