@@ -33,7 +33,7 @@ class DaftarPersetujuan extends Component
                     ->orWhereHas('user', function ($query) {
                         $query->where('nama', 'like', '%' . $this->search . '%')
                             ->orWhere('npm_nip', 'like', '%' . $this->search . '%');
-                    });
+                    })->where('status', 0 );
                 })
                 ->orderBy('created_at', 'desc')->paginate($this->dataTable);
                     

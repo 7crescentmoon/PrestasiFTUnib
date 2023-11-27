@@ -11,7 +11,7 @@ class LoadUserlist extends Component
 {
 
     public $search = '';
-    public $dataTable = '10';
+    public $dataTable = '2';
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';

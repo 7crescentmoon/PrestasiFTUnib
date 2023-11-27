@@ -8,7 +8,7 @@
                     <a href="{{ route('adminList') }}" class=" ">Daftar Admin</a>
                 </h3>
                 <div class="">
-                    <a href="{{ route('addUserView') }}" class="btn btn-success text-center">Tambah</a>
+                    <a href="{{ route('addUserView') }}" class="btn btn-success text-center me-2">Tambah</a>
                     <button type="button" class="btn btn-secondary text-center" data-bs-toggle="dropdown">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                             style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
@@ -45,8 +45,6 @@
                             </svg> Cetak</a>
                     </div>
                 </div>
-
-
             </div>
 
 
@@ -75,9 +73,9 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                            @foreach ($datas as $data)
+                            @foreach ($datas as $key => $data)
                                 <tr>
-                                    <td class="text-secondary">{{ $loop->iteration }}</td>
+                                    <td class="text-secondary">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
                                     <td class="text-uppercase">
                                         <strong>{{ $data->nama }}</strong>
                                     </td>

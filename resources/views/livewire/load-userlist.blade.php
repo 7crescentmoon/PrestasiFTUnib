@@ -77,9 +77,9 @@
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0" wire:loading.remove>
-                            @foreach ($datas as $data)
+                            @foreach ($datas as $key => $data)
                                 <tr>
-                                    <td class="text-secondary">{{ $loop->iteration }}</td>
+                                    <td class="text-secondary">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
                                     <td class="text-uppercase">
                                         <strong>{{ $data->nama }}</strong>
                                     </td>

@@ -16,7 +16,8 @@ class DaftarPrestasi extends Component
     public $search = '';
 
     public $dataTable = '10';
-
+    
+    public $jenisPrestasi = '';
     public $queryString = [
         'search' => ['except' => ''],
     ];
@@ -42,7 +43,12 @@ class DaftarPrestasi extends Component
                     });
 
             })
+            ->when($this->jenisPrestasi, function ($query) {
+                $query->where('jenis_prestasi', $this->jenisPrestasi);
+            })
             ->orderBy('created_at', 'desc')->paginate($this->dataTable);
+
+
         return view('livewire.daftar-prestasi', [
             "datas" => $prestasi,
             "counters" => Prestasi::count()

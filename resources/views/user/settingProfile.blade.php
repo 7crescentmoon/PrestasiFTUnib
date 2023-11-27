@@ -14,7 +14,7 @@
                     <!-- Layout -->
                     <div class="">
 
-                        <div class="container-xxl flex-grow-1 container-p-y">
+                        <div class="container-xxl flex-grow-1">
                             <div class="row">
                                 <div class="col-md-12">
                                     @if (session()->has(['success']))
