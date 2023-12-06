@@ -3,9 +3,9 @@
     <div class="container-xxl mt-4 flex-grow-1  ">
         <div class="card">
             <div class="container mt-3 d-flex justify-content-between">
-                <h3 class="">
+                <h3 >
                     <a href="{{ route('userList') }}" class=" text-secondary ">Daftar Pengguna / </a>
-                    <a href="{{ route('adminList') }}" class=" ">Daftar Admin</a>
+                    <a href="{{ route('adminList') }}" class="">Daftar Admin</a>
                 </h3>
                 <div class="">
                     <a href="{{ route('addUserView') }}" class="btn btn-success text-center me-2">Tambah</a>
@@ -15,7 +15,11 @@
                             <path d="m12 16 4-5h-3V4h-2v7H8z"></path>
                             <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
                         </svg>
+
+                        unduh
+
                     </button>
+
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href=""><svg xmlns="http://www.w3.org/2000/svg" width="24"
                                 height="24" viewBox="0 0 24 24"
@@ -36,26 +40,53 @@
                                     d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM5.884 6.68 8 9.219l2.116-2.54a.5.5 0 1 1 .768.641L8.651 10l2.233 2.68a.5.5 0 0 1-.768.64L8 10.781l-2.116 2.54a.5.5 0 0 1-.768-.641L7.349 10 5.116 7.32a.5.5 0 1 1 .768-.64z" />
                             </svg></i> unduh format excel</a>
 
-                        <a class="dropdown-item" href=""><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                height="24" viewBox="0 0 24 24"
-                                style="fill: rgba(0, 0, 0, .5);transform: ;msFilter:;">
-                                <path
-                                    d="M19 7h-1V2H6v5H5a3 3 0 0 0-3 3v7a2 2 0 0 0 2 2h2v3h12v-3h2a2 2 0 0 0 2-2v-7a3 3 0 0 0-3-3zM8 4h8v3H8V4zm0 16v-4h8v4H8zm11-8h-4v-2h4v2z">
-                                </path>
-                            </svg> Cetak</a>
+                        @if ($search)
+                            <p class="dropdown-item" wire:click="printBySearch" target="_blank"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, .5);transform: ;msFilter:;">
+                                    <path
+                                        d="M19 7h-1V2H6v5H5a3 3 0 0 0-3 3v7a2 2 0 0 0 2 2h2v3h12v-3h2a2 2 0 0 0 2-2v-7a3 3 0 0 0-3-3zM8 4h8v3H8V4zm0 16v-4h8v4H8zm11-8h-4v-2h4v2z">
+                                    </path>
+                                </svg> Cetak</p>
+                        @else
+                            <p class="dropdown-item" wire:click="print" target="_blank"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    style="fill: rgba(0, 0, 0, .5);transform: ;msFilter:;">
+                                    <path
+                                        d="M19 7h-1V2H6v5H5a3 3 0 0 0-3 3v7a2 2 0 0 0 2 2h2v3h12v-3h2a2 2 0 0 0 2-2v-7a3 3 0 0 0-3-3zM8 4h8v3H8V4zm0 16v-4h8v4H8zm11-8h-4v-2h4v2z">
+                                    </path>
+                                </svg> Cetak</p>
+                        @endif
                     </div>
                 </div>
             </div>
 
 
-            <div class="mt-2 mb-3 d-flex justify-content-between container">
+            <div
+                class="mt-2 mb-3 d-flex  {{ !$search ? 'justify-content-between' : ' justify-content-end' }} container">
+                @if (!$search)
+                    @include('partials.dataTable')
+                @endif
 
-                @include('partials.dataTable')
-
-                <div class="d-flex gap-2 align-items-center nav-item p-1 rounded" style="background-color: #e1e1e1">
-                    <i class="bx bx-search fs-4 lh-0"></i>
-                    <input type="text" class="form-control border-0 shadow-none text-black" placeholder="Search..."
-                        wire:model.live='search' class="bg-white" />
+                <div class="d-flex gap-3">
+                    @if (!$search)
+                        <div class="d-flex">
+                            <select class="select2 form-select" wire:model.live='role'>
+                                <option value="">Role</option>
+                                <option value="admin">
+                                    admin
+                                </option>
+                                <option value="super admin">
+                                    Super Admin
+                                </option>
+                            </select>
+                        </div>
+                    @endif
+                    <div class="d-flex gap-2 align-items-center nav-item p-1 rounded" style="background-color: #e1e1e1">
+                        <i class="bx bx-search fs-4 lh-0"></i>
+                        <input type="text" class="form-control border-0 shadow-none text-black"
+                            placeholder="Search..." wire:model.live='search' class="bg-white" />
+                    </div>
                 </div>
             </div>
             <div class="container my-2">
@@ -75,7 +106,8 @@
                         <tbody class="table-border-bottom-0">
                             @foreach ($datas as $key => $data)
                                 <tr>
-                                    <td class="text-secondary">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
+                                    <td class="text-secondary">
+                                        {{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
                                     <td class="text-uppercase">
                                         <strong>{{ $data->nama }}</strong>
                                     </td>
@@ -107,7 +139,7 @@
                 </div>
                 <div class="paginate">
                     @include('partials.paginate')
-                 </div>
+                </div>
             </div>
         </div>
     </div>

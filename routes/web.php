@@ -1,14 +1,18 @@
 <?php
 
-use App\Http\Controllers\AdminProfileController;
-use App\Http\Controllers\PengajuanController;
+use Livewire\Livewire;
+use App\Models\Prestasi;
+use App\Http\Livewire\LoadUserlist;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RegisterController;
-use App\Models\Prestasi;
+use App\Http\Controllers\PengajuanController;
+use App\Http\Controllers\PrintDataController;
+use App\Http\Controllers\AdminProfileController;
+use App\Livewire\LoadUserlist as LivewireLoadUserlist;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +54,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::patch('/dashboard/admin/edit-profile/{id}', 'editProfile')->name('editProfile');
 
                 // manajemen user
-                Route::get('/dashboard/admin/user-list', 'userList')->name('userList');               
+                Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
                 Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
                 Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
                 Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
@@ -70,13 +74,29 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
 
                 // manajemen prestasi
                 Route::controller(PrestasiController::class)->group(function () {
-                    Route::get('/dashboard/admin/daftar-prestasi','index')->name('daftarPrestasi');
-                    Route::get('/dashboard/admin/tambah-prestasi','create')->name('viewTambahPrestasi');
-                    Route::post('/dashboard/admin/tambah-prestasi','storePrestasi')->name('kirimPrestasi');
+                    Route::get('/dashboard/admin/daftar-prestasi', 'index')->name('daftarPrestasi');
+                    Route::get('/dashboard/admin/tambah-prestasi', 'create')->name('viewTambahPrestasi');
+                    Route::post('/dashboard/admin/tambah-prestasi', 'storePrestasi')->name('kirimPrestasi');
                     Route::post('/dashboard/admin/data-prestasi/{data}', 'store')->name('dataPrestasi');
                     Route::get('/dashboard/admin/data-mahasiswa/{id}', 'show')->name('dataMahasiswa');
                     Route::get('/dashboard/admin/delete-prestasi/{id}', 'destroy')->name('hapusPrestasi');
                 });
+
+                Route::controller(PrintDataController::class)->group(function () {
+                    //print data user
+                    Route::get('/dashboard/admin/user-list/print-data-search/{search?}', 'userPrintDataBysearch')->name('userPrintBySearch');
+                    Route::get('/dashboard/admin/user-list/print-data/{data?}/{jurusan?}', 'userPrintData')->name('userPrint');
+                    //print data admin
+                    Route::get('/dashboard/admin/admin-list/print-data-search/{search?}', 'adminPrintDataBysearch')->name('adminPrintBySearch');
+                    Route::get('/dashboard/admin/admin-list/print-data/{data?}/{role?}', 'adminPrintData')->name('adminPrint');
+                    //print prestasi
+                    Route::get('/dashboard/admin/daftar-prestasi/print-data-search/{search?}', 'prestasiPrintDataBysearch')->name('prestasiPrintBySearch');
+                    Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiPrintData')->name('prestasiPrint');
+                });
+
+
+
+
 
             });
 
@@ -91,13 +111,13 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 // profile user
                 Route::get('/dashboard/profile/{id}', 'profileSetting')->name('userProfile');
                 Route::put('/dashboard/edit-profile/{id}', 'editProfile')->name('editProfileUser');
-                
-                
+
+
                 //pengjuan
                 Route::controller(PengajuanController::class)->group(function () {
                     Route::get('/dashboard/pengajuan-prestasi', 'create')->name('lamanPengajuan');
                     Route::post('/dashboard/pengajuan-prestasi', 'store')->name('kirimPengajuan');
-                    
+
                 });
                 Route::controller(PrestasiController::class)->group(function () {
                     Route::get('/dashboard/daftar-prestasi', 'daftarPrestasiUser')->name('daftarPrestasiUser');

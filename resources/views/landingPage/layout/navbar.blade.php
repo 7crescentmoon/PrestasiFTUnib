@@ -10,7 +10,6 @@
             <ul>
                 <li><a class="nav-link scrollto active" href="#home">Home</a></li>
                 <li><a class="nav-link scrollto" href="#prestasi">Prestasi</a></li>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
                 @if (Route::has('login'))
                     @auth
                         @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')

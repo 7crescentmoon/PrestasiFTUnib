@@ -11,10 +11,21 @@ class LoadUserlist extends Component
 {
 
     public $search = '';
-    public $dataTable = '2';
+    public $dataTable = '10';
+
+    public $jenisJurusan = '';
 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
+    public function print()
+    {
+        return redirect()->route('userPrint',['data' => $this->dataTable , 'jurusan' => $this->jenisJurusan]);
+    }
+    public function printBySearch()
+    {
+        return redirect()->route('adminPrintBySearch',['search' => $this->search]);
+    }
     public function render()
     {
 
@@ -25,7 +36,11 @@ class LoadUserlist extends Component
                 $query->where('nama', 'like', '%' . $this->search . '%')
                     ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
                     ->orWhere('jurusan', 'like', '%' . $this->search . '%');
-            })->orderBy('created_at', 'desc')->paginate($this->dataTable);
+            })
+            ->when($this->jenisJurusan, function ($query) {
+                $query->where('Jurusan', $this->jenisJurusan);
+            })
+            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
 
         return view('livewire.load-userlist', [
             "datas" => $user,

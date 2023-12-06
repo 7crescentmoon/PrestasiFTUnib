@@ -40,21 +40,7 @@
 
         <!-- ======= Values Section ======= -->
 
-        <section id="about" class="prestasi">
-
-            <div class="container" data-aos="fade-down" data-aos-duration="10">
-
-                <header class="section-header">
-                    <h2>prestasi</h2>
-                </header>
-
-
-            </div>
-
-        </section><!-- End Services Section -->
-
-        <!-- ======= Pricing Section ======= -->
-
+       
 
     </main><!-- End #main -->
 

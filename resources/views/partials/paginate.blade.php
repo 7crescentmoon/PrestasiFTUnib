@@ -1,1 +1,1 @@
-{{ $datas->links('vendor.pagination.bootstrap-5') }}
+{{ $datas->links('livewire.pagination-template') }}

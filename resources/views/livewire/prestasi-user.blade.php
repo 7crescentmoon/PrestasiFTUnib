@@ -35,8 +35,8 @@
                             @php
                                 $isEmpty = true;
                             @endphp
-                            <tbody class="table-border-bottom-0" wire:loading.remove>
-                                <td class="text-secondary">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1  }}</td>
+                            <tbody class="table-border-bottom-0" wire:loading.remove>($datas->currentPage() - 1) * $datas->perPage() + $key + 1
+                                <td class="text-secondary">{{   }}</td>
                                 <td class="text-secondary">{{ $data->nama_prestasi }}</td>
                                 <td class="text-secondary">{{ $data->jenis_prestasi }}</td>
                                 <td class="text-secondary">{{ $data->pengajuan->tingkat_prestasi }}</td>

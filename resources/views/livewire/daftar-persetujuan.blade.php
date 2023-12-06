@@ -47,6 +47,7 @@
                                                 </strong>{{ $data->nama_kegiatan_perlombaan }}</small>
                                         </div>
                                         <small><strong>Tanggal pengajuan :
+                                            
                                             </strong>{{ $data->created_at->toDateString() }}</small>
                                     </div>
                                 </div>

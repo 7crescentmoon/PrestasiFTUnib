@@ -23,6 +23,15 @@ class DaftarPrestasi extends Component
     ];
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
+    public function print()
+    {
+        return redirect()->route('prestasiPrint',['data' => $this->dataTable , 'prestasi' => $this->jenisPrestasi]);
+    }
+    public function printBySearch()
+    {
+        return redirect()->route('prestasiPrintBySearch',['search' => $this->search]);
+    }
     public function render()
     {
         $prestasi = Prestasi::with('user', 'pengajuan')

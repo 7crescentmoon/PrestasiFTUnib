@@ -12,6 +12,7 @@ class TableLandingPage extends Component
 
     public $dataTable = '10';
 
+    public $jenisPrestasi = '';
     public $queryString = [
         'search' => ['except' => ''],
     ];
@@ -20,23 +21,27 @@ class TableLandingPage extends Component
     public function render()
     {
         $prestasi = Prestasi::with('user', 'pengajuan')
-            ->when($this->search, function ($query) {
+        ->when($this->search, function ($query) {
 
-                $query->where('nama_prestasi', 'like', '%' . $this->search . '%')
-                    ->orWhere('jenis_prestasi', 'like', '%' . $this->search . '%')
+            $query->where('nama_prestasi', 'like', '%' . $this->search . '%')
+                ->orWhere('jenis_prestasi', 'like', '%' . $this->search . '%') 
 
-                    ->orWhereHas('user', function ($query) {
-                        $query->where('nama', 'like', '%' . $this->search . '%')
-                            ->orWhere('npm_nip', 'like', '%' . $this->search . '%');
-                    })
+                ->orWhereHas('user', function ($query) {
+                    $query->where('nama', 'like', '%' . $this->search . '%')
+                        ->orWhere('npm_nip', 'like', '%' . $this->search . '%');
+                })
 
-                    ->orWhereHas('pengajuan', function ($query) {
-                        $query->where('tingkat_prestasi', 'like', '%' . $this->search . '%')
-                            ->orWhere('juara', 'like', '%' . $this->search . '%');
+                ->orWhereHas('pengajuan', function ($query) {
+                    $query->where('tingkat_prestasi', 'like', '%' . $this->search . '%')
+                        ->orWhere('juara', 'like', '%' . $this->search . '%');
+         
+                });
 
-                    });
-            })
-            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
+        })
+        ->when($this->jenisPrestasi, function ($query) {
+            $query->where('jenis_prestasi', $this->jenisPrestasi);
+        })
+        ->orderBy('created_at', 'desc')->paginate($this->dataTable);
         return view('livewire.table-landing-page', [
             "datas" => $prestasi,
             "counters" => Prestasi::count()
