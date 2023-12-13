@@ -7,7 +7,7 @@
         
         @include('partials.navbar')
         @livewire('daftar-persetujuan')
-
+        @include('partials.footer') 
     </div>
 </div>
 @endsection

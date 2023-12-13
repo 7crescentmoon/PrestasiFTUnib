@@ -25,7 +25,7 @@ class UserController extends Controller
             "user_log" => Auth::user(),
             "jumlah_prestasi" => $jumlahPrestasi,
             "akademik" => $jumlahAkademik,
-            "nonakademik" => $jumlahNonAkademik
+            "nonAkademik" => $jumlahNonAkademik
         ]);
     }
 

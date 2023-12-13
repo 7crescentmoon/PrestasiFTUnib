@@ -32,16 +32,20 @@ class LoadAdminlist extends Component
     {
         $userId = Auth::id();
         $user = User::whereNotIn('role', ['user'])
-            ->where('id', '!=', $userId)
-            ->when($this->search, function ($query) {
+        ->where('id', '!=', $userId)
+        ->when($this->search, function ($query) {
+            $query->where(function ($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
                     ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
-                    ->orWhere('role', 'like', '%' . $this->search . '%');
-            })
-            ->when($this->role, function ($query) {
-                $query->where('role', $this->role);
-            })
-            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
+                    ->orWhere('role', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
+            });
+        })
+        ->when($this->role, function ($query) {
+            $query->where('role', $this->role);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->dataTable);
 
         return view('livewire.load-adminlist', [
             "user_log" => Auth::user(),

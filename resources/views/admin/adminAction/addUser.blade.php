@@ -79,8 +79,8 @@
                                                         <select name="jenis_kelamin"
                                                             class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
-                                                            <option value="Laki-Laki"
-                                                                @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
+                                                            <option value="Laki - Laki"
+                                                                @if (old('jenis_kelamin') == 'Laki - Laki') selected @endif>Laki - Laki
                                                             </option>
                                                             <option value="Perempuan"
                                                                 @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
@@ -185,7 +185,7 @@
                 </div>
                 <!-- Content wrapper -->
             </div>
-            <!-- / Layout page -->
+            @include('partials.footer') 
         </div>
 
         <!-- Overlay -->

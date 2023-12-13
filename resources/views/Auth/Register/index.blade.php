@@ -78,7 +78,7 @@
                             <label for="email" class="form-label">Jenis Kelamin</label>
                             <select name="jenis_kelamin" class="form-control  @error('jenis_kelamin') is-invalid @enderror" required>
                                 <option value="">Jenis Kelamin</option>
-                                <option value="Laki-Laki" @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
+                                <option value="Laki - Laki" @if (old('jenis_kelamin') == 'Laki - Laki') selected @endif>Laki - Laki
                                 </option>
                                 <option value="Perempuan" @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
                                 </option>
@@ -106,11 +106,11 @@
                             @enderror
                         </div>
 
-                        <button class="btn btn-primary d-grid w-100">Sign up</button>
+                        <button class="btn btn-primary d-grid w-100">Daftar</button>
                     </form>
 
                     <p class="text-center">
-                        <span>Already have an account?</span>
+                        <span>Sudah punya akun <b> UniAchive.FT </b> ?</span>
                         <a href="/login">
                             Login </a>
                     </p>

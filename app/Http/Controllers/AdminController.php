@@ -108,7 +108,6 @@ class AdminController extends Controller
 
         
         User::destroy($id->id);
-        Alert::toast('Data berhasil dihapus', 'success');
         return redirect(route('userList'));
     }
 
@@ -128,7 +127,7 @@ class AdminController extends Controller
             "nama" => 'Required|max:100',
             'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($id->id)],
             'jurusan' => '',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => '',
             "email" => ['Required','email:dns', Rule::unique('users')->ignore($id->id)],
             "profil" => 'image|file|mimes:png,jpg|max:1024',
             "delete_profile_picture" => ''
@@ -159,7 +158,6 @@ class AdminController extends Controller
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('.admin.adminAction.userList',[
             "user_log" => Auth::user(),
-            "title" => 'Profile Settings',
         ]); 
     }
     public function adminList()
@@ -167,7 +165,6 @@ class AdminController extends Controller
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('.admin.adminAction.adminList',[
             "user_log" => Auth::user(),
-            "title" => 'Profile Settings',
         ]); 
     }
 
@@ -176,7 +173,6 @@ class AdminController extends Controller
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('.admin.adminAction.addUser', [
             "user_log"=> Auth::user(),
-            "title" => 'Profile Settings',
         ]);
     }
     public function addAdmin()
@@ -184,7 +180,6 @@ class AdminController extends Controller
         $this->authorize('accesAdminSuperadmin', User::class);
         return view('.admin.adminAction.addAdmin', [
             "user_log"=> Auth::user(),
-            "title" => 'Profile Settings',
         ]);
     }
 
@@ -195,7 +190,6 @@ class AdminController extends Controller
         $user = User::find($decryptedId);
            return view('.admin.adminAction.editUser', [
             "user_id" => $user,
-            "title" => 'Profile Settings',
             "user_log"=> Auth::user(),
         ]);
     }

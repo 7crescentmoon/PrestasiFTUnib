@@ -18,29 +18,36 @@ class LoadUserlist extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
 
+    //print
     public function print()
     {
         return redirect()->route('userPrint',['data' => $this->dataTable , 'jurusan' => $this->jenisJurusan]);
     }
     public function printBySearch()
     {
-        return redirect()->route('adminPrintBySearch',['search' => $this->search]);
+        return redirect()->route('userPrintBySearch',['search' => $this->search]);
     }
+
+
     public function render()
     {
 
         $userId = Auth::id();
         $user = User::whereNotIn('role', ['admin', 'super admin'])
-            ->where('id', '!=', $userId)
-            ->when($this->search, function ($query) {
+        ->where('id', '!=', $userId)
+        ->when($this->search, function ($query) {
+            $query->where(function ($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
                     ->orWhere('npm_nip', 'like', '%' . $this->search . '%')
-                    ->orWhere('jurusan', 'like', '%' . $this->search . '%');
-            })
-            ->when($this->jenisJurusan, function ($query) {
-                $query->where('Jurusan', $this->jenisJurusan);
-            })
-            ->orderBy('created_at', 'desc')->paginate($this->dataTable);
+                    ->orWhere('jurusan', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
+            });
+        })
+        ->when($this->jenisJurusan, function ($query) {
+            $query->where('Jurusan', $this->jenisJurusan);
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate($this->dataTable);
 
         return view('livewire.load-userlist', [
             "datas" => $user,

@@ -16,16 +16,16 @@
                     <div class="row">
                         <div class="col-xxl ">
                             <div class="card mb-4 p-2">
-                            
+
                                 <div class="text-center text-black mt-2">
                                     @if ($prestasi->user->profil)
                                         <img src="{{ asset('storage/' . $prestasi->user->profil) }}" alt="user-avatar"
-                                            class="rounded border mb-3" height="100" width="100" style="object-fit: cover;"
-                                            id="uploadedAvatar" />
+                                            class="rounded border mb-3" height="100" width="100"
+                                            style="object-fit: cover;" id="uploadedAvatar" />
                                     @else
                                         <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
-                                            class="rounded border mb-3" height="100" width="100" style="object-fit: cover;"
-                                            id="uploadedAvatar" />
+                                            class="rounded border mb-3" height="100" width="100"
+                                            style="object-fit: cover;" id="uploadedAvatar" />
                                     @endif
                                     <h3 class="fw-bold">{{ $prestasi->user->nama }}</h3>
                                     <h4 class="fs-5"><i>{{ $prestasi->user->npm_nip }} /
@@ -101,9 +101,8 @@
                                     <div class="col-md-3">
                                         <label for="tinggat-prestasi" class="form-label fw-bold"></span> TINGKAT
                                             PRESTASI</label>
-                                        <input list="tingkat_prestasi" id="tingkat_prestasi" class="form-control"
-                                            disabled name="tingkat_prestasi"
-                                            value="{{ $prestasi->pengajuan->tingkat_prestasi }}">
+                                        <input list="tingkat_prestasi" id="tingkat_prestasi" class="form-control" disabled
+                                            name="tingkat_prestasi" value="{{ $prestasi->pengajuan->tingkat_prestasi }}">
 
 
                                     </div>
@@ -230,16 +229,9 @@
                         </div>
                     </div>
                 </div>
+                @include('partials.footer') 
             </div>
         </div>
-
-        {{-- Modal --}}
-        {{-- @include('admin.persetujuan.modal.modal') --}}
-    </div>
-    </div>
-    {{-- end modal --}}
-    </div>
-    <!-- / Layout page -->
     </div>
 
     <script>

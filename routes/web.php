@@ -1,18 +1,16 @@
 <?php
 
-use Livewire\Livewire;
-use App\Models\Prestasi;
-use App\Http\Livewire\LoadUserlist;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DownloadPdfController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PrestasiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PrintDataController;
-use App\Http\Controllers\AdminProfileController;
-use App\Livewire\LoadUserlist as LivewireLoadUserlist;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -94,10 +92,6 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                     Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiPrintData')->name('prestasiPrint');
                 });
 
-
-
-
-
             });
 
         });
@@ -123,6 +117,15 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                     Route::get('/dashboard/daftar-prestasi', 'daftarPrestasiUser')->name('daftarPrestasiUser');
                     Route::get('/dashboard/data-prestasi/{id}', 'dataPrestasiMahasiswa')->name('dataPrestasiMahasiswa');
                 });
+
+                //print
+                Route::controller(PrintDataController::class)->group(function () {
+                    //print prestasi
+                    Route::get('/dashboard/admin/daftar-prestasi/print-data-search/{search?}', 'prestasiUserPrintDataBysearch')->name('prestasiUserPrintBySearch');
+                    Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiUserPrintData')->name('prestasiUserPrint');
+                    
+                });
+
 
             });
 

@@ -53,8 +53,8 @@
                                                         @endif
                                                         <input type="text" name="npm_nip"
                                                             class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
-                                                            value="{{ old('npm_nip') }}" placeholder="Masukan Nip"
-                                                            required oninput="toUppercase(this)">
+                                                            value="{{ old('npm_nip') }}" placeholder="Masukan Nip" required
+                                                            oninput="toUppercase(this)">
                                                         @error('npm_nip')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -80,8 +80,8 @@
                                                         <select name="jenis_kelamin"
                                                             class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
-                                                            <option value="Laki-Laki"
-                                                                @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
+                                                            <option value="Laki - Laki"
+                                                                @if (old('jenis_kelamin') == 'Laki - Laki') selected @endif>Laki - Laki
                                                             </option>
                                                             <option value="Perempuan"
                                                                 @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
@@ -151,18 +151,13 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- / Content -->
-                    <div class="content-backdrop fade"></div>
-                </div>
-                <!-- Content wrapper -->
-            </div>
-            <!-- / Layout page -->
-        </div>
 
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
+                </div>
+
+            </div>
+            @include('partials.footer')
+        </div>
 
         <script>
             function toUppercase(el) {

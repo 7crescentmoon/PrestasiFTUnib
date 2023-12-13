@@ -241,27 +241,29 @@
                                     </div>
                                 </div>
                                 <div class="col-12 text-center">
-                                    <button type="submit" class="btn btn-success mt-2 me-2" id="openModal"
-                                        data-bs-toggle="modal" data-bs-target="#myModal"><svg
+                                    <button type="submit" class="btn btn-success mt-2 me-2" style="width: 6rem" id="openModal"
+                                        data-bs-toggle="modal" data-bs-target="#myModal">
+                                        {{-- <svg
                                             xmlns="http://www.w3.org/2000/svg" width="25" height="25"
                                             viewBox="0 2 24 24"
                                             style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
                                             <path d="m10 15.586-3.293-3.293-1.414 1.414L10 18.414l9.707-9.707-1.414-1.414z">
                                             </path>
-                                        </svg>
+                                        </svg> --}}
                                         Setujui
+                                       
                                     </button>
                                     <a href="{{ route('deletePengajuan', $data->id) }}"
                                         onclick="return confirm('Hapus Data Pengguna ?')" type="submit"
-                                        class="btn btn-danger mt-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        class="btn btn-danger mt-2" style="width: 6rem" >
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 1 24 24"
                                             style="fill: rgba(255, 255,255, 1);transform: ;msFilter:;">
                                             <path
                                                 d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z">
                                             </path>
-                                        </svg>
-                                        Tolak
+                                        </svg> --}}
+                                       Tolak
                                     </a>
                                 </div>
                             </div>

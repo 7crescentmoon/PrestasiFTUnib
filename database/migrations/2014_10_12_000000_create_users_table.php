@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('nama',50);
             $table->string('npm_nip',11)->unique();
             $table->string('email',50)->unique();
-            $table->string('jurusan',20)->nullable();
-            $table->string('jenis_kelamin',10);
+            $table->enum('jenis_kelamin',['Laki - Laki','Perempuan']);
+            $table->enum('jurusan',['Informatika','Teknik Sipil','Teknik Elektro', 'Teknik Mesin', 'Arsiterktur', 'Sistem Informasi'])->nullable();
             $table->string('password');
             $table->enum('role',['super admin','admin','user'])->default('user');
             $table->timestamp('email_verified_at')->nullable();

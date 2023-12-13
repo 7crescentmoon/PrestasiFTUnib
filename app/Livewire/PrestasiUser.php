@@ -13,31 +13,46 @@ class PrestasiUser extends Component
 
     public $dataTable = '10';
 
+    public $jenisPrestasi = '';
     public $queryString = [
         'search' => ['except' => ''],
     ];
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+
+    public function print()
+    {
+        return redirect()->route('prestasiUserPrint',['data' => $this->dataTable , 'prestasi' => $this->jenisPrestasi]);
+    }
+    public function printBySearch()
+    {
+        return redirect()->route('prestasiUserPrintBySearch',['search' => $this->search]);
+    }
     public function render()
     {
-        $daftarPrestasi = Prestasi::with('user', 'pengajuan')->where('user_id', Auth::user()->id)
+        $daftarPrestasi = Prestasi::with('user', 'pengajuan')
+            ->where('user_id', Auth::user()->id)
             ->when($this->search, function ($query) {
+                $search = $this->search;
+                $query->where(function ($query) use ($search) {
+                    $query->where('nama_prestasi', 'like', "%$search%")
+                        ->orWhere('jenis_prestasi', 'like', "%$search%")
+                        ->orWhereHas('user', function ($query) use ($search) {
+                            $query->where('nama', 'like', "%$search%")
+                                ->orWhere('npm_nip', 'like', "%$search%");
+                        })
+                        ->orWhereHas('pengajuan', function ($query) use ($search) {
+                            $query->where('tingkat_prestasi', 'like', "%$search%")
+                                ->orWhere('juara', 'like', "%$search%");
+                        });
+                });
+            })
+            ->when($this->jenisPrestasi, function ($query) {
+                $query->where('jenis_prestasi', $this->jenisPrestasi);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->dataTable);
 
-                $query->where('nama_prestasi', 'like', '%' . $this->search . '%')
-                    ->orWhere('jenis_prestasi', 'like', '%' . $this->search . '%')
-
-                    ->orWhereHas('user', function ($query) {
-                        $query->where('nama', 'like', '%' . $this->search . '%')
-                            ->orWhere('npm_nip', 'like', '%' . $this->search . '%');
-                    })
-
-                    ->orWhereHas('pengajuan', function ($query) {
-                        $query->where('tingkat_prestasi', 'like', '%' . $this->search . '%')
-                            ->orWhere('juara', 'like', '%' . $this->search . '%');
-
-                    });
-
-            })->orderBy('created_at', 'desc')->paginate($this->dataTable);
         return view('livewire.prestasi-user', [
             "datas" => $daftarPrestasi,
             "counters" => Prestasi::where('user_id', Auth::user()->id)->count()

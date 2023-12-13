@@ -18,8 +18,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href="/assetstemplate/vendor/fonts/boxicons.css" />
@@ -44,34 +44,67 @@
 </head>
 
 <body>
+    <style>
+        .custom-swal-container {
+            z-index: 10000;
+        }
+
+        .custom-swal-popup {
+            z-index: 10001;
+        }
+
+        .custom-swal-backdrop {
+            z-index: 10000;
+        }
+    </style>
 
     <div class="layout-wrapper layout-content-navbar" style="background-color: #f5f5f9">
         @yield('content')
         @include('partials.sidebar')
     </div>
-    {{-- sweet alert --}}
     @include('sweetalert::alert')
-
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
     <script src="/assetstemplate/vendor/libs/jquery/jquery.js"></script>
     <script src="/assetstemplate/vendor/libs/popper/popper.js"></script>
     <script src="/assetstemplate/vendor/js/bootstrap.js"></script>
     <script src="/assetstemplate/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
     <script src="/assetstemplate/vendor/js/menu.js"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-
-    <!-- Main JS -->
     <script src="/assetstemplate/js/main.js"></script>
-
-    <!-- Page JS -->
-
-    <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     @livewireScripts
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(e) {
+                // Pastikan bahwa yang diklik memiliki id 'delete'
+                if (e.target && e.target.id == 'delete') {
+                    e.preventDefault();
+
+                    let link = e.target.getAttribute('href');
+
+                    Swal.fire({
+                        title: "Anda Yakin?",
+                        text: "Menghapus data",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#71dd37",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Hapus",
+                        cancelButtonText: "Tidak",
+                        customClass: {
+                            container: 'custom-swal-container', 
+                            popup: 'custom-swal-popup', 
+                            backdrop: 'custom-swal-backdrop', 
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Lakukan penghapusan dengan mengarahkan ke URL penghapusan
+                            window.location.href = link;
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

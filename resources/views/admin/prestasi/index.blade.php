@@ -8,7 +8,7 @@
         <!-- / Navbar -->
         @livewire('daftar-prestasi')
 
-        <!-- Content wrapper -->
+        @include('partials.footer') 
         
     </div>
 </div>

@@ -7,18 +7,8 @@
     </div>
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->
-        {{-- <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                                aria-label="Search..." />
-                        </div>
-                    </div> --}}
-        <!-- /Search -->
-        <p class="navbar-nav align-items-center">{{ $carbon->formatLocalized('%A %d %B %Y') }}</p>
 
-        {{-- <h5 class="navbar-nav align-items-center">{{ $title ?? "halo, Selamat datang" }} </h5> --}}
+        <p class="navbar-nav align-items-center">{{ $carbon->formatLocalized('%A %d %B %Y') }}</p>
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
@@ -27,11 +17,11 @@
                     <div class="avatar avatar-online">
                         @if ($user_log->profil)
                             <img src="{{ asset('storage/' . $user_log->profil) }}" alt="user-avatar"
-                                class="object-fit-cover w-px-40 h-px-35 rounded-circle" height="100" width="100" style="object-fit: cover;"
+                                class="object-fit-cover w-px-35 h-px-35 rounded-circle"  style="object-fit: cover;"
                                 />
                         @else
                             <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
-                                class="object-fit-cover w-px-40 h-px-35 rounded-circle" height="100" width="100" style="object-fit: cover;"
+                                class="object-fit-cover w-px-35 h-px-35 rounded-circle"  style="object-fit: cover;"
                                />
                         @endif
                     </div>
@@ -54,7 +44,7 @@
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <span class="fw-semibold d-block">{{ Auth::user()->nama }}</span>
+                                    <span class="fw-semibold d-block">{{ Str::limit(Auth::user()->nama, 10) }}</span>
                                     <small class="text-muted">{{ Auth::user()->role }}</small>
                                 </div>
                             </div>
@@ -69,12 +59,12 @@
                             @if (\Request::route()->getName() === 'userProfile')
                                 <a class="dropdown-item" href="#">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">Profile</span>
+                                    <span class="align-middle">Profil</span>
                                 </a>
                             @else
                                 <a class="dropdown-item" href="{{ route('userProfile', encrypt($user_log->id)) }}">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">Profile</span>
+                                    <span class="align-middle">Profil</span>
                                 </a>
                             @endif
                         </li>
@@ -85,12 +75,12 @@
                             @if (\Request::route()->getName() === 'adminProfile')
                                 <a class="dropdown-item" href="#">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">Profile</span>
+                                    <span class="align-middle">Profil</span>
                                 </a>
                             @else
                                 <a class="dropdown-item" href="{{ route('adminProfile', encrypt($user_log->id)) }}">
                                     <i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">Profile</span>
+                                    <span class="align-middle">Profil</span>
                                 </a>
                             @endif
                         </li>
@@ -104,7 +94,7 @@
                             @csrf
                             <i class="bx bx-power-off me-2"></i>
                             <button style="background: transparent; border: none; color: #697a8d"
-                                class="">Logout</button>
+                                class="">Keluar</button>
                         </form>
                     </li>
 

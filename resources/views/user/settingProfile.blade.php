@@ -34,26 +34,30 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-start align-items-sm-center gap-4">
                                                     @if ($user_log->profil)
-                                                    <img src="{{ asset('storage/' . $user_log->profil) }}" alt="user-avatar"
-                                                        class="d-block rounded-circle" height="100" width="100"
-                                                        id="uploadedAvatar" />
+                                                        <img src="{{ asset('storage/' . $user_log->profil) }}"
+                                                            alt="user-avatar" class="d-block rounded border"
+                                                            style="width: 100px;height: 100px; object-fit: cover"
+                                                            id="uploadedAvatar" />
                                                     @else
-                                                    <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
-                                                        class="d-block rounded-circle" height="100" width="100"
-                                                        id="uploadedAvatar" />
+                                                        <img src="{{ asset('assets/img/user-profile-default.png') }}"
+                                                            alt="user-avatar" class="d-block rounded border"
+                                                            style="width: 100px;height: 100px; object-fit: cover"
+                                                            id="uploadedAvatar" />
                                                     @endif
                                                     <div class="button-wrapper">
-                                                        <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                                                        <label for="upload" class="btn btn-primary me-2 mb-4"
+                                                            tabindex="0">
                                                             <span class="d-none d-sm-block">Unggah Foto Profile</span>
                                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                                             <input type="file" id="upload" name="profil"
                                                                 class="account-file-input" hidden
-                                                                accept="image/png, image/jpeg" onchange="previewImage()"/>
-                                                            </label>
-                                                            <label class="btn btn-warning me-2 mb-4" tabindex="0">
-                                                                <input type="checkbox" name="delete_profile_picture" class="form-check-input"> Hapus Foto Profil
-                                                            </label>
-                                                        <p class="text-muted mb-0">Allowed JPG or PNG. Max size of 1MB / 1024KB
+                                                                accept="image/png, image/jpeg" onchange="previewImage()" />
+                                                        </label>
+                                                        <label class="btn btn-outline-secondary me-2 mb-4" tabindex="0">
+                                                            <input type="checkbox" name="delete_profile_picture"
+                                                                class="form-check-input"> Hapus Foto Profil
+                                                        </label>
+                                                        <p class="text-muted mb-0">
                                                         </p>
                                                     </div>
                                                 </div>
@@ -65,8 +69,8 @@
                                                         <label for="username" class="form-label">Nama Lengkap</label>
                                                         <input type="text" name="nama"
                                                             class="form-control @error('nama') is-invalid @enderror"
-                                                            value="{{ $user_log->nama }}"
-                                                            placeholder="Masukan nama lengkap" required>
+                                                            value="{{ $user_log->nama }}" placeholder="Masukan nama lengkap"
+                                                            required>
                                                         @error('nama')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -82,8 +86,9 @@
                                                         @endif
                                                         <input type="text" name="npm_nip"
                                                             class="form-control npm_nip @error('npm_nip') is-invalid @enderror"
-                                                            value="{{ $user_log->npm_nip }}" placeholder="contoh : G1A021082"
-                                                            required oninput="toUppercase(this)">
+                                                            value="{{ $user_log->npm_nip }}"
+                                                            placeholder="contoh : G1A021082" required
+                                                            oninput="toUppercase(this)">
                                                         @error('npm_nip')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -151,36 +156,32 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- / Content -->
-                      
-                <!-- / Layout page -->
+                    </div>
+                </div>
+                @include('partials.footer')
             </div>
-
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
         </div>
     </div>
 
     <script>
-          function toUppercase() {
-                    let input = document.getElementByclassName("npm_nip");
-                    input.value = input.toUppercase();
-                }
+        function toUppercase() {
+            let input = document.getElementByclassName("npm_nip");
+            input.value = input.toUppercase();
+        }
 
         function previewImage() {
-                    const image = document.querySelector('#upload');
-                    const imagePreview = document.querySelector('#uploadedAvatar');
+            const image = document.querySelector('#upload');
+            const imagePreview = document.querySelector('#uploadedAvatar');
 
-                    // imagePreview.style.display = 'block';
+            // imagePreview.style.display = 'block';
 
-                    const oFReader = new FileReader();
-                    oFReader.readAsDataURL(image.files[0]);
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
 
-                    oFReader.onload = function(oFREvent) {
-                        imagePreview.src = oFREvent.target.result
-                    }
-                };
+            oFReader.onload = function(oFREvent) {
+                imagePreview.src = oFREvent.target.result
+            }
+        };
     </script>
 @endsection

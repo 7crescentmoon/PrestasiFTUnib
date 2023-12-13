@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('nama_kegiatan_perlombaan',150);
             $table->string('lokasi_lomba',150);
-            $table->string('tahun',5);
+            $table->string('tahun',10);
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('juara',20);

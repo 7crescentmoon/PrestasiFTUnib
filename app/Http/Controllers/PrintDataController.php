@@ -37,7 +37,7 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        return view('admin.download.print', [
+        return view('admin.download.print.print', [
             "datas" => $user
         ]);
     }
@@ -45,20 +45,21 @@ class PrintDataController extends Controller
     public function userPrintDataBysearch($search = '')
     {
         $userId = Auth::id();
-       
-        if ($search != '' ) {
+
+        if ($search != '') {
             $user = User::whereNotIn('role', ['admin', 'super admin'])
                 ->where('id', '!=', $userId)
                 ->when($search, function ($query) use ($search) {
                     $query->where('nama', 'like', '%' . $search . '%')
                         ->orWhere('npm_nip', 'like', '%' . $search . '%')
-                        ->orWhere('jurusan', 'like', '%' . $search . '%');
+                        ->orWhere('jurusan', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%');
                 })
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
-        return view('admin.download.print', [
+        return view('admin.download.print.print', [
             "datas" => $user
         ]);
     }
@@ -90,7 +91,7 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        return view('admin.download.print', [
+        return view('admin.download.print.print', [
             "datas" => $user
         ]);
     }
@@ -98,8 +99,8 @@ class PrintDataController extends Controller
     public function adminPrintDataBysearch($search = '')
     {
         $userId = Auth::id();
-       
-        if ($search != '' ) {
+
+        if ($search != '') {
             $user = User::whereNotIn('role', ['user'])
                 ->where('id', '!=', $userId)
                 ->when($search, function ($query) use ($search) {
@@ -111,7 +112,7 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        return view('admin.download.print', [
+        return view('admin.download.print.print', [
             "datas" => $user
         ]);
     }
@@ -122,7 +123,7 @@ class PrintDataController extends Controller
 
         if ($prestasi != '' && $data != '') {
             $prestasi = Prestasi::with('user', 'pengajuan')
-            ->where('jenis_prestasi', $prestasi)
+                ->where('jenis_prestasi', $prestasi)
                 ->orderBy('created_at', 'desc')
                 ->take($data)
                 ->get();
@@ -137,42 +138,107 @@ class PrintDataController extends Controller
 
         if (!$data && !$prestasi) {
             $prestasi = Prestasi::with('user', 'pengajuan')
-            ->orderBy('created_at', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->get();
         }
 
-        return view('admin.download.printPrestasi', [
+        return view('admin.download.print.printPrestasi', [
             "datas" => $prestasi
         ]);
     }
 
     public function prestasiPrintDataBysearch($search = '')
     {
-       
-        if ($search != '' ) {
+
+        if ($search != '') {
             $prestasi = Prestasi::with('user', 'pengajuan')
-            ->when($search, function ($query) use ($search) {
+                ->when($search, function ($query) use ($search) {
 
-                $query->where('nama_prestasi', 'like', '%' . $search . '%')
-                    ->orWhere('jenis_prestasi', 'like', '%' . $search . '%') 
+                    $query->where('nama_prestasi', 'like', '%' . $search . '%')
+                        ->orWhere('jenis_prestasi', 'like', '%' . $search . '%')
 
-                    ->orWhereHas('user', function ($query) use ($search) {
-                        $query->where('nama', 'like', '%' . $search . '%')
-                            ->orWhere('npm_nip', 'like', '%' . $search . '%');
-                    })
+                        ->orWhereHas('user', function ($query) use ($search) {
+                            $query->where('nama', 'like', '%' . $search . '%')
+                                ->orWhere('npm_nip', 'like', '%' . $search . '%');
+                        })
 
-                    ->orWhereHas('pengajuan', function ($query) use ($search) {
-                        $query->where('tingkat_prestasi', 'like', '%' . $search . '%')
-                            ->orWhere('juara', 'like', '%' . $search . '%');
-             
-                    });
+                        ->orWhereHas('pengajuan', function ($query) use ($search) {
+                            $query->where('tingkat_prestasi', 'like', '%' . $search . '%')
+                                ->orWhere('juara', 'like', '%' . $search . '%');
 
-            })
+                        });
+
+                })
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
-        return view('admin.download.printPrestasi', [
+        return view('admin.download.print.printPrestasi', [
+            "datas" => $prestasi
+        ]);
+    }
+
+    //prestasi user
+    public function prestasiUserPrintData($data = '', $prestasi = '')
+    {
+
+        if ($prestasi != '' && $data != '') {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->where('user_id', Auth::user()->id)
+                ->where('jenis_prestasi', $prestasi)
+                ->orderBy('created_at', 'desc')
+                ->take($data)
+                ->get();
+        }
+
+        if ($data && $prestasi == '') {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->take($data)
+                ->get();
+        }
+
+        if (!$data && !$prestasi) {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        return view('admin.download.print.printPrestasi', [
+            "datas" => $prestasi
+        ]);
+    }
+
+    public function prestasiUserPrintDataBysearch($search = '')
+    {
+
+        if ($search != '') {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->where('user_id', Auth::user()->id)
+                ->when($search, function ($query) use ($search) {
+
+                    $query->where('nama_prestasi', 'like', '%' . $search . '%')
+                        ->orWhere('jenis_prestasi', 'like', '%' . $search . '%')
+
+                        ->orWhereHas('user', function ($query) use ($search) {
+                            $query->where('nama', 'like', '%' . $search . '%')
+                                ->orWhere('npm_nip', 'like', '%' . $search . '%');
+                        })
+
+                        ->orWhereHas('pengajuan', function ($query) use ($search) {
+                            $query->where('tingkat_prestasi', 'like', '%' . $search . '%')
+                                ->orWhere('juara', 'like', '%' . $search . '%');
+
+                        });
+
+                })
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        return view('admin.download.print.printPrestasi', [
             "datas" => $prestasi
         ]);
     }

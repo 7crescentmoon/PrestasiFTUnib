@@ -5,8 +5,8 @@
     <div class="layout-page">
         <!-- Navbar -->
         @include('partials.navbar')
-        <!-- / Navbar -->
         @livewire('load-adminlist')    
+        @include('partials.footer') 
     </div>
 </div>
 

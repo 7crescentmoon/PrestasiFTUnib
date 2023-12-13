@@ -45,7 +45,7 @@
                     <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         Kembali
                     </button>
-                    <button type="submit" class="btn btn-primary" id="sumbitData">Simpan</button>
+                    <button type="submit" class="btn btn-success" id="sumbitData">Setujui</button>
                 </div>
             </div>
         </div>

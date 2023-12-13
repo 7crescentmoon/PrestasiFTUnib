@@ -24,7 +24,6 @@
     </section><!-- End Hero -->
 
     <main id="main">
-        <!-- ======= About Section ======= -->
         <section id="prestasi" class="prestasi">
 
             <div class="container">
@@ -37,17 +36,12 @@
             </div>
 
         </section><!-- End prestasi Section -->
-
-        <!-- ======= Values Section ======= -->
-
-       
-
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer" style="background-color:#4444">
+    <footer id="footer" class="footer">
 
-        <div class="footer-top" >
+        <section class="footer-top">
             <div class="container">
                 <div class="row gy-4 justify-content-between">
 
@@ -56,12 +50,16 @@
                             <img src="assets/img/unib.png" class="mb-" alt="">
                             <span>UniAchive.FT</span>
                         </a>
-                        <p>Fakultas Teknik Universitas Bengkulu telah mendapatkan Prestasi dalam berbagai bidang, baik dalam skala Nasional maupun Internasional</p>
+                        <p>Fakultas Teknik Universitas Bengkulu telah mendapatkan Prestasi dalam berbagai bidang, baik dalam
+                            skala Nasional maupun Internasional</p>
                         <div class="social-links mt-3">
                             <a href="https://twitter.com/humasftunib" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="https://web.facebook.com/Fakultas-Teknik-Unib-105643147871160" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="https://www.instagram.com/ftunib_official/" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="https://www.youtube.com/channel/UCIhBva6-_i9qwBm6uGTXPKw" class="linkedin"><i class="bi bi-youtube"></i></a>
+                            <a href="https://web.facebook.com/Fakultas-Teknik-Unib-105643147871160" class="facebook"><i
+                                    class="bi bi-facebook"></i></a>
+                            <a href="https://www.instagram.com/ftunib_official/" class="instagram"><i
+                                    class="bi bi-instagram"></i></a>
+                            <a href="https://www.youtube.com/channel/UCIhBva6-_i9qwBm6uGTXPKw" class="linkedin"><i
+                                    class="bi bi-youtube"></i></a>
                         </div>
                     </div>
 
@@ -89,14 +87,21 @@
                             <strong>Email:</strong> <strong>ft@unib.ac.id</strong><br>
                         </p>
                         <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7962.476206142751!2d102.2693069412011!3d-3.7582708348623926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e36b1c0136b63bd%3A0xcfdfb38a76cae956!2sDekanat%20Fak.Teknik%20UNIB!5e0!3m2!1sid!2sid!4v1700484032507!5m2!1sid!2sid"
-                        width="200" height="100" style="border:2px #ccc solid;" class="rounded" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7962.476206142751!2d102.2693069412011!3d-3.7582708348623926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e36b1c0136b63bd%3A0xcfdfb38a76cae956!2sDekanat%20Fak.Teknik%20UNIB!5e0!3m2!1sid!2sid!4v1700484032507!5m2!1sid!2sid"
+                            width="200" height="100" style="border:2px #ccc solid;" class="rounded" allowfullscreen=""
+                            loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
 
                     </div>
                 </div>
             </div>
+        </section>
+        <div class="container-xxl d-flex flex-wrap py-2 flex-md-row flex-column">
+            ©
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
+            . <b> UniAchive.FT</b>
         </div>
     </footer><!-- End Footer -->
 

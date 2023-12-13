@@ -11,7 +11,7 @@
                     </div>
                     <!-- /Logo -->
                     <h4 class="mb-2 text-center">Selamat datang di UniAchive.FT 👋</h4>
-                    <p class="mb-4 text-center">Silahkan LOGIN terlebih dahulu</p>
+                    <p class="mb-4 text-center">Silahkan MASUK terlebih dahulu</p>
 
                     @if (session()->has(['error']))
                         <p class="text-center">
@@ -64,14 +64,14 @@
 
 
                         <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100">Login</button>
+                            <button class="btn btn-primary d-grid w-100">Masuk</button>
                         </div>
                     </form>
 
                     <p class="text-center">
                         <span>Belum punya akun ?</span>
                         <a href="/register">
-                            <span>Register disini</span>
+                            <span>Daftar disini</span>
                         </a>
                     </p>
                 </div>
