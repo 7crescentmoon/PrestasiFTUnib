@@ -81,36 +81,30 @@
 </head>
 
 <body>
-    <div class="d-flex justify-content-center gap-5 align-items-center  mt-5" style="position: relative;">
-        <div class="" style="position: absolute; left: 2rem;">
-            <img src="/assets/img/unib.png" width="120px">
-        </div>
-        <div class="text-center ms-5">
-            <p style="font-size: 1rem " class="mb-1">KEMENTRIAN PENDIDIKAN DAN KEBUDAYAAN</p>
-            <p class="fw-bold mb-1" style="font-size: 1rem ">UNIVERSITAS BENGKULU</p>
-            <p style="font-size: 0.8rem">Jalan W.R. Supratman Kandang Limun Bengkulu 38371</p>
-            <p style="font-size: 0.8rem"> Telepon : (0736) 344087, 22105 – 227</p>
-        </div>
-    </div>
+    <div class="d-flex justify-content-center flex-column  align-items-center " style="position: relative;">
+        <img src="/assets/img/unib.png" style="width: 5vw">
+        <p class="fw-bold mt-3" style="font-size: .9rem" >UNIVERSITAS BENGKULU</p>
+        <p class="fw-bold mt-1" style="font-size: 2rem">FAKULTAS TEKNIK</p>
+</div>
 
 
-    <div class="my-line mt-5" style="border: 1px solid black"></div>
+<div class="my-line my-3" style="border: 1px solid black"></div>
 
     <div class="row text-center my-3">
-        <h4 class="fw-bold">Daftar Pengguna</h4>
+        <h5 class="fw-bold text-uppercase text-decoration-underline">Daftar Pengguna</h5>
     </div>
 
 
     <div class="table-responsive text-nowrap rounded">
-        <table class="table table-bordered">
+        <table class="table">
             <thead>
                 <tr>
-                    <th class="fw-bold">No</th>
-                    <th class="fw-bold">Nama</th>
-                    <th class="fw-bold">Npm</th>
-                    <th class="fw-bold">Email</th>
-                    <th class="fw-bold">Jurusan</th>
-                    <th class="fw-bold">Jenis Kelamin</th>
+                    <th class="fw-bold" style="font-size: .9rem">No</th>
+                    <th class="fw-bold" style="font-size: .9rem">Nama</th>
+                    <th class="fw-bold" style="font-size: .9rem">Npm</th>
+                    <th class="fw-bold" style="font-size: .9rem">Email</th>
+                    <th class="fw-bold" style="font-size: .9rem">Jurusan</th>
+                    <th class="fw-bold" style="font-size: .9rem">Jenis Kelamin</th>
                 </tr>
             </thead>
             <tbody>

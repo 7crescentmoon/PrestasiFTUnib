@@ -1,9 +1,7 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-container">
-        <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('partials.navbar')
             <div class="content-wrapper position-relative">
                 <div class="container-xxl flex-grow-1 container-p-y">
@@ -15,21 +13,22 @@
                                     @csrf
                                     @method('put')
                                     <div class="card-body">
-                                        <div class="d-flex align-items-start align-items-sm-center gap-4 justify-content-center align-items-center">
-                                                @if ($user_id->profil)
+                                        <div
+                                            class="d-flex align-items-start align-items-sm-center gap-4 justify-content-center align-items-center">
+                                            @if ($user_id->profil)
                                                 <img src="{{ asset('storage/' . $user_id->profil) }}" alt="user-avatar"
-                                                    class="d-block rounded border border-black" height="120" width="120"
-                                                    id="uploadedAvatar" />
-                                                @else
-                                                <img src="{{ asset('assets/img/user-profile-default.png') }}" alt="user-avatar"
-                                                    class="d-block rounded border border-black" height="120" width="120"
-                                                    id="uploadedAvatar" />
-                                                @endif
+                                                    class="d-block rounded border border-black" height="120"
+                                                    width="120" id="uploadedAvatar" />
+                                            @else
+                                                <img src="{{ asset('assets/img/user-profile-default.png') }}"
+                                                    alt="user-avatar" class="d-block rounded border border-black"
+                                                    height="120" width="120" id="uploadedAvatar" />
+                                            @endif
                                         </div>
                                     </div>
                                     <hr class="my-0" />
                                     <div class="card-body">
-                                        <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <form id="formAccountSettings" onsubmit="return false">
                                             <div class="row">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="nama" class="form-label">Nama Lengkap</label>
@@ -46,12 +45,22 @@
 
                                                 <div class="mb-3 col-md-6">
                                                     @if ($user_id->role == 'admin' || $user_id->role == 'super admin')
-                                                        <label for="npm_nip" class="form-label">Nip</label>
+                                                        <label for="npm_nip" class="form-label @error('npm_nip') is-invalid @enderror">Nip</label>
                                                     @else
                                                         <label for="npm_nip" class="form-label">Npm</label>
+                                                        @error('npm_nip')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                     @endif
-                                                    <input class="form-control" type="text" name="npm_nip" id="npm_nip"
+                                                    <input class="form-control  @error('npm_nip') is-invalid @enderror" type="text" name="npm_nip" id="npm_nip"
                                                         value="{{ $user_id->npm_nip }}" oninput="toUppercase(this)" />
+                                                        @error('npm_nip')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
@@ -117,11 +126,11 @@
                                                     <select name="jenis_kelamin"
                                                         class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                         required>
-                                                        <option value="Laki-Laki"
-                                                            @if (old('jenis_kelamin') == 'Laki-Laki') selected @endif>Laki-Laki
+                                                        <option value="Laki - Laki"
+                                                            @if (old('jenis_kelamin') == 'Laki - Laki' || $user_id->jenis_kelamin === 'Laki - Laki') selected @endif>Laki-Laki
                                                         </option>
                                                         <option value="Perempuan"
-                                                            @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
+                                                            @if (old('jenis_kelamin') == 'Perempuan' || $user_id->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
                                                         </option>
                                                     </select>
                                                     @error('jenis_kelamin')
@@ -168,13 +177,43 @@
                                                         @enderror
                                                     </div>
                                                 @endif
+
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="text" name="email"
+                                                        class="form-control @error('email') is-invalid @enderror"
+                                                        value="{{ $user_id->email }}" placeholder="Masukan email lengkap   "
+                                                        required>
+                                                    @error('email')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="mb-3 col-md-6 form-password-toggle">
+                                                    <label class="form-label" for="password">Password</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <input type="password" name="password"
+                                                            class="form-control @error('password') is-invalid @enderror"
+                                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                            aria-describedby="password">
+                                                        <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                                    </div>
+                                                    @error('password')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div> 
                                             </div>
                                             <!-- /Account -->
                                     </div>
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-primary deactivate-account">Ubah Profil</button>
+                                                <button type="submit" class="btn btn-primary deactivate-account">Ubah
+                                                    Profil</button>
                                             </div>
                                         </div>
                                     </div>
@@ -182,14 +221,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!-- / Content -->
-                <div class="content-backdrop fade"></div>
-
-                <!-- Content wrapper -->
             </div>
-            @include('partials.footer') 
+            @include('partials.footer')
         </div>
 
         <!-- Overlay -->

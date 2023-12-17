@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Prestasi;
+use App\Imports\UsersImport;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AdminController extends Controller
 {
@@ -22,7 +25,7 @@ class AdminController extends Controller
         $this->authorize('accesAdminSuperadmin', User::class);
 
         $laki_laki = Prestasi::whereHas('user', function($q){
-            $q->where('jenis_kelamin', 'Laki-Laki');
+            $q->where('jenis_kelamin', 'Laki - Laki');
         })->count();
 
         $perempuan = Prestasi::whereHas('user', function($q){
@@ -34,14 +37,6 @@ class AdminController extends Controller
             "laki_laki" => $laki_laki,
             "perempuan" => $perempuan
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -67,33 +62,38 @@ class AdminController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $userId)
     {
-        $this->authorize('accesAdminSuperadmin', User::class);
-
         $user = User::find($userId);
-        // dd($request->except(['_token']));
-        $user->update($request->except(['_token']));
-        // Alert::success('Mengubah data', 'Data berhasil diubah');
+        $this->authorize('accesAdminSuperadmin', User::class);
+        $rules = [
+            "nama" => 'Required|max:100',
+            'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($user->id)],
+            'jurusan' => '',
+            'jenis_kelamin' => '',
+            "email" => ['Required','email:dns', Rule::unique('users')->ignore($user->id)],
+            "profil" => 'image|file|mimes:png,jpg|max:1024',
+            "delete_profile_picture" => '',
+            "password" => '',
+        ];
+        $validatedData = $request->validate($rules);
+      
+        
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        
+        if ($request->filled('jurusan')) {
+            $user->jurusan = $request->jurusan;
+        }
+        $user->nama = $validatedData['nama'];
+        $user->npm_nip = $validatedData['npm_nip'];
+        $user->jenis_kelamin = $validatedData['jenis_kelamin'];
+        $user->email = $validatedData['email'];
+
+        $user->save();
         Alert::toast('Profil telah diubah', 'success');
         return redirect(route('editUserView', encrypt($userId)));
     }
@@ -105,9 +105,16 @@ class AdminController extends Controller
     public function destroy(User $id)
     {
         $this->authorize('accesAdminSuperadmin', User::class);
-
+        // User::destroy($id->id);
+        try {
+            User::destroy($id->id);
+            // Jika berhasil dihapus
+            Alert::toast('Data berhasil dihapus', 'success');
+        } catch (QueryException $e) {
+            // Jika terjadi kesalahan lain selain model tidak ditemukan
+            Alert::toast('Data tidak bisa di Hapus', 'error');
         
-        User::destroy($id->id);
+        }
         return redirect(route('userList'));
     }
 
@@ -121,35 +128,44 @@ class AdminController extends Controller
             "title" => 'Profile Settings',        ]);
     }
 
-    public function editProfile(Request $request, User $id)
+    public function editProfile(Request $request, $id)
     {   
+        $user = User::find($id);
         $rules = [
             "nama" => 'Required|max:100',
-            'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($id->id)],
+            'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($user->id)],
             'jurusan' => '',
             'jenis_kelamin' => '',
-            "email" => ['Required','email:dns', Rule::unique('users')->ignore($id->id)],
+            "email" => ['Required','email:dns', Rule::unique('users')->ignore($user->id)],
             "profil" => 'image|file|mimes:png,jpg|max:1024',
-            "delete_profile_picture" => ''
+            "delete_profile_picture" => '',
+            "password" => '',
         ];
-
-    
+        
         $validatedata = $request->validate($rules);
-
-        if ($request->has('delete_profile_picture') && $id->profil) {
-            Storage::delete($id->profil);
-            $id->profil = null;
+        if ($request->has('delete_profile_picture') &&  $user->profil) {
+            Storage::delete( $user->profil);
+             $user->profil = null;
         }
 
         if ($request->file('profil')) {
-            if ($id->profil != null)
-                Storage::delete($id->profil);
-            $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+            if ( $user->profil != null)
+                Storage::delete( $user->profil);
+                $user->profil = $request->file('profil')->store('profilePicture');
         }
 
-        $id->update($validatedata);
+        if ($request->filled('password')) {
+            $validatedata['password'] = Hash::make($request->password);
+        }
+
+        $user->nama = $validatedata['nama'];
+        $user->npm_nip = $validatedata['npm_nip'];
+        $user->jenis_kelamin = $validatedata['jenis_kelamin'];
+        $user->email = $validatedata['email'];
+
+        $user->save();
         Alert::toast('Profil telah diubah', 'success');
-        return redirect(route('adminProfile',encrypt($id->id)));
+        return redirect(route('adminProfile',encrypt($user->id)));
     }
 
     public function userList()
@@ -192,5 +208,17 @@ class AdminController extends Controller
             "user_id" => $user,
             "user_log"=> Auth::user(),
         ]);
+    }
+
+    public function import(Request $request) 
+    {
+        $data = $request->file('file-excel');
+        $namaFile = $data->getClientOriginalName();
+
+        $data->move('akun-user', $namaFile);
+
+        Excel::import(new UsersImport, \public_path('/akun-user/' . $namaFile));
+
+        return redirect(route('userList'));
     }
 }

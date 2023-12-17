@@ -1,13 +1,8 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-container">
-        <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('partials.navbar')
-            <!-- / Navbar -->
-
-            <!-- Content wrapper -->
             <div class="content-wrapper">
                 <div class="flex-grow-1">
                     <div class="container-xxl flex-grow-1 container-p-y">
@@ -17,12 +12,28 @@
                                     <div class="container mt-3 d-flex justify-content-between">
                                         <div class="">
                                             <h3>
-                                                <a href="{{ route('addUser') }}" class="">Tambah pengguna</a>
+                                                <a href="{{ route('addUser') }}" class="fw-bold">Tambah pengguna</a>
                                                 @if (auth()->user()->role == 'super admin')
-                                                    <a href="{{ route('addAdminView') }}" class="text-secondary">/ Tambah
+                                                    <a href="{{ route('addAdminView') }}" class="text-secondary fw-bold">/ Tambah
                                                         Admin</a>
                                                 @endif
                                             </h3>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <label data-bs-toggle="modal" data-bs-target="#excel-modals"
+                                                class="btn btn-secondary" style="width: 9rem" class="d-flex">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <svg role="img" viewBox="0 0 24 24"
+                                                        xmlns="http://www.w3.org/2000/svg" id="IconChangeColor"
+                                                        height="24" width="24">
+                                                        <title>Microsoft Excel</title>
+                                                        <path
+                                                            d="M23 1.5q.41 0 .7.3.3.29.3.7v19q0 .41-.3.7-.29.3-.7.3H7q-.41 0-.7-.3-.3-.29-.3-.7V18H1q-.41 0-.7-.3-.3-.29-.3-.7V7q0-.41.3-.7Q.58 6 1 6h5V2.5q0-.41.3-.7.29-.3.7-.3zM6 13.28l1.42 2.66h2.14l-2.38-3.87 2.34-3.8H7.46l-1.3 2.4-.05.08-.04.09-.64-1.28-.66-1.29H2.59l2.27 3.82-2.48 3.85h2.16zM14.25 21v-3H7.5v3zm0-4.5v-3.75H12v3.75zm0-5.25V7.5H12v3.75zm0-5.25V3H7.5v3zm8.25 15v-3h-6.75v3zm0-4.5v-3.75h-6.75v3.75zm0-5.25V7.5h-6.75v3.75zm0-5.25V3h-6.75v3Z"
+                                                            id="mainIconPathAttribute" fill="#ffffff"></path>
+                                                    </svg>
+                                                    <p class="my-auto ms-2">impor</p>
+                                                </div>
+                                            </label>
                                         </div>
                                     </div>
                                     <!-- Account -->
@@ -80,7 +91,8 @@
                                                             class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
                                                             <option value="Laki - Laki"
-                                                                @if (old('jenis_kelamin') == 'Laki - Laki') selected @endif>Laki - Laki
+                                                                @if (old('jenis_kelamin') == 'Laki - Laki') selected @endif>Laki -
+                                                                Laki
                                                             </option>
                                                             <option value="Perempuan"
                                                                 @if (old('jenis_kelamin') == 'Perempuan') selected @endif>Perempuan
@@ -169,31 +181,66 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
-                                                    <button type="submit" class="btn btn-primary deactivate-account">Tambah
-                                                    </button>   
+                                                    <button type="submit"
+                                                        class="btn btn-primary deactivate-account">Tambah
+                                                    </button>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-                    <!-- / Content -->
                     <div class="content-backdrop fade"></div>
                 </div>
-                <!-- Content wrapper -->
             </div>
-            @include('partials.footer') 
+            @include('partials.footer')
         </div>
-
-        <!-- Overlay -->
-        <div class="layout-overlay layout-menu-toggle"></div>
 
         <script>
             function toUppercase(el) {
                 el.value = el.value.toUpperCase();
             }
         </script>
-    @endsection
+    </div>
+
+    {{-- modal --}}
+    <div class="modal fade" id="excel-modals" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Masukan file Exel</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('addUserWithExel') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3 col-12 mb-0 d-flex justify-content-center flex-column align-items-center">
+                            <label for="file" class="btn btn-secondary" style="width: 10rem" class="d-flex">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        viewBox="0 0 24 24" style="fill: rgba(255, 255, 255, 1);transform: ;msFilter:;">
+                                        <path d="M11 15h2V9h3l-4-5-4 5h3z"></path>
+                                        <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"></path>
+                                    </svg>
+                                    <p class="my-auto ms-2">pilih file</p>
+                                    <input type="file" name="file-excel" hidden id="file" required>
+                                </div>
+                            </label>
+
+                            <div class="mt-3">
+                                <p class="fw-bold">* Contoh Format Excel</p>
+                                <img src="/assets/img/excel.jpg" alt="" class="w-100 h-100" style="border: 2px solid #1a246a">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Impor data</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

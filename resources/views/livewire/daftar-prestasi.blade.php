@@ -1,11 +1,9 @@
 <div class="content-wrapper">
     @include('partials.loading')
     <div class="container-xxl flex-grow-1 container-p-y ">
-        <!-- Layout -->
         <div class="card">
             <div class="container mt-3 mb-2 d-flex justify-content-between">
-                <h3 class="text-primary">Daftar Prestasi Mahasiswa</h3>
-
+                <h3 class="text-primary fw-bold">Daftar Prestasi Mahasiswa</h3>
                 <div class="">
                     @if ($search)
                         <button type="button" class="btn btn-secondary text-center" wire:click="printBySearch"
@@ -122,5 +120,5 @@
 
             </div>
         </div>
-        {{-- </div> --}}
     </div>
+</div>

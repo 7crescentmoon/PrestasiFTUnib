@@ -8,7 +8,7 @@
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
 
-        <p class="navbar-nav align-items-center">{{ $carbon->formatLocalized('%A %d %B %Y') }}</p>
+        <p class="navbar-nav align-items-center">{{ $carbon }}</p>
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->

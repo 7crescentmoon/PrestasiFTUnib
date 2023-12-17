@@ -1,19 +1,11 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-container">
-        <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('partials.navbar')
-            <!-- / Navbar -->
-
-            <!-- Content wrapper -->
             <div class="content-wrapper position-relative">
-                <!-- Content -->
                 <div class="flex-grow-1 container-p-y ">
-                    <!-- Layout -->
                     <div class="">
-
                         <div class="container-xxl flex-grow-1">
                             <div class="row">
                                 <div class="col-md-12">
@@ -25,7 +17,9 @@
                                         </div>
                                     @endif
                                     <div class="card mb-3">
-                                        <h5 class="card-header">Profile Details</h5>
+                                        <div class="container mt-3 mb-2 d-flex justify-content-start align-items-center ">
+                                            <h3 class="text-primary my-auto fw-bold">Profil Anda</h3>
+                                        </div>
                                         <!-- Account -->
                                         <form action="{{ route('editProfileUser', $user_log->id) }}" method="POST"
                                             enctype="multipart/form-data">
@@ -34,10 +28,18 @@
                                             <div class="card-body">
                                                 <div class="d-flex align-items-start align-items-sm-center gap-4">
                                                     @if ($user_log->profil)
+                                                    <div class="position-relative">
                                                         <img src="{{ asset('storage/' . $user_log->profil) }}"
-                                                            alt="user-avatar" class="d-block rounded border"
-                                                            style="width: 100px;height: 100px; object-fit: cover"
-                                                            id="uploadedAvatar" />
+                                                            id="uploadedAvatar" alt="user-avatar"
+                                                            class="d-block rounded border"
+                                                            style="width: 100px;height: 100px; object-fit: cover" />
+                                                        <div class="position-absolute" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" data-bs-title="Hapus Foto Profil"
+                                                            style="top: -.5rem;right: -.4rem;">
+                                                            <input type="checkbox" name="delete_profile_picture"
+                                                                class="form-check-input" style="border-radius:50px;border: 1px solid #696cff">
+                                                        </div>
+                                                    </div>
                                                     @else
                                                         <img src="{{ asset('assets/img/user-profile-default.png') }}"
                                                             alt="user-avatar" class="d-block rounded border"
@@ -47,15 +49,11 @@
                                                     <div class="button-wrapper">
                                                         <label for="upload" class="btn btn-primary me-2 mb-4"
                                                             tabindex="0">
-                                                            <span class="d-none d-sm-block">Unggah Foto Profile</span>
+                                                            <span class="d-none d-sm-block">Unggah Foto Profil</span>
                                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                                             <input type="file" id="upload" name="profil"
                                                                 class="account-file-input" hidden
                                                                 accept="image/png, image/jpeg" onchange="previewImage()" />
-                                                        </label>
-                                                        <label class="btn btn-outline-secondary me-2 mb-4" tabindex="0">
-                                                            <input type="checkbox" name="delete_profile_picture"
-                                                                class="form-check-input"> Hapus Foto Profil
                                                         </label>
                                                         <p class="text-muted mb-0">
                                                         </p>
@@ -114,8 +112,8 @@
                                                         <select name="jenis_kelamin"
                                                             class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
-                                                            <option value="Laki-Laki"
-                                                                @if (old('jenis_kelamin') == 'Laki-Laki' || $user_log->jenis_kelamin === 'Laki-Laki') selected @endif>Laki-Laki
+                                                            <option value="Laki - Laki"
+                                                                @if (old('jenis_kelamin') == 'Laki - Laki' || $user_log->jenis_kelamin === 'Laki - Laki') selected @endif>Laki-Laki
                                                             </option>
                                                             <option value="Perempuan"
                                                                 @if (old('jenis_kelamin') == 'Perempuan' || $user_log->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
@@ -140,6 +138,22 @@
                                                             </div>
                                                         @enderror
                                                     </div>
+
+                                                    <div class="mb-3 col-md-6 form-password-toggle">
+                                                        <label class="form-label" for="password">Password</label>
+                                                        <div class="input-group input-group-merge">
+                                                            <input type="password" name="password"
+                                                                class="form-control @error('password') is-invalid @enderror"
+                                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                aria-describedby="password">
+                                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                                        </div>
+                                                        @error('password')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div> 
                                                 </div>
                                                 <!-- /Account -->
                                             </div>
@@ -147,7 +161,7 @@
                                                 <div class="card-body">
                                                     <div class="mb-3 col-12 mb-0 d-flex justify-content-center">
                                                         <button type="submit"
-                                                            class="btn btn-danger deactivate-account">Ubah
+                                                            class="btn btn-primary deactivate-account">Ubah
                                                             Profil</button>
                                                     </div>
                                                 </div>

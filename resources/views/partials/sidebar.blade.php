@@ -1,4 +1,3 @@
- <!-- Menu -->
  <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
      <div class="text-center mt-2">
          <span>
@@ -36,10 +35,6 @@
          <li class="menu-header small text-uppercase">
 
          </li>
-
-         <!-- Layouts -->
-         {{-- active open --}}
-
          {{-- admin --}}
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
              @php
@@ -59,7 +54,6 @@
                  </a>
              </li>
          @endif
-
          @if (auth()->user()->role === 'admin' || auth()->user()->role === 'super admin')
              @php
                  $allowedRoutes = ['viewTambahPrestasi','daftarPrestasi', 'dataMahasiswa'];
@@ -88,7 +82,6 @@
              </li>
          @endif
 
-
          {{-- user --}}
          @if (auth()->user()->role === 'user')
              <li class="menu-item {{ \Request::route()->getName() == 'lamanPengajuan' ? 'active' : '' }}">
@@ -111,11 +104,6 @@
                  </a>
              </li>
          @endif
-
-
-
          </li>
      </ul>
  </aside>
-
- <!-- / Menu -->

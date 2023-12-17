@@ -1,10 +1,9 @@
 <div class="content-wrapper">
     <div class="container-xxl flex-grow-1 container-p-y ">
-        <!-- Layout -->
         @include('partials.loading')
         <div class="card container overflow-hidden vh-100">
             <div class=" mt-3 d-flex justify-content-between align-items-center">
-                <h3 class="text-primary">
+                <h3 class="text-primary fw-bold">
                     Daftar Persetujuan Prestasi</a>
                 </h3>
             </div>

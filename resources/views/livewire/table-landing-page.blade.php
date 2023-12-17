@@ -1,8 +1,6 @@
 <div class="content-wrapper mt-2 container">
     @include('partials.loading')
     <div class="container-xxl flex-grow-1  ">
-        <!-- Layout -->
-
         <div class=" mb-3 d-flex justify-content-between">
             @include('partials.dataTable')
             <div class="d-flex gap-3">
@@ -67,5 +65,4 @@
     <div class="paginate">
         @include('partials.paginate')
     </div>
-    {{-- </div> --}}
 </div>

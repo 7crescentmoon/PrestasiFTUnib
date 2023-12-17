@@ -7,7 +7,9 @@ use App\Models\Prestasi;
 use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -29,54 +31,6 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
     public function profileSetting($id)
     {
         $decryptedId = decrypt($id);
@@ -88,36 +42,47 @@ class UserController extends Controller
         ]);
     }
 
-    public function editProfile(Request $request, User $id)
+    public function editProfile(Request $request, $id)
     {
-        // dd($request->all());
+        $user = User::find($id);
         $rules = [
             "nama" => 'Required|max:100',
-            'npm_nip' => 'required|max:10',
+            'npm_nip' => ['required', 'max:10' , Rule::unique('users')->ignore($user->id)],
             'jurusan' => '',
-            'jenis_kelamin' => 'Required',
-            "email" => 'Required|email:dns',
-            "profil" => 'image|file|mimes:png,jpg|max:1024'
+            'jenis_kelamin' => '',
+            "email" => ['Required','email:dns', Rule::unique('users')->ignore($user->id)],
+            "profil" => 'image|file|mimes:png,jpg|max:1024',
+            "delete_profile_picture" => '',
+            "password" => '',
         ];
 
         $validatedata = $request->validate($rules);
 
-        if ($request->has('delete_profile_picture') && $id->profil) {
-            Storage::delete($id->profil);
-            $id->profil = null;
+        if ($request->has('delete_profile_picture') && $user->profil) {
+            Storage::delete($user->profil);
+            $user->profil = null;
         }
 
 
         if ($request->file('profil')) {
-            if ($id->profil != null)
-                Storage::delete($id->profil);
-            $validatedata['profil'] = $request->file('profil')->store('profilePicture');
+            if ($user->profil != null)
+                Storage::delete($user->profil);
+                $user->profil = $request->file('profil')->store('profilePicture');
            
         }
 
-        $id->update($validatedata);
+        if ($request->filled('password')) {
+            $validatedata['password'] = Hash::make($request->password);
+        }
+
+        $user->nama = $validatedata['nama'];
+        $user->npm_nip = $validatedata['npm_nip'];
+        $user->jenis_kelamin = $validatedata['jenis_kelamin'];
+        $user->email = $validatedata['email'];
+
+        $user->save();
         Alert::toast('Profil telah diubah', 'success');
-        return redirect(route('userProfile',encrypt($id->id)));
+        return redirect(route('userProfile',encrypt($user->id)));
     }
 
 }

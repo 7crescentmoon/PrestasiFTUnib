@@ -120,6 +120,8 @@ return [
 
     'background' => env('SWEET_ALERT_BACKGROUND', '#fff'),
 
+    'z-index' => env('SWEET_ALERT_INDEX', 99),
+
     /*
     |--------------------------------------------------------------------------
     | Animation

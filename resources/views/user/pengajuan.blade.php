@@ -2,21 +2,13 @@
 @section('content')
     <div class="layout-container">
         <div class="layout-page">
-            <!-- Layout container -->
-            <!-- Navbar -->
             @include('partials.navbar')
-            <!-- / Navbar -->
-
-            <!-- Content wrapper -->
             <div class="content-wrapper">
-                <!-- Content -->
-
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <!-- Layout -->
                     <div class="row ">
                         <div class="col-xxl">
                             <div class="card mb-4">
-                                <h3 class="card-header d-flex align-items-center m-2 text-primary"> <svg
+                                <h3 class="card-header d-flex align-items-center m-2 text-primary fw-bold"> <svg
                                         xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"
                                         style="fill: #435971;transform: ;msFilter:;" class="me-2">
                                         <path
@@ -222,7 +214,7 @@
                                             Pengajuan
                                             <button type="button"
                                                 class="btn p-0 dropdown-toggle hide-arrow position-absolute"
-                                                style="top: -.5rem;right: -1rem" data-bs-toggle="dropdown">
+                                                style="top: -.5rem;right: -1rem" data-bs-toggle="dropdown" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
                                                     viewBox="0 0 24 24" style="fill: #8592A3;transform: ;msFilter:;">
                                                     <path
@@ -233,8 +225,8 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <p class="p-2" style="width: 20rem;">
-                                                    jika prestasi sudah diajukan kemudian didaftar pengajuan tidak ada,
-                                                    itu kemungkinan prestasi ditolak atau tidak disetujui.
+                                                   <b> * jika prestasi sudah diajukan kemudian didaftar pengajuan tidak ada,
+                                                    itu kemungkinan prestasi ditolak atau tidak disetujui. *</b>
                                                 </p>
                                             </div>
                                         </h4>

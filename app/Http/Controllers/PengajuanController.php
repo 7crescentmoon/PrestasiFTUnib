@@ -134,21 +134,7 @@ class PengajuanController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Pengajuan $pengajuan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Pengajuan $pengajuan)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.

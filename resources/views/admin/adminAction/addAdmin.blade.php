@@ -1,18 +1,10 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-container">
-        <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('partials.navbar')
-            <!-- / Navbar -->
-
-            <!-- Content wrapper -->
             <div class="content-wrapper position-relative">
-                <!-- Content -->
-
                 <div class="flex-grow-1 container-p-y ">
-                    <!-- Layout -->
                     <div class="container-xxl flex-grow-1">
                         <div class="row">
                             <div class="col-md-12">
@@ -20,10 +12,10 @@
                                     <div class="container mt-3 d-flex justify-content-between">
                                         <div class="">
                                             <h3>
-                                                <a href="{{ route('addUserView') }}" class="text-secondary">Tambah
+                                                <a href="{{ route('addUserView') }}" class="text-secondary fw-bold">Tambah
                                                     pengguna /</a>
                                                 @if (auth()->user()->role == 'super admin')
-                                                    <a href="{{ route('addAdminView') }}" class="">Tambah
+                                                    <a href="{{ route('addAdminView') }}" class="fw-bold">Tambah
                                                         Admin</a>
                                                 @endif
                                             </h3>
@@ -152,13 +144,11 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             @include('partials.footer')
         </div>
-
+        
         <script>
             function toUppercase(el) {
                 el.value = el.value.toUpperCase();

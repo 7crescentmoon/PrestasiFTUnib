@@ -76,7 +76,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             document.addEventListener('click', function(e) {
                 // Pastikan bahwa yang diklik memiliki id 'delete'
-                if (e.target && e.target.id == 'delete') {
+                if (e.target && e.target.id == 'delete' || e.target && e.target.id == 'reject') {
                     e.preventDefault();
 
                     let link = e.target.getAttribute('href');
@@ -102,6 +102,33 @@
                         }
                     });
                 }
+                if (e.target && e.target.id == 'reject' || e.target && e.target.id == 'reject') {
+                    e.preventDefault();
+
+                    let link = e.target.getAttribute('href');
+
+                    Swal.fire({
+                        title: "Anda Yakin?",
+                        text: "Menolak Persetujuan ini",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#71dd37",
+                        confirmButtonText: "Tolak",
+                        cancelButtonText: "Tidak",
+                        customClass: {
+                            container: 'custom-swal-container', 
+                            popup: 'custom-swal-popup', 
+                            backdrop: 'custom-swal-backdrop', 
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Lakukan penghapusan dengan mengarahkan ke URL penghapusan
+                            window.location.href = link;
+                        }
+                    });
+                }
+
             });
         });
     </script>

@@ -1,14 +1,8 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-page">
-        <!-- Navbar -->
         @include('partials.navbar')
-        <!-- / Navbar -->
-
-        <!-- Content wrapper -->
         <div class="content-wrapper position-relative">
-            <!-- Content -->
-
             <div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row mt-1">
                     <div class="col-lg-7

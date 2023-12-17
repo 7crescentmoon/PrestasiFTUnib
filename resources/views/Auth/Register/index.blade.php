@@ -2,15 +2,11 @@
 @section('content')
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register Card -->
             <div class="card">
                 <div class="card-body">
-                    <!-- Logo -->
                     <div class="app-brand justify-content-center">
                         <img src="assets/img/unib.png" style="width: 10rem;height: 10rem;" alt="">
-
                     </div>
-                    <!-- /Logo -->
                     <h4 class="mb-2 text-center">Register akun disini!</h4>
                     <p class="mb-4 text-center">Buat akun anda untuk UniAchive.FT</p>
 
@@ -116,7 +112,6 @@
                     </p>
                 </div>
             </div>
-            <!-- Register Card -->
         </div>
     </div>
 

@@ -1,18 +1,10 @@
 @extends('admin.layouts.main')
 @section('content')
     <div class="layout-container">
-        <!-- Layout container -->
         <div class="layout-page">
-            <!-- Navbar -->
             @include('partials.navbar')
-            <!-- / Navbar -->
-
-            <!-- Content wrapper -->
             <div class="content-wrapper position-relative">
-                <!-- Content -->
                 <div class="flex-grow-1 container-p-y ">
-                    <!-- Layout -->
-
                     <div class="container-xxl flex-grow-1">
                         <div class="row">
 
@@ -27,41 +19,42 @@
                                 <div class="card mb-4">
                                     <div class="card">
                                         <div class="container mt-3 mb-2 d-flex justify-content-start align-items-center ">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" 
-                                                viewBox="0 0 24 24" style="fill: #435971;transform: ;msFilter:;">
-                                                <path
-                                                    d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z">
-                                                </path>
-                                            </svg>
-                                            <h3 class="text-primary ms-2 my-auto ">Profil Anda</h3>
+                                            <h3 class="text-primary my-auto fw-bold">Profil Anda</h3>
                                         </div>
                                         <form action="{{ route('editProfile', $user_log->id, encrypt($user_log->id)) }}"
                                             method="POST" enctype="multipart/form-data">
                                             @csrf
                                             @method('patch')
                                             <div class="card-body">
-                                                <div class="d-flex align-items-start align-items-sm-center gap-4">
+                                                <div class="d-flex align-items-start align-items-sm-center gap-4 ">
                                                     @if ($user_log->profil)
-                                                        <img src="{{ asset('storage/' . $user_log->profil) }}"
-                                                            id="uploadedAvatar" alt="user-avatar" class="d-block rounded border"
-                                                            style="width: 100px;height: 100px; object-fit: cover" />
+                                                        <div class="position-relative">
+                                                            <img src="{{ asset('storage/' . $user_log->profil) }}"
+                                                                id="uploadedAvatar" alt="user-avatar"
+                                                                class="d-block rounded border"
+                                                                style="width: 100px;height: 100px; object-fit: cover" />
+                                                            <div class="position-absolute" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" data-bs-title="Hapus Foto Profil"
+                                                                style="top: -.5rem;right: -.4rem;">
+                                                                <input type="checkbox" name="delete_profile_picture"
+                                                                    class="form-check-input"
+                                                                    style="border-radius:50px;border: 1px solid #696cff">
+                                                            </div>
+                                                        </div>
                                                     @else
                                                         <img src="{{ asset('assets/img/user-profile-default.png') }}"
-                                                            alt="user-avatar" class="d-block rounded border" 
-                                                            id="uploadedAvatar" style="width: 100px;height: 100px; object-fit: cover" />
+                                                            alt="user-avatar" class="d-block rounded border"
+                                                            id="uploadedAvatar"
+                                                            style="width: 100px;height: 100px; object-fit: cover" />
                                                     @endif
                                                     <div class="button-wrapper">
                                                         <label for="upload" class="btn btn-primary me-2 mb-4"
                                                             tabindex="0">
-                                                            <span class="d-none d-sm-block">Unggah Foto Profile</span>
+                                                            <span class="d-none d-sm-block">Unggah Foto Profil</span>
                                                             <i class="bx bx-upload d-block d-sm-none"></i>
                                                             <input type="file" id="upload" name="profil"
                                                                 class="account-file-input" hidden
                                                                 accept="image/png, image/jpeg" onchange="previewImage()" />
-                                                        </label>
-                                                        <label class="btn btn-outline-secondary me-2 mb-4" tabindex="0">
-                                                            <input type="checkbox" name="delete_profile_picture"
-                                                                class="form-check-input"> Hapus Foto Profil
                                                         </label>
                                                         <p class="text-muted mb-0">
                                                         </p>
@@ -103,7 +96,7 @@
                                                     </div>
 
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="username" class="form-label">Email</label>
+                                                        <label for="email" class="form-label">Email</label>
                                                         <input type="text" name="email"
                                                             class="form-control @error('email') is-invalid @enderror"
                                                             value="{{ $user_log->email }}" placeholder="Masukan Email anda"
@@ -120,8 +113,9 @@
                                                         <select name="jenis_kelamin"
                                                             class="form-control  @error('jenis_kelamin') is-invalid @enderror"
                                                             required>
-                                                            <option value="Laki-Laki"
-                                                                @if (old('jenis_kelamin') == 'Laki-Laki' || $user_log->jenis_kelamin === 'Laki-Laki') selected @endif>Laki-Laki
+                                                            <option value="Laki - Laki"
+                                                                @if (old('jenis_kelamin') == 'Laki - Laki' || $user_log->jenis_kelamin === 'Laki - Laki') selected @endif>Laki -
+                                                                Laki
                                                             </option>
                                                             <option value="Perempuan"
                                                                 @if (old('jenis_kelamin') == 'Perempuan' || $user_log->jenis_kelamin === 'Perempuan') selected @endif>Perempuan
@@ -139,6 +133,22 @@
                                                         <input type="text" class="form-control" id="role"
                                                             name="role" value="{{ $user_log->role }}" disabled />
                                                     </div>
+
+                                                    <div class="mb-3 col-md-6 form-password-toggle">
+                                                        <label class="form-label" for="password">Password</label>
+                                                        <div class="input-group input-group-merge">
+                                                            <input type="password" name="password"
+                                                                class="form-control @error('password') is-invalid @enderror"
+                                                                placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                                                aria-describedby="password">
+                                                            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                                        </div>
+                                                        @error('password')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div> 
                                                 </div>
                                                 <!-- /Account -->
                                             </div>
@@ -155,18 +165,10 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
-                        <!-- / Content -->
-                        <div class="content-backdrop fade"></div>
-
-                        <!-- Content wrapper -->
                     </div>
                     @include('partials.footer')
                 </div>
-
-                <!-- Overlay -->
-                <div class="layout-overlay layout-menu-toggle"></div>
 
                 <script>
                     function toUppercase() {
@@ -188,4 +190,7 @@
                         }
                     };
                 </script>
-            @endsection
+            </div>
+        </div>
+    </div>
+@endsection

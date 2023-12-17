@@ -27,13 +27,16 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultView('vendor.pagination.bootstrap-5');
 
         View::composer('partials.sidebar', function ($view) {
-            $jumlah_pengajuan = Pengajuan::where('status', 0)->count(); // Ganti dengan metode atau logika bisnis yang sesuai
+            $jumlah_pengajuan = Pengajuan::where('status', 0)->count(); 
             $view->with('jumlah_pengajuan', $jumlah_pengajuan);
         });
 
         View::composer('partials.navbar', function ($view) {
-            $carbon = Carbon::now('Asia/Jakarta'); // Ganti dengan metode atau logika bisnis yang sesuai
-            $view->with('carbon', $carbon);
+            $carbon = Carbon::now('Asia/Jakarta');
+            $carbon->setLocale('id');      
+            $dayInIndonesian = $carbon->isoFormat('dddd'); 
+            $dateInIndonesian = $carbon->isoFormat('D MMMM YYYY');    
+            $view->with('carbon', $dayInIndonesian . ' ' . $dateInIndonesian);
         });
 
     }

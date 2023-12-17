@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('prestasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('pengajuan_id')->constrained();
             $table->string('nama_prestasi',100);
             $table->string('jenis_prestasi',50);

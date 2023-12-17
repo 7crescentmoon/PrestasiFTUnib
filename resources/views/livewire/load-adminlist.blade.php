@@ -4,8 +4,8 @@
         <div class="card">
             <div class="container mt-3 d-flex justify-content-between">
                 <h3>
-                    <a href="{{ route('userList') }}" class=" text-secondary ">Daftar Pengguna / </a>
-                    <a href="{{ route('adminList') }}" class="">Daftar Admin</a>
+                    <a href="{{ route('userList') }}" class=" text-secondary fw-bold ">Daftar Pengguna / </a>
+                    <a href="{{ route('adminList') }}" class="fw-bold">Daftar Admin</a>
                 </h3>
                 <div class="">
                     <a href="{{ route('addUserView') }}" class="btn btn-success text-center me-2">Tambah</a>

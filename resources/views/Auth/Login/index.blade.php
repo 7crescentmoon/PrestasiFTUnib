@@ -2,17 +2,13 @@
 @section('content')
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register -->
             <div class="card">
                 <div class="card-body">
-                    <!-- Logo -->
                     <div class="app-brand justify-content-center">
                         <img src="assets/img/unib.png" style="width: 10rem;height: 10rem;" alt="">
                     </div>
-                    <!-- /Logo -->
                     <h4 class="mb-2 text-center">Selamat datang di UniAchive.FT 👋</h4>
                     <p class="mb-4 text-center">Silahkan MASUK terlebih dahulu</p>
-
                     @if (session()->has(['error']))
                         <p class="text-center">
                             <small class="text-muted alert alert-danger alert-dismissible " role="alert">
@@ -31,7 +27,6 @@
                             </small>
                         </p>
                     @endif
-
                     <form id="formAuthentication" class="mb-3" action="/login" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -45,7 +40,6 @@
                                 </div>
                             @enderror
                         </div>
-
                         <div class="mb-3 form-password-toggle">
                             <label class="form-label" for="password">Password</label>
                             <div class="input-group input-group-merge">
@@ -61,13 +55,10 @@
                                 </div>
                             @enderror
                         </div>  
-
-
                         <div class="mb-3">
                             <button class="btn btn-primary d-grid w-100">Masuk</button>
                         </div>
                     </form>
-
                     <p class="text-center">
                         <span>Belum punya akun ?</span>
                         <a href="/register">
@@ -76,7 +67,6 @@
                     </p>
                 </div>
             </div>
-            <!-- /Register -->
         </div>
     </div>
 

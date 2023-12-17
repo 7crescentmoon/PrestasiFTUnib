@@ -62,6 +62,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
                 Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
 
+                Route::post('/dashboard/admin/add-User-exel', 'import')->name('addUserWithExel');
+
                 // manajemen pengajuan persetujuan
                 Route::controller(PengajuanController::class)->group(function () {
                     Route::get('/dashboard/admin/daftar-pengajuan', 'index')->name('daftarPengajuan');
@@ -121,8 +123,8 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 //print
                 Route::controller(PrintDataController::class)->group(function () {
                     //print prestasi
-                    Route::get('/dashboard/admin/daftar-prestasi/print-data-search/{search?}', 'prestasiUserPrintDataBysearch')->name('prestasiUserPrintBySearch');
-                    Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiUserPrintData')->name('prestasiUserPrint');
+                    Route::get('/dashboard/daftar-prestasi/print-data-search/{search?}', 'prestasiUserPrintDataBysearch')->name('prestasiUserPrintBySearch');
+                    Route::get('/dashboard/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiUserPrintData')->name('prestasiUserPrint');
                     
                 });
 

@@ -21,7 +21,7 @@
             </div>
         </div>
 
-    </section><!-- End Hero -->
+    </section>
 
     <main id="main">
         <section id="prestasi" class="prestasi">
@@ -35,10 +35,9 @@
                 </div>
             </div>
 
-        </section><!-- End prestasi Section -->
-    </main><!-- End #main -->
+        </section>
+    </main>
 
-    <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
 
         <section class="footer-top">
@@ -103,9 +102,8 @@
             </script>
             . <b> UniAchive.FT</b>
         </div>
-    </footer><!-- End Footer -->
+    </footer>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 @endsection
-<!-- ======= Hero Section ======= -->

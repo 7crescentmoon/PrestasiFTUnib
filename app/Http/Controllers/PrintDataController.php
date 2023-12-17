@@ -206,7 +206,7 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        return view('admin.download.print.printPrestasi', [
+        return view('admin.download.print.printPrestasiUser', [
             "datas" => $prestasi
         ]);
     }
@@ -238,7 +238,7 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        return view('admin.download.print.printPrestasi', [
+        return view('admin.download.print.printPrestasiUser', [
             "datas" => $prestasi
         ]);
     }

@@ -92,23 +92,6 @@ class PrestasiController extends Controller
         ]);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(request $request)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdatePrestasiRequest $request, Prestasi $prestasi)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      */

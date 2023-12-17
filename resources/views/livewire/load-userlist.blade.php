@@ -4,9 +4,9 @@
         <div class="card">
             <div class="container mt-3 d-flex justify-content-between">
                 <h3 class="">
-                    <a href="{{ route('userList') }}" class=" text-primary">Daftar Pengguna</a>
+                    <a href="{{ route('userList') }}" class=" text-primary fw-bold">Daftar Pengguna</a>
                     @if (auth()->user()->role == 'super admin')
-                        <a href="{{ route('adminList') }}" class="text-secondary">/ Daftar Admin</a>
+                        <a href="{{ route('adminList') }}" class="text-secondary fw-bold">/ Daftar Admin</a>
                     @endif
                 </h3>
                 <div class="">
@@ -39,8 +39,6 @@
 
                 </div>
             </div>
-
-
 
             <div
                 class="mt-2 mb-3 d-flex  {{ !$search ? 'justify-content-between' : ' justify-content-end' }}
@@ -134,4 +132,3 @@
         </div>
     </div>
 </div>
-
