@@ -97,7 +97,7 @@
     <div class="my-line my-3" style="border: 1px solid black"></div>
 
     <div class="row text-center my-3">
-        <h5 class="fw-bold text-uppercase text-decoration-underline">Daftar Mahasiswa Berprestasi</h5>
+        <h5 class="fw-bold text-uppercase text-decoration-underline">Daftar Prestasi</h5>
     </div>
 
     <div class="mb-3">
