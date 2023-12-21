@@ -56,8 +56,17 @@ class UserController extends Controller
             "password" => '',
         ];
 
-        $validatedata = $request->validate($rules);
+        $validatedData = $request->validate($rules);
 
+        $validatedNpm = str_split($request['npm_nip']);
+        $kodeJurusan = ['A', 'B', 'C', 'D', 'E', 'F'];
+        if($validatedNpm[0] == 'G' && $validatedNpm[1] == '1' && $validatedNpm[2] == in_array($validatedNpm[2],$kodeJurusan)){
+            $validatedData['npm_nip'] = $request['npm_nip'];
+        }else{
+            Alert::toast('NPM tidak terdaftar di Fakultas Teknik !!', 'error');
+            return redirect(route('userProfile',encrypt($user->id)));
+        }
+        
         if ($request->has('delete_profile_picture') && $user->profil) {
             Storage::delete($user->profil);
             $user->profil = null;
@@ -72,13 +81,13 @@ class UserController extends Controller
         }
 
         if ($request->filled('password')) {
-            $validatedata['password'] = Hash::make($request->password);
+            $validatedData['password'] = Hash::make($request->password);
         }
 
-        $user->nama = $validatedata['nama'];
-        $user->npm_nip = $validatedata['npm_nip'];
-        $user->jenis_kelamin = $validatedata['jenis_kelamin'];
-        $user->email = $validatedata['email'];
+        $user->nama = $validatedData['nama'];
+        $user->npm_nip = $validatedData['npm_nip'];
+        $user->jenis_kelamin = $validatedData['jenis_kelamin'];
+        $user->email = $validatedData['email'];
 
         $user->save();
         Alert::toast('Profil telah diubah', 'success');

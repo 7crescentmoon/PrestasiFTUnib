@@ -9,15 +9,6 @@
                     </div>
                     <h4 class="mb-2 text-center">Selamat datang di UniAchive.FT 👋</h4>
                     <p class="mb-4 text-center">Silahkan MASUK terlebih dahulu</p>
-                    @if (session()->has(['error']))
-                        <p class="text-center">
-                            <small class="text-muted alert alert-danger alert-dismissible " role="alert">
-                                {{ session('error') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
-                            </small>
-                        </p>
-                    @endif
                     @if (session()->has(['success']))
                         <p class="text-center">
                             <small class="text-muted alert alert-success alert-dismissible " role="alert">

@@ -21,6 +21,7 @@ class UsersImport implements ToCollection, WithHeadingRow
                 "email" => 'email:dns|unique:users',
             ]);
 
+
             // Jika validasi gagal, lewati baris ini
             if ($validator->fails()) {
                 return Alert::toast('Data tidak dapat ditambahkan. Silakan periksa validasi.', 'error');
@@ -28,20 +29,28 @@ class UsersImport implements ToCollection, WithHeadingRow
             }
 
             // Jika validasi berhasil, buat pengguna
-            try {
-                User::create([
-                    'nama' => $row['nama'],
-                    'npm_nip' => $row['npm'],
-                    'jurusan' => $row['jurusan'],
-                    'jenis_kelamin' => $row['jenis_kelamin'],
-                    'email' => $row['email'],
-                    'password' => $row['password'],
-                ]);
+            $validatedNpm = str_split($row['npm']);
+            $kodeJurusan = ['A', 'B', 'C', 'D', 'E', 'F'];
+            if ($validatedNpm[0] == 'G' && $validatedNpm[1] == '1' && in_array($validatedNpm[2], $kodeJurusan)) {
+                // Jika validasi berhasil, buat pengguna
+                try {
+                    User::create([
+                        'nama' => $row['nama'],
+                        'npm_nip' => $row['npm'],
+                        'jurusan' => $row['jurusan'],
+                        'jenis_kelamin' => $row['jenis_kelamin'],
+                        'email' => $row['email'],
+                        'password' => $row['password'],
+                    ]);
 
-                Alert::toast('Data berhasil ditambahkan.', 'success');
-            } catch (\Exception $e) {
-                // Tangani kesalahan saat membuat entitas
-                Alert::toast('Gagal menambahkan pengguna.', 'error');
+                    Alert::toast('Data berhasil ditambahkan.', 'success');
+                } catch (\Exception $e) {
+                    // Tangani kesalahan saat membuat entitas
+                    Alert::toast('Gagal menambahkan pengguna.', 'error');
+                }
+            } else {
+                Alert::toast($row['npm'].' NPM tidak terdaftar di Fakultas Teknik !!', 'error');
+                return redirect(route('addUserView'));
             }
         }
     }

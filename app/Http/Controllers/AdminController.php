@@ -42,7 +42,7 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function addUserStore(Request $request)
     {
         $validatedData = $request->validate([
             "nama" => 'Required|max:100',
@@ -54,8 +54,38 @@ class AdminController extends Controller
             "role" => ''
         ]);
 
+        $validatedNpm = str_split($request['npm_nip']);
+        $kodeJurusan = ['A', 'B', 'C', 'D', 'E', 'F'];
+        if($validatedNpm[0] == 'G' && $validatedNpm[1] == '1' && $validatedNpm[2] == in_array($validatedNpm[2],$kodeJurusan)){
+            $validatedData['npm_nip'] = $request['npm_nip'];
+        }else{
+            Alert::toast('NPM tidak terdaftar di Fakultas Teknik !!', 'error');
+            return redirect(route('addUserView'));
+        }
+
         $validatedData['password'] = Hash::make($validatedData['password']);
         User::create($validatedData);
+
+        Alert::toast('Data berhasil ditambahkan', 'success');
+        return redirect(route('userList'));
+
+    }
+
+    public function addAdminStore(Request $request)
+    {
+        $validatedData = $request->validate([
+            "nama" => 'Required|max:100',
+            'npm_nip' => 'required|max:20|unique:users',
+            'jurusan' => '',
+            'jenis_kelamin' => 'required',
+            "password" => 'Required|min:6|max:255',
+            "email" => 'Required|email:dns|unique:users',
+            "role" => ''
+        ]);
+
+        $validatedData['password'] = Hash::make($validatedData['password']);
+        User::create($validatedData);
+
         Alert::toast('Data berhasil ditambahkan', 'success');
         return redirect(route('userList'));
 
@@ -79,7 +109,15 @@ class AdminController extends Controller
             "password" => '',
         ];
         $validatedData = $request->validate($rules);
-      
+
+        $validatedNpm = str_split($request['npm_nip']);
+        $kodeJurusan = ['A', 'B', 'C', 'D', 'E', 'F'];
+        if($validatedNpm[0] == 'G' && $validatedNpm[1] == '1' && $validatedNpm[2] == in_array($validatedNpm[2],$kodeJurusan)){
+            $validatedData['npm_nip'] = $request['npm_nip'];
+        }else{
+            Alert::toast('NPM tidak terdaftar di Fakultas Teknik !!', 'error');
+            return redirect(route('editUserView', encrypt($userId)));
+        }
         
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);

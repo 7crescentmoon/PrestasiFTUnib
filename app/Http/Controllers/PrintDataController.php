@@ -118,12 +118,17 @@ class PrintDataController extends Controller
     }
 
     //prestasi
-    public function prestasiPrintData($data = '', $prestasi = '')
+    public function prestasiPrintData($data = '', $prestasi = '', $jurusan = '')
     {
 
         if ($prestasi != '' && $data != '') {
             $prestasi = Prestasi::with('user', 'pengajuan')
                 ->where('jenis_prestasi', $prestasi)
+                ->when($jurusan, function ($query) use ($jurusan) {
+                    $query->whereHas('user', function ($query) use ($jurusan) {
+                        $query->where('Jurusan', $jurusan);
+                    });
+                })
                 ->orderBy('created_at', 'desc')
                 ->take($data)
                 ->get();
@@ -135,8 +140,20 @@ class PrintDataController extends Controller
                 ->take($data)
                 ->get();
         }
-
+        if ($data && $jurusan == '') {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->orderBy('created_at', 'desc')
+                ->take($data)
+                ->get();
+        }
+        
         if (!$data && !$prestasi) {
+            $prestasi = Prestasi::with('user', 'pengajuan')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        }
+
+        if (!$data && !$prestasi && !$jurusan) {
             $prestasi = Prestasi::with('user', 'pengajuan')
                 ->orderBy('created_at', 'desc')
                 ->get();

@@ -39,6 +39,29 @@
                 <div class="d-flex gap-3">
                     @if (!$search)
                         <div class="d-flex">
+                            <select class="select2 form-select" wire:model.live='jenisJurusan'>
+                                <option value="">Pilih Jurusan</option>
+                                <option value="Informatika">
+                                    Informatika
+                                </option>
+                                <option value="Teknik Sipil">Teknik
+                                    Sipil
+                                </option>
+                                <option value="Teknik Elektro">Teknik
+                                    Elektro
+                                </option>
+                                <option value="Teknik Mesin">Teknik
+                                    Mesin
+                                </option>
+                                <option value="Arsiterktur">
+                                    Arsitektur
+                                </option>
+                                <option value="Sistem Informasi">Sistem
+                                    Informasi</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex">
                             <select id="currency" class="select2 form-select" wire:model.live='jenisPrestasi'>
                                 <option value="" selected>Jenis Prestasi</option>
                                 <option value="AKADEMIK">Akademik</option>

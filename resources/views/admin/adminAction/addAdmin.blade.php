@@ -21,7 +21,7 @@
                                             </h3>
                                         </div>
                                     </div>
-                                    <form action="{{ route('addUser') }}" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('addAdmin') }}" method="POST" enctype="multipart/form-data">
                                         @csrf
                                         <div class="card-body">
                                             <form id="addUser" method="POST" onsubmit="return false">

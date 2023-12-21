@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Carbon;
+use RealRashid\SweetAlert\Facades\Alert;
+
 class RegisterController extends Controller
 {
     public function index()
@@ -27,9 +29,19 @@ class RegisterController extends Controller
             "email" => 'Required|email:dns|unique:users'
         ]);
 
+        $validatedNpm = str_split($request['npm_nip']);
+        $kodeJurusan = ['A', 'B', 'C', 'D', 'E', 'F'];
+        if($validatedNpm[0] == 'G' && $validatedNpm[1] == '1' && $validatedNpm[2] == in_array($validatedNpm[2],$kodeJurusan)){
+            $validatedData['npm_nip'] = $request['npm_nip'];
+        }else{
+            Alert::toast('NPM tidak terdaftar di Fakultas Teknik !!', 'error');
+            return redirect(route('register'));
+        }
+
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);
-        return redirect(route('login'))->with('success', 'Registrasi berhasil silahkan login!');
+        Alert::toast('Akun anda telah terdaftar, Silahkan Login', 'success');
+        return redirect(route('login'));
     }
 }

@@ -14,7 +14,8 @@
                                             <h3>
                                                 <a href="{{ route('addUser') }}" class="fw-bold">Tambah pengguna</a>
                                                 @if (auth()->user()->role == 'super admin')
-                                                    <a href="{{ route('addAdminView') }}" class="text-secondary fw-bold">/ Tambah
+                                                    <a href="{{ route('addAdminView') }}" class="text-secondary fw-bold">/
+                                                        Tambah
                                                         Admin</a>
                                                 @endif
                                             </h3>
@@ -47,7 +48,7 @@
                                                         <input type="text" name="nama"
                                                             class="form-control @error('nama') is-invalid @enderror"
                                                             value="{{ old('nama') }}"
-                                                            placeholder="Masukan nama lengkap   " required>
+                                                            placeholder="Masukan nama lengkap anda" required>
                                                         @error('nama')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -232,7 +233,8 @@
 
                             <div class="mt-3">
                                 <p class="fw-bold">* Contoh Format Excel</p>
-                                <img src="/assets/img/excel.jpg" alt="" class="w-100 h-100" style="border: 2px solid #1a246a">
+                                <img src="/assets/img/excel.jpg" alt="" class="w-100 h-100"
+                                    style="border: 2px solid #1a246a">
                             </div>
                         </div>
                         <div class="modal-footer">

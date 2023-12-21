@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('profil',100)->nullable();
             $table->string('nama',50);
-            $table->string('npm_nip',11)->unique();
+            $table->string('npm_nip',20)->unique();
             $table->string('email',50)->unique();
             $table->enum('jenis_kelamin',['Laki - Laki','Perempuan']);
             $table->enum('jurusan',['Informatika','Teknik Sipil','Teknik Elektro', 'Teknik Mesin', 'Arsiterktur', 'Sistem Informasi'])->nullable();

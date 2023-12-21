@@ -51,6 +51,7 @@
 
     <div class="container-xxl">
         @yield('content')
+        @include('sweetalert::alert')
     </div>
 
     <!-- / Content -->

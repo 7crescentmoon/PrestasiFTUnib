@@ -16,8 +16,10 @@ class DaftarPrestasi extends Component
     public $search = '';
 
     public $dataTable = '10';
-    
+
     public $jenisPrestasi = '';
+
+    public $jenisJurusan = '';
     public $queryString = [
         'search' => ['except' => ''],
     ];
@@ -26,11 +28,11 @@ class DaftarPrestasi extends Component
 
     public function print()
     {
-        return redirect()->route('prestasiPrint',['data' => $this->dataTable , 'prestasi' => $this->jenisPrestasi]);
+        return redirect()->route('prestasiPrint', ['data' => $this->dataTable, 'prestasi' => $this->jenisPrestasi, 'jurusan' => $this->jenisJurusan]);
     }
     public function printBySearch()
     {
-        return redirect()->route('prestasiPrintBySearch',['search' => $this->search]);
+        return redirect()->route('prestasiPrintBySearch', ['search' => $this->search]);
     }
     public function render()
     {
@@ -38,7 +40,7 @@ class DaftarPrestasi extends Component
             ->when($this->search, function ($query) {
 
                 $query->where('nama_prestasi', 'like', '%' . $this->search . '%')
-                    ->orWhere('jenis_prestasi', 'like', '%' . $this->search . '%') 
+                    ->orWhere('jenis_prestasi', 'like', '%' . $this->search . '%')
 
                     ->orWhereHas('user', function ($query) {
                         $query->where('nama', 'like', '%' . $this->search . '%')
@@ -48,9 +50,15 @@ class DaftarPrestasi extends Component
                     ->orWhereHas('pengajuan', function ($query) {
                         $query->where('tingkat_prestasi', 'like', '%' . $this->search . '%')
                             ->orWhere('juara', 'like', '%' . $this->search . '%');
-             
+
                     });
 
+            })
+
+            ->when($this->jenisJurusan, function ($query) {
+                $query->whereHas('user', function ($query) {
+                    $query->where('Jurusan', $this->jenisJurusan);
+                });
             })
             ->when($this->jenisPrestasi, function ($query) {
                 $query->where('jenis_prestasi', $this->jenisPrestasi);

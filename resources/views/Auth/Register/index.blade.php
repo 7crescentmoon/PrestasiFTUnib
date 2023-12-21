@@ -9,7 +9,6 @@
                     </div>
                     <h4 class="mb-2 text-center">Register akun disini!</h4>
                     <p class="mb-4 text-center">Buat akun anda untuk UniAchive.FT</p>
-
                     <form id="formAuthentication" class="mb-3" action="/register" method="POST">
                         @csrf
                         <div class="mb-3">

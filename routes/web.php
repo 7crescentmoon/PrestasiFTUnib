@@ -54,10 +54,10 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                 // manajemen user
                 Route::get('/dashboard/admin/user-list', 'userList')->name('userList');
                 Route::get('/dashboard/admin/add-user-view', 'addUser')->name('addUserView');
-                Route::post('/dashboard/admin/add-User', 'store')->name('addUser');
+                Route::post('/dashboard/admin/add-User', 'addUserStore')->name('addUser');
                 Route::get('/dashboard/admin/admin-list', 'adminList')->name('adminList');
                 Route::get('/dashboard/admin/add-admin-view', 'addAdmin')->name('addAdminView');
-                Route::post('/dashboard/admin/add-admin', 'store')->name('addAdmin');
+                Route::post('/dashboard/admin/add-admin', 'addAdminStore')->name('addAdmin');
                 Route::get('/dashboard/admin/delete-user/{id}', 'destroy')->name('deleteUser');
                 Route::get('/dashboard/admin/edit-user-view/{id}', 'editUser')->name('editUserView');
                 Route::put('/dashboard/admin/edit-user/{id}', 'update')->name('editUser');
@@ -91,7 +91,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                     Route::get('/dashboard/admin/admin-list/print-data/{data?}/{role?}', 'adminPrintData')->name('adminPrint');
                     //print prestasi
                     Route::get('/dashboard/admin/daftar-prestasi/print-data-search/{search?}', 'prestasiPrintDataBysearch')->name('prestasiPrintBySearch');
-                    Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiPrintData')->name('prestasiPrint');
+                    Route::get('/dashboard/admin/daftar-prestasi/print-data/{data?}/{prestasi?}/{jurusan?}', 'prestasiPrintData')->name('prestasiPrint');
                 });
 
             });
