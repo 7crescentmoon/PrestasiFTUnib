@@ -48,7 +48,7 @@
 
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-3">
                                         <label for="nama-kegiatan" class="form-label fw-bold"></span> NAMA KEGIATAN
                                             PERLOMBAAN</label>
                                         <input type="text" class="form-control" id="nama-kegiatan" disabled
@@ -57,11 +57,27 @@
 
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-md-3">
+                                        <label for="nama-kegiatan" class="form-label fw-bold"></span> NAMA KEGIATAN
+                                            PERLOMBAAN</label>
+                                        <input type="text" class="form-control" id="nama-kegiatan" disabled
+                                            name="nama_kegiatan_perlombaan"
+                                            value="{{ $prestasi->jenis_prestasi }}">
+
+                                    </div>
+
+                                    <div class="col-3">
                                         <label for="lokasi-lomba" class="form-label fw-bold"></span> LOKASI LOMBA</label>
                                         <input type="text" class="form-control" id="lokasi-lomba" placeholder="" disabled
                                             name="lokasi_lomba" value="{{ $prestasi->pengajuan->lokasi_lomba }}">
 
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="juara" class="form-label fw-bold">Jenis Perlombaan</label>
+                                        <input list="juara" id="juara"
+                                            class="form-control @error('juara') is-invalid @enderror" name="juara"
+                                            value="{{ $prestasi->pengajuan->jenis_perlombaan }}" disabled>
                                     </div>
 
                                     <div class="col-md-3">

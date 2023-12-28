@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('pengajuan_id')->constrained();
             $table->string('nama_prestasi',100);
-            $table->string('jenis_prestasi',50);
+            $table->enum('jenis_prestasi',['AKADEMIK','NON AKADEMIK']);
             $table->timestamps();
         });
     }

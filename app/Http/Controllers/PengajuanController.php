@@ -42,6 +42,7 @@ class PengajuanController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());     
 
         $validatedData = $request->validate([
             "user_id" => "",
@@ -51,6 +52,8 @@ class PengajuanController extends Controller
             "tanggal_mulai" => "required",
             "tanggal_selesai" => "required",
             "juara" => "required",
+            "jenis_perlombaan" => "",
+            "jenis_perlombaan_lainnya" => "",
             "tingkat_prestasi" => "required",
             "jumlah_Peserta" => "required",
             "nama_penyelenggara" => "required",
@@ -59,6 +62,8 @@ class PengajuanController extends Controller
             "file_dokumentasi_kegiatan" => "file|mimes:pdf|max:15360",
             "file_surat_tugas" => "file|mimes:pdf|max:15360",
         ]);
+
+        
 
         $format_date = Carbon::now()->toDateString();
 
@@ -79,6 +84,13 @@ class PengajuanController extends Controller
             $file_surat_tugas = $file_surat_tugas->storeAs('filesurat_tugas', $format_nama_surat_tugas);
         }
 
+        if ($request->jenis_perlombaan != 'lainnya' || $request->jenis_perlombaan == null) {
+            $jenisPerlombaan = $request->jenis_perlombaan;
+        }
+        elseif($request->jenis_perlombaan_lainnya != null){
+            $jenisPerlombaan = $request->jenis_perlombaan_lainnya;
+        }
+
         if ($request->file('file_surat_tugas') != null && $request->file('file_dokumentasi_kegiatan') != null){
             Pengajuan::create([
                 'user_id' => Auth::user()->id,
@@ -88,6 +100,7 @@ class PengajuanController extends Controller
                 "tanggal_mulai" => $request->tanggal_mulai,
                 "tanggal_selesai" => $request->tanggal_selesai,
                 "juara" => $request->juara,
+                "jenis_perlombaan" => $jenisPerlombaan,
                 "tingkat_prestasi" => $request->tingkat_prestasi,
                 "jumlah_Peserta" => $request->jumlah_Peserta,
                 "nama_penyelenggara" => $request->nama_penyelenggara,
@@ -105,6 +118,7 @@ class PengajuanController extends Controller
                 "tanggal_mulai" => $request->tanggal_mulai,
                 "tanggal_selesai" => $request->tanggal_selesai,
                 "juara" => $request->juara,
+                "jenis_perlombaan" => $jenisPerlombaan,
                 "tingkat_prestasi" => $request->tingkat_prestasi,
                 "jumlah_Peserta" => $request->jumlah_Peserta,
                 "nama_penyelenggara" => $request->nama_penyelenggara,

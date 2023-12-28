@@ -118,11 +118,12 @@ class PrintDataController extends Controller
     }
 
     //prestasi
-    public function prestasiPrintData($data = '', $prestasi = '', $jurusan = '')
+    public function prestasiPrintData($data = null, $prestasi = null, $jurusan = null)
     {
+        // dd($jurusan,$prestasi);
 
-        if ($prestasi != '' && $data != '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+        if ($prestasi != null && $data != null) {
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->where('jenis_prestasi', $prestasi)
                 ->when($jurusan, function ($query) use ($jurusan) {
                     $query->whereHas('user', function ($query) use ($jurusan) {
@@ -134,33 +135,35 @@ class PrintDataController extends Controller
                 ->get();
         }
 
-        if ($data && $prestasi == '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+        if ($data && $prestasi == null) {
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->orderBy('created_at', 'desc')
                 ->take($data)
                 ->get();
         }
-        if ($data && $jurusan == '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+        if ($data && $jurusan == null) {
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->orderBy('created_at', 'desc')
                 ->take($data)
                 ->get();
         }
         
         if (!$data && !$prestasi) {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
         if (!$data && !$prestasi && !$jurusan) {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
         return view('admin.download.print.printPrestasi', [
-            "datas" => $prestasi
+            "datas" => $datas,
+            "jenisPrestasi" => $prestasi,
+            "jenisJurusan" => $jurusan
         ]);
     }
 
@@ -168,7 +171,7 @@ class PrintDataController extends Controller
     {
 
         if ($search != '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->when($search, function ($query) use ($search) {
 
                     $query->where('nama_prestasi', 'like', '%' . $search . '%')
@@ -191,7 +194,7 @@ class PrintDataController extends Controller
         }
 
         return view('admin.download.print.printPrestasi', [
-            "datas" => $prestasi
+            "datas" => $datas
         ]);
     }
 
@@ -200,7 +203,7 @@ class PrintDataController extends Controller
     {
 
         if ($prestasi != '' && $data != '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->where('user_id', Auth::user()->id)
                 ->where('jenis_prestasi', $prestasi)
                 ->orderBy('created_at', 'desc')
@@ -209,7 +212,7 @@ class PrintDataController extends Controller
         }
 
         if ($data && $prestasi == '') {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->take($data)
@@ -217,14 +220,14 @@ class PrintDataController extends Controller
         }
 
         if (!$data && !$prestasi) {
-            $prestasi = Prestasi::with('user', 'pengajuan')
+            $datas = Prestasi::with('user', 'pengajuan')
                 ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
         }
 
         return view('admin.download.print.printPrestasiUser', [
-            "datas" => $prestasi
+            "datas" => $datas
         ]);
     }
 

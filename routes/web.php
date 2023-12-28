@@ -125,7 +125,7 @@ Route::group(['middleware' => 'prevent-back-history'], function () {
                     //print prestasi
                     Route::get('/dashboard/daftar-prestasi/print-data-search/{search?}', 'prestasiUserPrintDataBysearch')->name('prestasiUserPrintBySearch');
                     Route::get('/dashboard/daftar-prestasi/print-data/{data?}/{prestasi?}', 'prestasiUserPrintData')->name('prestasiUserPrint');
-                    
+
                 });
 
 

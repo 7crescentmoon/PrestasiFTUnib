@@ -89,9 +89,13 @@
                                 <th class="fw-bold fs-6">No</th>
                                 <th class="fw-bold fs-6">Nama</th>
                                 <th class="fw-bold fs-6">Npm</th>
+                                @if (!$jenisJurusan)
                                 <th class="fw-bold fs-6">Jurusan</th>
+                                @endif
                                 <th class="fw-bold fs-6">nama prestasi</th>
-                                <th class="fw-bold fs-6">Jenis Prestasi</th>
+                               
+                                <th class="fw-bold fs-6">Jenis Perlombaan</th>
+                                
                                 <th class="fw-bold fs-6">tingkat prestasi</th>
                                 <th class="fw-bold fs-6">juara</th>
                                 <th class="fw-bold fs-6">aksi</th>
@@ -105,9 +109,12 @@
                                 <td class="">{{ ($datas->currentPage() - 1) * $datas->perPage() + $key + 1 }}</td>
                                 <td class=" text-uppercase fw-bold">{{ $data->user->nama }}</td>
                                 <td class="">{{ $data->user->npm_nip }}</td>
+                                @if (!$jenisJurusan)
                                 <td class="">{{ $data->user->jurusan }}</td>
+                                @endif
                                 <td class="">{{ $data->nama_prestasi }}</td>
-                                <td class="">{{ $data->jenis_prestasi }}</td>
+                            
+                                <td class="">{{ $data->pengajuan->jenis_perlombaan }}</td>
                                 <td class="">{{ $data->pengajuan->tingkat_prestasi }}</td>
                                 <td class="">{{ $data->pengajuan->juara }}</td>
                                 <td>

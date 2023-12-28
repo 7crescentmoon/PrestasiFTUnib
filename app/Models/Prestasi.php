@@ -27,6 +27,7 @@ class Prestasi extends Model
         return $this->belongsTo(Pengajuan::class);
     }
 
+
     protected static function booted(): void
     {
         static::created(function (Prestasi $prestasi) {

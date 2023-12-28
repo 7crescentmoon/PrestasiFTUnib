@@ -20,11 +20,12 @@ return new class extends Migration
             $table->date('tanggal_mulai');
             $table->date('tanggal_selesai');
             $table->string('juara',20);
+            $table->string('jenis_perlombaan',100);
             $table->string('tingkat_prestasi',50);
             $table->integer('jumlah_Peserta');
             $table->string('nama_penyelenggara',100);
-            $table->string('url_penyelenggara',150);
-            $table->string('file_penghargaan',200);
+            $table->string('url_penyelenggara',150)->nullable();;
+            $table->string('file_penghargaan',200)->nullable();;
             $table->string('file_dokumentasi_kegiatan',200)->nullable();
             $table->string('file_surat_tugas',200)->nullable();
             $table->boolean('status')->default(false);

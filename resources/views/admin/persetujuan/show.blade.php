@@ -35,7 +35,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-md-3">
                                     <label for="lokasi-lomba" class="form-label fw-bold"></span> LOKASI LOMBA</label>
                                     <input type="text" class="form-control @error('lokasi_lomba') is-invalid @enderror"
                                         id="lokasi-lomba" placeholder="" name="lokasi_lomba"
@@ -81,6 +81,13 @@
                                             {{ $message }}
                                         </div>
                                     @enderror
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="juara" class="form-label fw-bold">Jenis Perlombaan</label>
+                                    <input list="juara" id="juara"
+                                        class="form-control @error('juara') is-invalid @enderror" name="juara"
+                                        value="{{ $data->jenis_perlombaan }}">
                                 </div>
 
                                 <div class="col-md-3">

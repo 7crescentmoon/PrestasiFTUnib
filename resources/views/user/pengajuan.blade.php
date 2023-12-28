@@ -33,7 +33,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="col-3   ">
                                         <label for="lokasi-lomba" class="form-label fw-bold">LOKASI LOMBA <span
                                                 style="color: red">*</span> </label>
                                         <input type="text"
@@ -89,6 +89,96 @@
                                         @enderror
                                     </div>
 
+                                    @if (auth()->user()->jurusan == 'Teknik Elektro')  
+                                    <div class="col-md-3" id="jenisPrestasi" style="display: block">
+                                        <label for="jenisPrestasi" class="form-label fw-bold">
+                                            Jenis Perlombaan <span style="color: red">*</span> </label>
+                                        <select class="form-control @error('jenisPrestasi') is-invalid @enderror"
+                                            name="jenis_perlombaan" required>
+                                            <option>pilih jenis lomba akademik / non akademik</option>
+                                            <option value="Kompetisi Desain Sirkuit Elektronik">Kompetisi Desain Sirkuit Elektronik</option>
+                                            <option value="Hackathon Teknologi">Hackathon Teknologi</option>
+                                            <option value="Lomba Robotika">Lomba Robotika</option>
+                                            <option value="Kompetisi Energi Terbarukan">Kompetisi Energi Terbarukan</option>
+                                            <option value="Lomba Renang">Lomba Renang
+                                            </option>
+                                            <option value="Lomba Volly">Lomba Volly
+                                            </option>
+                                            <option value="Lomba Futsal">Lomba Futsal
+                                            </option>
+                                            <option value="Lomba Basket">Lomba Basket
+                                            </option>
+                                            <option value="Lomba Sepak Bola">Lomba Sepak Bola
+                                            </option>
+                                            <option value="Lomba Nyanyi">Lomba Nyanyi
+                                            </option>
+                                            <option value="lainnya">lainnya</option>
+                                        </select>
+                                        @error('jenisPrestasi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    @endif
+
+                                    @if (auth()->user()->jurusan == 'Informatika')  
+                                    <div class="col-md-3" id="jenisPrestasi" style="display: block">
+                                        <label for="jenisPrestasi" class="form-label fw-bold">
+                                            Jenis Perlombaan <span style="color: red">*</span> </label>
+                                        <select class="form-control @error('jenisPrestasi') is-invalid @enderror"
+                                            name="jenis_perlombaan" required>
+                                            <option>pilih jenis lomba akademik / non akademik</option>
+                                            <option value="ACM International Collegiate Programming Contest (ICPC)">ACM
+                                                International Collegiate Programming Contest (ICPC)</option>
+                                            <option value="Gemastik (Generasi Muda Sains dan Teknologi)">Gemastik (Generasi
+                                                Muda Sains dan Teknologi)</option>
+                                            <option value="Kompetisi Sistem Embedded dan IoT">Kompetisi Sistem Embedded dan
+                                                IoT</option>
+                                            <option value="Facebook Hacker Cup">Facebook Hacker Cup</option>
+                                            <option value="Lomba Renang">Lomba Renang
+                                            </option>
+                                            <option value="Lomba Volly">Lomba Volly
+                                            </option>
+                                            <option value="Lomba Futsal">Lomba Futsal
+                                            </option>
+                                            <option value="Lomba Basket">Lomba Basket
+                                            </option>
+                                            <option value="Lomba Sepak Bola">Lomba Sepak Bola
+                                            </option>
+                                            <option value="Lomba Nyanyi">Lomba Nyanyi
+                                            </option>
+                                            <option value="lainnya">lainnya</option>
+                                        </select>
+                                        @error('jenisPrestasi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                    @endif
+
+                                    <div class="col-md-3" id="jenisPrestasiLainnya" style="display:none">
+                                        <label for="jenisPrestasiLainnya" class="form-label fw-bold">
+                                            Jenis Perlombaan <span style="color: red">*<span id="toogle-kembali"
+                                                    class="bg-secondary rounded-circle ms-2"
+                                                    style="width: .8rem;height: .8rem;display: none;"
+                                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                                    data-bs-title="kembali">
+                                                </span></span>
+                                        </label>
+
+                                        <input class="form-control @error('jenisPrestasi') is-invalid @enderror"
+                                            name="jenis_perlombaan_lainnya" placeholder="input prestasi lainnya">
+                                        @error('jenisPrestasi')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                              
+
                                     <div class="col-md-3">
                                         <label for="juara" class="form-label fw-bold">
                                             JUARA <span style="color: red">*</span> </label>
@@ -135,8 +225,8 @@
                                     </div>
 
                                     <div class="col-md-3">
-                                        <label for="nama-penyelenggara" class="form-label fw-bold">NAMA PENYELENGGARA <span
-                                                style="color: red">*</span> </label>
+                                        <label for="nama-penyelenggara" class="form-label fw-bold">NAMA PENYELENGGARA
+                                            <span style="color: red">*</span> </label>
                                         <input type="text"
                                             class="form-control @error('nama_penyelenggara') is-invalid @enderror"
                                             id="nama-penyelenggara" name="nama_penyelenggara" required>
@@ -147,7 +237,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 ">
                                         <label for="url-penyelenggara" class="form-label fw-bold">URL
                                             PENYELENGGARA <span style="color: red">*</span> </label>
                                         <input type="text"
@@ -160,7 +250,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 ">
                                         <label for="formFile" class="form-label fw-bold">SCAN FOTO SERTIFIKAT/ PIALA/
                                             MEDAL <span style="color: red">*</span> </label>
                                         <small class="text-danger">(file pdf | maks 15mb)</small>
@@ -173,7 +263,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 ">
                                         <label for="formFile" class="form-label fw-bold">FOTO MENDAPAT PENGHARGAAN
                                         </label>
                                         <small class="text-danger">(file pdf | maks 15mb)</small>
@@ -214,7 +304,7 @@
                                             Pengajuan
                                             <button type="button"
                                                 class="btn p-0 dropdown-toggle hide-arrow position-absolute"
-                                                style="top: -.5rem;right: -1rem" data-bs-toggle="dropdown" >
+                                                style="top: -.5rem;right: -1rem" data-bs-toggle="dropdown">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15"
                                                     viewBox="0 0 24 24" style="fill: #8592A3;transform: ;msFilter:;">
                                                     <path
@@ -225,8 +315,9 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <p class="p-2" style="width: 20rem;">
-                                                   <b> * jika prestasi sudah diajukan kemudian didaftar pengajuan tidak ada,
-                                                    itu kemungkinan prestasi ditolak atau tidak disetujui. *</b>
+                                                    <b> * jika prestasi sudah diajukan kemudian didaftar pengajuan tidak
+                                                        ada,
+                                                        itu kemungkinan prestasi ditolak atau tidak disetujui. *</b>
                                                 </p>
                                             </div>
                                         </h4>
@@ -288,4 +379,39 @@
             @include('partials.footer')
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ambil elemen <select> dan <div> prestasi lainnya berdasarkan id
+            var selectBoxDiv = document.getElementById("jenisPrestasi");
+            var selectBox = document.getElementById("jenisPrestasi").querySelector("select");
+            var divPrestasiLainnya = document.getElementById("jenisPrestasiLainnya");
+            var inputPrestasiLainnya = document.querySelector("#jenisPrestasiLainnya input");
+            var btnToggleKembali = document.getElementById("toogle-kembali");
+
+            // Tambahkan event listener pada perubahan nilai dropdown
+            selectBox.addEventListener("change", function() {
+                // Periksa apakah nilai dropdown adalah "lainnya"
+
+                if (selectBox.value === "lainnya") {
+                    // Jika "lainnya" dipilih, tampilkan div prestasi lainnya dan tombol toggle
+                    selectBoxDiv.style.display = "none";
+                    divPrestasiLainnya.style.display = "block";
+                    btnToggleKembali.style.display = "inline-block";
+                } else {
+                    // Jika bukan "lainnya", sembunyikan div prestasi lainnya dan tombol toggle
+                    divPrestasiLainnya.style.display = "none";
+                    btnToggleKembali.style.display = "none";
+                }
+            });
+
+            // Tambahkan event listener pada tombol toggle
+            btnToggleKembali.addEventListener("click", function() {
+                // Sematkan kembali nilai default pada dropdown
+                selectBoxDiv.style.display = "block";
+                divPrestasiLainnya.style.display = "none";
+                btnToggleKembali.style.display = "none";
+            });
+        });
+    </script>
 @endsection

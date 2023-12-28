@@ -40,58 +40,81 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="/assetstemplate/js/config.js"></script>
 
-        <style>
+    <style>
+        body {
+            font-family: "Open Sans", sans-serif;
+            background-color: white;
+            color: black;
+            overflow: visible !important;
+            /* Ganti overflow: hidden menjadi overflow: visible */
+        }
+
+        *,
+        h6,
+        h5,
+        h4 {
+            color: black;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        hr {
+            height: 5px;
+            background-color: black;
+        }
+
+
+        .info-label {
+            min-width: 110px;
+            /* Sesuaikan lebar sesuai kebutuhan */
+            display: inline-block;
+        }
+
+
+        @media print {
+
+            /* Menghilangkan tampilan scrollbar pada halaman cetak */
             body {
-                font-family: "Open Sans", sans-serif;
-                background-color: white;
-                color: black;
                 overflow: visible !important;
-                /* Ganti overflow: hidden menjadi overflow: visible */
             }
-    
-            *,
-            h6,
-            h5,
-            h4 {
-                color: black;
+
+            /* Menampilkan konten yang tersembunyi di dalam overflow */
+            .table-responsive {
+                overflow: visible !important;
             }
-    
-            p {
-                margin: 0;
-            }
-    
-            hr {
-                height: 5px;
-                background-color: black;
-            }
-    
-            @media print {
-    
-                /* Menghilangkan tampilan scrollbar pada halaman cetak */
-                body {
-                    overflow: visible !important;
-                }
-    
-                /* Menampilkan konten yang tersembunyi di dalam overflow */
-                .table-responsive {
-                    overflow: visible !important;
-                }
-            }
-        </style>
+        }
+    </style>
 </head>
 
 <body class="">
     <div class="d-flex justify-content-center flex-column  align-items-center " style="position: relative;">
-            <img src="/assets/img/unib.png" style="width: 5vw">
-            <p class="fw-bold mt-3" style="font-size: .9rem" >UNIVERSITAS BENGKULU</p>
-            <p class="fw-bold mt-1" style="font-size: 2rem">FAKULTAS TEKNIK</p>
+        <img src="/assets/img/unib.png" style="width: 5vw">
+        <p class="fw-bold mt-3" style="font-size: .9rem">UNIVERSITAS BENGKULU</p>
+        <p class="fw-bold mt-1" style="font-size: 2rem">FAKULTAS TEKNIK</p>
     </div>
 
 
     <div class="my-line my-3" style="border: 1px solid black"></div>
 
     <div class="row text-center my-3">
+        {{-- @dd($jenisJurusan) --}}
         <h5 class="fw-bold text-uppercase text-decoration-underline">Daftar Mahasiswa Berprestasi</h5>
+    </div>
+
+    <div class="mb-3">
+        @if ($jenisJurusan)
+            <p class="mb-1" style="font-size: .9rem; text-transform: uppercase">
+                <span class="info-label" style="font-size: .9rem">Jurusan</span> : {{ $jenisJurusan }}
+            </p>
+        @endif
+        @if ($jenisJurusan)
+            <p class="mb-1" style="font-size: .9rem ;text-transform: uppercase">
+                <span class="info-label" style="font-size: .9rem">Jenis Prestasi</span> : {{ $jenisPrestasi }}
+            </p>
+        @endif
+
     </div>
 
     <div class="table-responsive text-nowrap rounded">
@@ -101,26 +124,33 @@
                     <th class="fw-bold" style="font-size: .9rem">No</th>
                     <th class="fw-bold" style="font-size: .9rem">Nama</th>
                     <th class="fw-bold" style="font-size: .9rem">Npm</th>
-                    <th class="fw-bold" style="font-size: .9rem">Jurusan</th>
+                    @if (!$jenisJurusan)
+                        <th class="fw-bold" style="font-size: .9rem">Jurusan</th>
+                    @endif
                     <th class="fw-bold" style="font-size: .9rem">Nama Prestasi</th>
-                    <th class="fw-bold" style="font-size: .9rem">Jenis Prestasi</th>
+
+                    <th class="fw-bold" style="font-size: .9rem">Jenis Perlombaan</th>
+
                     <th class="fw-bold" style="font-size: .9rem">Tingkat Prestasi</th>
                     <th class="fw-bold" style="font-size: .9rem">Juara</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($datas as $key => $data)
-                    
-                <tr>
-                    <th >{{ $loop->iteration }}</th>
-                    <td>{{ $data->user->nama }}</td>
-                    <td>{{ $data->user->npm_nip }}</td>
-                    <td>{{ $data->user->jurusan }}</td>
-                    <td>{{ $data->nama_prestasi }}</td>
-                    <td>{{ $data->jenis_prestasi }}</td>
-                    <td>{{ $data->pengajuan->tingkat_prestasi }}</td>
-                    <td>{{ $data->pengajuan->juara }}</td>
-                </tr>
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data->user->nama }}</td>
+                        <td>{{ $data->user->npm_nip }}</td>
+                        @if (!$jenisJurusan)
+                            <td>{{ $data->user->jurusan }}</td>
+                        @endif
+                        <td>{{ $data->nama_prestasi }}</td>
+
+                        <td>{{ $data->pengajuan->jenis_perlombaan }}</td>
+
+                        <td>{{ $data->pengajuan->tingkat_prestasi }}</td>
+                        <td>{{ $data->pengajuan->juara }}</td>
+                    </tr>
                 @endforeach
 
             </tbody>
